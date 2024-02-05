@@ -16,4 +16,12 @@ console.log("User Data:", userData);
 import { exampleFunction1, exampleFunction2 } from './domUpdates';
 
 exampleFunction1('Travis');
-exampleFunction2('Travis')
+exampleFunction2('Travis');
+
+// function testThis() {
+
+// }
+
+// export {
+//     testThis
+// }
