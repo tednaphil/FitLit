@@ -1,5 +1,67 @@
-body, html {
-  background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-  background-repeat: no-repeat;
-  height: 100%;
+
+
+header {
+  height: 100px;
+  border: 3px solid black;
+}
+
+main {
+  height: 500px;
+  display: flex;
+  border: 3px solid black;
+}
+
+.widgets {
+  width: 80%;
+}
+
+.friend-hydro {
+  display: flex;
+  justify-content: space-around;
+}
+
+.friends ,
+.hydration {
+  width: 45%;
+}
+
+.celeb {
+  width: 20%;
+}
+
+header {
+  background-color: red;
+}
+
+.user-profile {
+  height: 75%;
+}
+
+h1 {
+  margin: 0;
+}
+
+h3{
+  margin: 0;
+}
+
+.avg-steps {
+  background-color: blue;
+  height: 20%;
+}
+
+.friends {
+  background-color: green;
+}
+
+.hydration {
+  background-color: orange;
+}
+
+.sleep {
+  background-color: pink;
+}
+
+img {
+  height: 300px;
 }
