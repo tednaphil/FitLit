@@ -10,7 +10,7 @@ const averageStepDisplay = document.querySelector('h3')
 
 const randomUser = getUserInfo(Math.floor(Math.random() * users.length), users)
 
-window.addEventListener('load', console.log('users array: ', users))
+window.addEventListener('load', displayUserInfo)
 
 function displayUserInfo() {
   displayPersonalInfo();
