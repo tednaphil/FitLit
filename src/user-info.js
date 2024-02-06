@@ -1,0 +1,5 @@
+function getUserInfo(){
+
+}
+
+export { getUserInfo }
