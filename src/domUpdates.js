@@ -1,5 +1,6 @@
 import { getUserInfo, getAverageSteps } from '../src/user-info';
-import { users } from '../src/data/users'; 
+import userData from './data/users'; 
+const users = userData.users
 
 const nameDisplay = document.querySelector('h1')
 const addressEmail = document.querySelector('#address-email')
