@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { testSleepData } from '../src/data/test-sleep'; 
+import { testSleepData } from '../src/data/sample-sleep'; 
 
 
 describe('sleep', function() {

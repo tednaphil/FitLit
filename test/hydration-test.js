@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { testHydrationData } from '../src/data/test-hydration'; 
+import { testHydrationData } from '../src/data/sample-hydration'; 
 
 
 describe('hydration', function() {

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { testUsers } from '../src/data/test-data'; 
-import { getUserInfo, getAverageSteps } from '../src/user-info';
+import { testUsers } from '../src/data/sample-users'; 
+import { getUserInfo, getAverageSteps } from '../src/user';
 
 describe('get user', function() {
     it('should be a function', function() {
