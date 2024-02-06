@@ -1,4 +1,4 @@
-import { getUserInfo, getAverageSteps } from '../src/user-info';
+import { getUserInfo, getAverageSteps } from './user';
 import userData from './data/users'; 
 const users = userData.users
 
