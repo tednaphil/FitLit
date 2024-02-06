@@ -19,17 +19,17 @@ function displayUserInfo() {
 
 function displayPersonalInfo() {
   nameDisplay.innerText = randomUser.name;
-  addressEmail.innerText = `${randomUser.address} <br></br> ${randomUser.email}` 
-  stepsStride.innerText = `${randomUser.strideLength} <br></br> ${randomUser.dailyStepGoal}` 
+  addressEmail.innerHTML = `${randomUser.address} <br></br> ${randomUser.email}` 
+  stepsStride.innerHTML = `${randomUser.strideLength} <br></br> ${randomUser.dailyStepGoal}` 
 }
 
 function displayStepComparison() {
   let averageSteps = getAverageSteps(users);
   let differenceInSteps = Math.abs(averageSteps - randomUser.dailyStepGoal); 
   if(averageSteps > randomUser.dailyStepGoal) {
-    averageStepDisplay.innerText = `Your step goal was ${differenceInSteps} less than the average.`
+    averageStepDisplay.innerText = `Your step goal was ${differenceInSteps} steps less than the average.`
   } else if (averageSteps < randomUser.dailyStepGoal){
-    averageStepDisplay.innerText = `Your step goal was ${differenceInSteps} more than the average!`
+    averageStepDisplay.innerText = `Your step goal was ${differenceInSteps} steps more than the average!`
   } else {
     averageStepDisplay.innerText = `Your step goal was equal to the average, congrats!`
   }
