@@ -23,7 +23,7 @@ function displayUserInfo() {
 function displayPersonalInfo() {
   nameDisplay.innerText = randomUser.name;
   addressEmail.innerHTML = `${randomUser.address} <br></br> ${randomUser.email}` 
-  stepsStride.innerHTML = `${randomUser.strideLength} <br></br> ${randomUser.dailyStepGoal}` 
+  stepsStride.innerHTML = `Stride Length: ${randomUser.strideLength}<br></br>Daily Step Goal: ${randomUser.dailyStepGoal}` 
 }
 
 function displayStepComparison() {
