@@ -1,9 +1,14 @@
 body {
   height: 100%;
+  background-image: url('/src/images/background-space.jpg');
+  background-size: cover;
 }
 
 header {
   height: 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 main {
@@ -11,28 +16,58 @@ main {
   display: flex;
 }
 
+.user-profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 75%;
+  width: 95%;
+}
+
+h1 {
+  font-size: 2.3em;
+  margin-bottom: 1em;
+}
+
+#steps-stride {
+  text-align: right;
+  padding-right: 15px;
+}
+
+#address-email {
+  padding-left: 15px;
+}
+
+#steps-stride,
+#address-email {
+  line-height: .7em;
+}
+
 .widgets {
-  width: 75%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 3%;
 }
 
 .friend-hydro {
   display: flex;
   justify-content: space-between;
-  width: 80vh;
+  width: 100%;
+  margin-bottom: 3%;
+  margin-left: 5%
 }
 
-.friend-hydro,
 .sleep {
-  margin-top: 3%;
-  margin-bottom: 3%;
+  margin-left: 5%;
+  height: 35vh;
+  width: 100%;
 }
 
 .friends ,
 .hydration {
-  width: 35vh;
+  width: 48%;
   height: 35vh;
 }
 
@@ -42,38 +77,28 @@ main {
   justify-content: center;
 }
 
-.user-profile {
-  display: flex;
-  justify-content: space-between;
-  height: 75%;
-}
-
-h1 {
-  margin: 0;
-}
-
-h3{
+h3 {
   margin: 0;
 }
 
 .avg-steps {
-  background-color: rgb(77, 187, 204);
   height: 20%;
   text-align: center;
+  width: fit-content;
+  margin: 10px;
+  padding: .5em;
+  padding-right: 1em;
+  padding-left: 1em;
 }
 
-.friends {
+.friends,
+.hydration,
+.sleep,
+.user-profile,
+.avg-steps {
   background-color: rgb(77, 187, 204);
-}
-
-.hydration {
-  background-color: rgb(77, 187, 204);
-}
-
-.sleep {
-  background-color: rgb(77, 187, 204);
-  height: 35vh;
-  width: 80vh;
+  border-radius: 15px;
+  box-shadow: 0px 0px 20px 1px rgb(255, 0, 221);
 }
 
 img {
