@@ -1,16 +1,10 @@
-//NOTE: Your DOM manipulation will occur in this file
+import { getUserInfo, getAverageSteps } from '../src/user-info';
+import { users} from '../src/data/users'; 
 
-//Here are 2 example functions just to demonstrate one way you can export/import between the two js files. You'll want to delete these once you get your own code going.
-const exampleFunction1 = (person) => {
-  console.log(`oh hi there ${person}`)
-}
+const nameDisplay = document.querySelector('h1')
+const addressEmail = document.querySelector('#address-email')
+const stepsStride = document.querySelector('#steps-stride')
+const averageSteps = document.querySelector('h3')
 
-const exampleFunction2 = (person) => {
-  console.log(`bye now ${person}`)
-}
+const randomUser = getUserInfo(Math.floor(Math.random() * users.length))
 
-
-export {
-  exampleFunction1,
-  exampleFunction2,
-}
