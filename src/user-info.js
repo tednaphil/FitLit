@@ -6,4 +6,14 @@ function getUserInfo(id, people){
     return userInfo; 
 }
 
-export { getUserInfo }  
+function getAverageSteps(people){
+    const averageSteps = people.reduce((total, user) => {
+    total += user.dailyStepGoal
+
+    return total; 
+    }, 0)
+
+    return averageSteps/people.length;
+}
+
+export { getUserInfo, getAverageSteps }  

@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 import { testUsers } from '../src/data/test-data'; 
-import { getUserInfo } from '../src/user-info';
+import { getUserInfo, getAverageSteps } from '../src/user-info';
 
 describe('get user', function() {
     it('should be a function', function() {
         expect(getUserInfo).to.be.a("function")
     })
+
     it('should return an object with relevant user data', function() {
         const user = getUserInfo(1, testUsers)
         expect(user.name).to.equal('LeBron James')
@@ -14,7 +15,17 @@ describe('get user', function() {
         expect(user.strideLength).to.equal(4.5)
         expect(user.dailyStepGoal).to.equal(10000)
         expect(user.friends).to.deep.equal([2, 3, 4, 5])
+    })
+})
 
+describe('get average step goal', function() {
+    it('should be a function', function() {
+        expect(getAverageSteps).to.be.a("function")
+    })
+
+    it('should get average steps amongst all users', function() {
+        const averageSteps = getAverageSteps(testUsers)
+        expect(averageSteps).to.equal(10800)
     })
 })
 
