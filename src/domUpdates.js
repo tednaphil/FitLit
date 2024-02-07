@@ -1,9 +1,6 @@
 import { getUserInfo, getAverageSteps } from './user';
-import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration';
-import hydrationData from './data/hydration'; 
-import userData from './data/users'; 
-import { allData } from './apiCalls'
-const users = userData.users
+import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
+import { allData, fetchData } from './apiCalls'
 
 //QUERY SELECTORS
 const nameDisplay = document.querySelector('h1')
@@ -12,31 +9,25 @@ const stepsStride = document.querySelector('#steps-stride')
 const averageStepDisplay = document.querySelector('h3')
 const hydrationWeek = document.querySelector('#hydro-week')
 
-function fetchData() {
-Promise.all(allData)
-  .then((res) => {
-    Promise.all(res.map((item) => {
-    return item.json();
-    }))
+function renderDom(){
+  fetchData()
+
     .then(([info, sleep, hydration]) => {
       const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users)
-      console.log(randomUser)
+      users = info.users
       displayPersonalInfo(randomUser)
-      console.log(getAverageSteps(info.users))
       displayStepComparison(randomUser)
-      displayHydrationInfo(randomUser, hydration)
-      console.log(sleep.sleepData);
-      console.log(hydration.hydrationData)
-    })
-  })
-  .catch(error => {
-    console.log("error")
-    return error; 
-  })
+      getAverageSteps(info.users)
+      displayHydrationInfo(randomUser.id, hydration.hydrationData)
+      findIntakeWeek(randomUser, hydration.hydrationData)
+    }
+    )
 }
 
 //EVENT LISTENERS
-window.addEventListener('load', fetchData)
+window.addEventListener('load', renderDom)
+
+let users = [];
 
 // FUNCTIONS
 function displayPersonalInfo(randomUser) {
