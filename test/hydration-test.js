@@ -10,8 +10,7 @@ describe('calculate average intake', function() {
     });
 
   it('return the user’s average fluid intake for all time', function() {
-    const user1 = getUserInfo(1, testUsers)
-    const userIntake = calculateAverageIntake(user1, testHydrationData) 
+    const userIntake = calculateAverageIntake(1, testHydrationData) 
     
     expect(userIntake).to.equal(53);
   })
@@ -22,11 +21,9 @@ describe('report intake by day', function() {
     expect(findIntakeByDay).to.be.a("function")
     });
 
-  it('return the user’s fluid intake for a specific day', function() {
-    const user1 = getUserInfo(1, testUsers)
-    const user2 = getUserInfo(2, testUsers)
-    const intake1 = findIntakeByDay(user1, "2023/04/01", testHydrationData)
-    const intake2 = findIntakeByDay(user2, "2023/04/02", testHydrationData)
+  it('return the user’s fluid intake for a specific day', function() {   
+    const intake1 = findIntakeByDay(1, "2023/04/01", testHydrationData)
+    const intake2 = findIntakeByDay(2, "2023/04/02", testHydrationData)
     
     expect(intake1).to.equal(88);
     expect(intake2).to.equal(64);
