@@ -1,8 +1,6 @@
 import { getUserInfo, getAverageSteps } from './user';
-import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration';
-import hydrationData from './data/hydration'; 
-import userData from './data/users'; 
-const users = userData.users
+import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
+import { allData, fetchData } from './apiCalls'
 
 //QUERY SELECTORS
 const nameDisplay = document.querySelector('h1')
@@ -11,27 +9,27 @@ const stepsStride = document.querySelector('#steps-stride')
 const averageStepDisplay = document.querySelector('h3')
 const hydrationWeek = document.querySelector('#hydro-week')
 
-
-//GLOBAL VARIABLES
-const randomUser = getUserInfo(Math.floor(Math.random() * users.length), users)
-
-//EVENT LISTENERS
-window.addEventListener('load', displayAllInfo)
-
-//FUNCTIONS
-function displayAllInfo() {
-  displayPersonalInfo();
-  displayStepComparison();
-  displayHydrationInfo();
+function renderDom(){
+  fetchData()
+    .then(([info, sleep, hydration]) => {
+      const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users)
+      displayPersonalInfo(randomUser)
+      displayStepComparison(randomUser, info.users)
+      displayHydrationInfo(randomUser, hydration.hydrationData)
+    })
 }
 
-function displayPersonalInfo() {
+//EVENT LISTENERS
+window.addEventListener('load', renderDom)
+
+// FUNCTIONS
+function displayPersonalInfo(randomUser) {
   nameDisplay.innerText = randomUser.name;
   addressEmail.innerHTML = `${randomUser.address} <br></br> ${randomUser.email}` 
   stepsStride.innerHTML = `Stride Length: ${randomUser.strideLength}<br></br>Daily Step Goal: ${randomUser.dailyStepGoal}` 
 }
 
-function displayStepComparison() {
+function displayStepComparison(randomUser, users) {
   let averageSteps = getAverageSteps(users);
   let differenceInSteps = Math.abs(averageSteps - randomUser.dailyStepGoal); 
   if(averageSteps > randomUser.dailyStepGoal) {
@@ -43,8 +41,8 @@ function displayStepComparison() {
   }
 }
 
-function displayHydrationInfo() {
-  const todayInfo = findIntakeWeek(randomUser.id, hydrationData.hydrationData)
+function displayHydrationInfo(randomUser, hydrationData) {
+  const todayInfo = findIntakeWeek(randomUser.id, hydrationData)
   hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`
   for (var i = 1; i < todayInfo.length; i++) {
     hydrationWeek.innerHTML += `<br></br>${todayInfo[i].date}: ${todayInfo[i].numOunces} ounces`

@@ -10,6 +10,11 @@ const testHydrationData = [
       "numOunces": 35
     },
     {
+      "userID": 3,
+      "date": "2023/03/24",
+      "numOunces": 18
+    },
+    {
         "userID": 1,
         "date": "2023/03/25",
         "numOunces": 50
@@ -18,6 +23,11 @@ const testHydrationData = [
         "userID": 2,
         "date": "2023/03/25",
         "numOunces": 92
+      },
+      {
+        "userID": 3,
+        "date": "2023/03/25",
+        "numOunces": 45
       },
       {
         "userID": 1,
@@ -30,6 +40,11 @@ const testHydrationData = [
         "numOunces": 88
       },
       {
+        "userID": 3,
+        "date": "2023/03/26",
+        "numOunces": 66
+      },
+      {
         "userID": 1,
         "date": "2023/03/27",
         "numOunces": 63
@@ -38,6 +53,11 @@ const testHydrationData = [
         "userID": 2,
         "date": "2023/03/27",
         "numOunces": 68
+      },
+      {
+        "userID": 3,
+        "date": "2023/03/27",
+        "numOunces": 23
       },
       {
         "userID": 1,
