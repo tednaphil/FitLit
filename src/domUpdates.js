@@ -13,26 +13,14 @@ function renderDom(){
   fetchData()
     .then(([info, sleep, hydration]) => {
       const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users)
-      users = info.users
       displayPersonalInfo(randomUser)
-      displayStepComparison(randomUser)
-      getAverageSteps(info.users)
+      displayStepComparison(randomUser, info.users)
       displayHydrationInfo(randomUser, hydration.hydrationData)
     })
 }
 
-function displayHydrationInfo(randomUser, hydrationData) {
-  const todayInfo = findIntakeWeek(randomUser.id, hydrationData)
-  hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`
-  for (var i = 1; i < todayInfo.length; i++) {
-    hydrationWeek.innerHTML += `<br></br>${todayInfo[i].date}: ${todayInfo[i].numOunces} ounces`
-  }
-}
-
 //EVENT LISTENERS
 window.addEventListener('load', renderDom)
-
-let users = [];
 
 // FUNCTIONS
 function displayPersonalInfo(randomUser) {
@@ -41,7 +29,7 @@ function displayPersonalInfo(randomUser) {
   stepsStride.innerHTML = `Stride Length: ${randomUser.strideLength}<br></br>Daily Step Goal: ${randomUser.dailyStepGoal}` 
 }
 
-function displayStepComparison(randomUser) {
+function displayStepComparison(randomUser, users) {
   let averageSteps = getAverageSteps(users);
   let differenceInSteps = Math.abs(averageSteps - randomUser.dailyStepGoal); 
   if(averageSteps > randomUser.dailyStepGoal) {
@@ -53,5 +41,11 @@ function displayStepComparison(randomUser) {
   }
 }
 
-
+function displayHydrationInfo(randomUser, hydrationData) {
+  const todayInfo = findIntakeWeek(randomUser.id, hydrationData)
+  hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`
+  for (var i = 1; i < todayInfo.length; i++) {
+    hydrationWeek.innerHTML += `<br></br>${todayInfo[i].date}: ${todayInfo[i].numOunces} ounces`
+  }
+}
 
