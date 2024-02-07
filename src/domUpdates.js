@@ -1,4 +1,6 @@
-import { getUserInfo, getAverageSteps } from '../src/user-info';
+import { getUserInfo, getAverageSteps } from './user';
+import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration';
+import hydrationData from './data/hydration'; 
 import userData from './data/users'; 
 const users = userData.users
 
@@ -7,17 +9,20 @@ const nameDisplay = document.querySelector('h1')
 const addressEmail = document.querySelector('#address-email')
 const stepsStride = document.querySelector('#steps-stride')
 const averageStepDisplay = document.querySelector('h3')
+const hydrationWeek = document.querySelector('#hydro-week')
+
 
 //GLOBAL VARIABLES
 const randomUser = getUserInfo(Math.floor(Math.random() * users.length), users)
 
 //EVENT LISTENERS
-window.addEventListener('load', displayUserInfo)
+window.addEventListener('load', displayAllInfo)
 
 //FUNCTIONS
-function displayUserInfo() {
+function displayAllInfo() {
   displayPersonalInfo();
   displayStepComparison();
+  displayHydrationInfo();
 }
 
 function displayPersonalInfo() {
@@ -37,3 +42,12 @@ function displayStepComparison() {
     averageStepDisplay.innerText = `Your step goal was equal to the average, congrats!`
   }
 }
+
+function displayHydrationInfo() {
+  const todayInfo = findIntakeWeek(randomUser.id, hydrationData.hydrationData)
+  hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`
+  for (var i = 1; i < todayInfo.length; i++) {
+    hydrationWeek.innerHTML += `<br></br>${todayInfo[i].date}: ${todayInfo[i].numOunces} ounces`
+  }
+}
+
