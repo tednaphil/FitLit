@@ -35,10 +35,10 @@ describe('report intake by week', function() {
     expect(findIntakeWeek).to.be.a("function")
     });
 
-  it('return information about daily intake over past week', function() {   
+  it('should return information about daily intake over past week', function() {   
     const intake1 = findIntakeWeek(1, testHydrationData)
     const intake2 = findIntakeWeek(2, testHydrationData)
-    
+
     expect(intake1.length).to.equal(7);
     expect(intake2.length).to.equal(7);
 
@@ -54,7 +54,12 @@ describe('report intake by week', function() {
       "numOunces": 57
     });
   });
-})
+  it('should still return partial data if user has less than seven entries', function(){
+    const intake3 = findIntakeWeek(3, testHydrationData)
+
+    expect(intake3.length).to.equal(4);
+  });
+});
 
 
 
