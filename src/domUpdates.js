@@ -3,6 +3,10 @@ import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydra
 import hydrationData from './data/hydration'; 
 import userData from './data/users'; 
 const users = userData.users
+import { getData } from './apiCalls';
+// import users from './apiCalls';
+// console.log('users: ', users)
+
 
 //QUERY SELECTORS
 const nameDisplay = document.querySelector('h1')
@@ -14,12 +18,20 @@ const hydrationWeek = document.querySelector('#hydro-week')
 
 //GLOBAL VARIABLES
 const randomUser = getUserInfo(Math.floor(Math.random() * users.length), users)
+console.log(randomUser)
 
 //EVENT LISTENERS
-window.addEventListener('load', displayAllInfo)
+getData()
+  .then(data => displayAllInfo(data))
+
+// window.addEventListener('load', displayAllInfo)
+
+//fetch all data from promise all then invoke display all info with data argument instead of
+//event listener?
 
 //FUNCTIONS
-function displayAllInfo() {
+function displayAllInfo(data) {
+  console.log(data)
   displayPersonalInfo();
   displayStepComparison();
   displayHydrationInfo();
@@ -44,6 +56,8 @@ function displayStepComparison() {
 }
 
 function displayHydrationInfo() {
+  //should we store the invokation of findIntakeByDay in a variable for today's info to display
+  //then store the weeks info in a different variable to display?
   const todayInfo = findIntakeWeek(randomUser.id, hydrationData.hydrationData);
   hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`;
   todayInfo.shift();
