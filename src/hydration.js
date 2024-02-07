@@ -1,4 +1,3 @@
-
 function calculateAverageIntake(user, hydrationData) {
     const userID = user.id
     const hydrationEntries = hydrationData.filter(day => day.userID === userID)
@@ -12,4 +11,7 @@ function calculateAverageIntake(user, hydrationData) {
 
 
 
-export { calculateAverageIntake }
+export { 
+    calculateAverageIntake,
+    findIntakeByDay
+}

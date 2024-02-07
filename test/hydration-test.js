@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { testHydrationData } from '../src/data/sample-hydration'; 
-import { calculateAverageIntake } from '../src/hydration'; 
+import { calculateAverageIntake, findIntakeByDay } from '../src/hydration'; 
 import { testUsers } from '../src/data/sample-users'; 
 import { getUserInfo } from '../src/user'; 
 
@@ -15,8 +15,22 @@ describe('calculate average intake', function() {
     
     expect(userIntake).to.equal(53);
   })
-    
+})
 
+describe('report intake by day', function() {
+  it('should be a function', function() {
+    expect(findIntakeByDay).to.be.a("function")
+    });
+
+  it('return the user’s fluid intake for a specific day', function() {
+    const user1 = getUserInfo(1, testUsers)
+    const user2 = getUserInfo(2, testUsers)
+    const intake1 = findIntakeByDay(user1, "2023/04/01", testHydrationData)
+    const intake2 = findIntakeByDay(user2, "2023/04/02", testHydrationData)
+    
+    expect(intake1).to.equal(88);
+    expect(intake2).to.equal(64);
+  })
 })
 
 
@@ -27,7 +41,6 @@ describe('calculate average intake', function() {
 // Hydration Data
 // You should create functions that:
 
-// Return the user’s average fluid ounces consumed per day for all time
 // Return the user’s fluid ounces they consumed for a specific day
 // Return how many fluid ounces of water a user consumed each day over the course of a week (7 days)
 // Note
