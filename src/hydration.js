@@ -16,7 +16,13 @@ function findIntakeByDay(id, date, dataSet) {
     return intake;
 }
 
-
+function findIntakeWeek(id, dataSet) {
+    const userData = dataSet.filter(entry => {
+        return entry.userID === id;
+    }).slice(-7).reverse();
+ 
+    return userData;
+}
 
 export { 
     calculateAverageIntake,

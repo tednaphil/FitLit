@@ -32,7 +32,7 @@ describe('report intake by day', function() {
 
 describe('report intake by week', function() {
   it('should be a function', function() {
-    expect(findDailyIntake).to.be.a("function")
+    expect(findIntakeWeek).to.be.a("function")
     });
 
   it('return information about daily intake over past week', function() {   
@@ -47,11 +47,11 @@ describe('report intake by week', function() {
       "date": "2023/03/31",
       "numOunces": 51
     });
-    
+
     expect(intake2[5]).to.deep.equal({
       "userID": 2,
-      "date": "2023/03/28",
-      "numOunces": 50
+      "date": "2023/03/29",
+      "numOunces": 57
     });
   });
 })
