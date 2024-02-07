@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { testHydrationData } from '../src/data/sample-hydration'; 
-import { calculateAverageIntake, findIntakeByDay } from '../src/hydration'; 
+import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from '../src/hydration'; 
 import { testUsers } from '../src/data/sample-users'; 
 import { getUserInfo } from '../src/user'; 
 
@@ -27,7 +27,33 @@ describe('report intake by day', function() {
     
     expect(intake1).to.equal(88);
     expect(intake2).to.equal(64);
-  })
+  });
+})
+
+describe('report intake by week', function() {
+  it('should be a function', function() {
+    expect(findDailyIntake).to.be.a("function")
+    });
+
+  it('return information about daily intake over past week', function() {   
+    const intake1 = findIntakeWeek(1, testHydrationData)
+    const intake2 = findIntakeWeek(2, testHydrationData)
+    
+    expect(intake1.length).to.equal(7);
+    expect(intake2.length).to.equal(7);
+
+    expect(intake1[3]).to.deep.equal({
+      "userID": 1,
+      "date": "2023/03/31",
+      "numOunces": 51
+    });
+    
+    expect(intake2[5]).to.deep.equal({
+      "userID": 2,
+      "date": "2023/03/28",
+      "numOunces": 50
+    });
+  });
 })
 
 

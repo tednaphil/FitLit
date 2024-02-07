@@ -20,5 +20,6 @@ function findIntakeByDay(id, date, dataSet) {
 
 export { 
     calculateAverageIntake,
-    findIntakeByDay
+    findIntakeByDay,
+    findIntakeWeek
 }
