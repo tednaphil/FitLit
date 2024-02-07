@@ -11,17 +11,22 @@ const hydrationWeek = document.querySelector('#hydro-week')
 
 function renderDom(){
   fetchData()
-
     .then(([info, sleep, hydration]) => {
       const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users)
       users = info.users
       displayPersonalInfo(randomUser)
       displayStepComparison(randomUser)
       getAverageSteps(info.users)
-      displayHydrationInfo(randomUser.id, hydration.hydrationData)
-      findIntakeWeek(randomUser, hydration.hydrationData)
-    }
-    )
+      displayHydrationInfo(randomUser, hydration.hydrationData)
+    })
+}
+
+function displayHydrationInfo(randomUser, hydrationData) {
+  const todayInfo = findIntakeWeek(randomUser.id, hydrationData)
+  hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`
+  for (var i = 1; i < todayInfo.length; i++) {
+    hydrationWeek.innerHTML += `<br></br>${todayInfo[i].date}: ${todayInfo[i].numOunces} ounces`
+  }
 }
 
 //EVENT LISTENERS
@@ -48,11 +53,5 @@ function displayStepComparison(randomUser) {
   }
 }
 
-function displayHydrationInfo(randomUser, hydrationData) {
-  const todayInfo = findIntakeWeek(randomUser.id, hydrationData.hydrationData)
-  hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`
-  for (var i = 1; i < todayInfo.length; i++) {
-    hydrationWeek.innerHTML += `<br></br>${todayInfo[i].date}: ${todayInfo[i].numOunces} ounces`
-  }
-}
+
 
