@@ -25,6 +25,10 @@ function getHydration() {
     return fetch('https://fitlit-api.herokuapp.com/api/v1/hydration')
 }
 
+function getSleep() {
+    return fetch('https://fitlit-api.herokuapp.com/api/v1/sleep')
+}
+
 
 
 // const data = Promise.all([getUsers(), getHydration()])
@@ -32,13 +36,14 @@ function getHydration() {
 //     .then(parsed => parsed)
 
 function getData() {
-    return Promise.all([getUsers(), getHydration()])
+    return Promise.all([getUsers(), getHydration(), getSleep()])
     .then(values => Promise.all(values.map( value => value.json())))
     .then(data => {
         let formattedData = {};
         data.forEach((element) => {
             // console.log('element', Object.keys(element))
-            formattedData[Object.keys(element)] = element
+            const key = Object.keys(element)
+            formattedData[key] = element[key]
         })
         return formattedData
     })
