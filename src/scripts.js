@@ -12,7 +12,7 @@ import './images/background-space.jpg';
 import './images/richard-with-text.png';
 
 // An example of how you tell webpack to use a JS file
-import userData from './data/users';
+// import userData from './data/users';
 // console.log("User Data:", userData);
 
 // Example of one way to import functions from the domUpdates file.  You will delete these examples.
@@ -20,3 +20,4 @@ import userData from './data/users';
 import './domUpdates';
 // exampleFunction1('Travis');
 // exampleFunction2('Travis')
+import'./apiCalls';
