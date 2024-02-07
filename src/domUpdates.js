@@ -44,10 +44,12 @@ function displayStepComparison() {
 }
 
 function displayHydrationInfo() {
-  const todayInfo = findIntakeWeek(randomUser.id, hydrationData.hydrationData)
-  hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`
-  for (var i = 1; i < todayInfo.length; i++) {
-    hydrationWeek.innerHTML += `<br></br>${todayInfo[i].date}: ${todayInfo[i].numOunces} ounces`
-  }
-}
+  const todayInfo = findIntakeWeek(randomUser.id, hydrationData.hydrationData);
+  hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`;
+  todayInfo.shift();
+  // console.log('week Info minus today: ', todayInfo)
+  todayInfo.forEach((day) => {
+    hydrationWeek.innerHTML += `<br></br>${day.date}: ${day.numOunces} ounces`
+  });
+};
 
