@@ -1,5 +1,7 @@
-// Your fetch requests will live here!
+const allData = [
+    fetch(`https://fitlit-api.herokuapp.com/api/v1/users`),
+    fetch(`https://fitlit-api.herokuapp.com/api/v1/sleep`),
+    fetch(`https://fitlit-api.herokuapp.com/api/v1/hydration`)
+  ]
 
-
-console.log('I will be a fetch request!')
-
+  export { allData }

@@ -2,6 +2,7 @@ import { getUserInfo, getAverageSteps } from './user';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration';
 import hydrationData from './data/hydration'; 
 import userData from './data/users'; 
+import { allData } from './apiCalls'
 const users = userData.users
 
 //QUERY SELECTORS
@@ -11,11 +12,6 @@ const stepsStride = document.querySelector('#steps-stride')
 const averageStepDisplay = document.querySelector('h3')
 const hydrationWeek = document.querySelector('#hydro-week')
 
-const allData = [
-  fetch(`https://fitlit-api.herokuapp.com/api/v1/users`),
-  fetch(`https://fitlit-api.herokuapp.com/api/v1/sleep`),
-  fetch(`https://fitlit-api.herokuapp.com/api/v1/hydration`)
-]
 function fetchData() {
 Promise.all(allData)
   .then((res) => {
