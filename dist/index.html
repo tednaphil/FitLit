@@ -2,13 +2,38 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Fitlit</title>
+    <title>FitLit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <h1>Activity Tracker</h1>
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-
-<!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
+    <header>
+      <section class="user-profile">
+        <p id="address-email">address and email</p>
+        <h1>My Name</h1>
+        <p id="steps-stride">steps and stride</p>
+      </section>
+      <section class="avg-steps">
+        <h3></h3>
+      </section>
+    </header>
+    <main>
+      <section class="widgets">
+        <div class="friend-hydro">
+          <div class="friends">
+            <p>F</p>
+          </div>
+          <div class="hydration">
+            <p id="hydro-week"></p>
+          </div>
+        </div>
+        <div class="sleep">
+          <p>S</p>
+        </div>
+      </section>
+      <section class="celeb">
+        <img src="./images/richard-with-text.png" alt="richard-simmons">
+      </section>
+    </main>
     <script src="bundle.js"></script>
   </body>
 </html>

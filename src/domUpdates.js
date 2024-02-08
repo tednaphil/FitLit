@@ -1,18 +1,51 @@
-//NOTE: Your DOM manipulation will occur in this file
+import { getUserInfo, getAverageSteps } from './user';
+import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
+import { allData, fetchData } from './apiCalls'
 
-//Here are 2 example functions just to demonstrate one way you can export/import between the two js files. You'll want to delete these once you get your own code going.
-const exampleFunction1 = (person) => {
-  return `oh hi there ${person}`
-  console.log(`oh hi there ${person}`)
+//QUERY SELECTORS
+const nameDisplay = document.querySelector('h1')
+const addressEmail = document.querySelector('#address-email')
+const stepsStride = document.querySelector('#steps-stride')
+const averageStepDisplay = document.querySelector('h3')
+const hydrationWeek = document.querySelector('#hydro-week')
+
+function renderDom(){
+  fetchData()
+    .then(([info, sleep, hydration]) => {
+      const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users)
+      displayPersonalInfo(randomUser)
+      displayStepComparison(randomUser, info.users)
+      displayHydrationInfo(randomUser, hydration.hydrationData)
+    })
 }
 
-const exampleFunction2 = (person) => {
-  return `by now ${person}`
-  console.log(`bye now ${person}`)
+//EVENT LISTENERS
+window.addEventListener('load', renderDom)
+
+// FUNCTIONS
+function displayPersonalInfo(randomUser) {
+  nameDisplay.innerText = randomUser.name;
+  addressEmail.innerHTML = `${randomUser.address} <br></br> ${randomUser.email}` 
+  stepsStride.innerHTML = `Stride Length: ${randomUser.strideLength}<br></br>Daily Step Goal: ${randomUser.dailyStepGoal}` 
 }
 
-
-export {
-  exampleFunction1,
-  exampleFunction2,
+function displayStepComparison(randomUser, users) {
+  let averageSteps = getAverageSteps(users);
+  let differenceInSteps = Math.abs(averageSteps - randomUser.dailyStepGoal); 
+  if(averageSteps > randomUser.dailyStepGoal) {
+    averageStepDisplay.innerText = `Your step goal was ${differenceInSteps} steps less than the average.`
+  } else if (averageSteps < randomUser.dailyStepGoal){
+    averageStepDisplay.innerText = `Your step goal was ${differenceInSteps} steps more than the average!`
+  } else {
+    averageStepDisplay.innerText = `Your step goal was equal to the average, congrats!`
+  }
 }
+
+function displayHydrationInfo(randomUser, hydrationData) {
+  const todayInfo = findIntakeWeek(randomUser.id, hydrationData)
+  hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`
+  for (var i = 1; i < todayInfo.length; i++) {
+    hydrationWeek.innerHTML += `<br></br>${todayInfo[i].date}: ${todayInfo[i].numOunces} ounces`
+  }
+}
+
