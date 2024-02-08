@@ -25,8 +25,8 @@ describe('get user', function() {
       const user1Avg = calculateAvgSleepQuality(1, testSleepData)
       const user2Avg = calculateAvgSleepQuality(2, testSleepData)
 
-      expect(user1Avg).to.equal(7.025)
-      expect(user2Avg).to.equal(8.3375)
+      expect(user1Avg).to.equal('3.53')
+      expect(user2Avg).to.equal('3.01')
   })
 })
 
