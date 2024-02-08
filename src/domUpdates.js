@@ -8,6 +8,10 @@ const addressEmail = document.querySelector('#address-email')
 const stepsStride = document.querySelector('#steps-stride')
 const averageStepDisplay = document.querySelector('h3')
 const hydrationWeek = document.querySelector('#hydro-week')
+const friendsList = document.querySelector('#friends')
+
+let infoArray = [];
+let hydrationDataArray = [];
 
 function renderDom(){
   fetchData()
@@ -16,6 +20,10 @@ function renderDom(){
       displayPersonalInfo(randomUser)
       displayStepComparison(randomUser, info.users)
       displayHydrationInfo(randomUser, hydration.hydrationData)
+      let friendNames = randomUser.friends.map((friendId) => {
+        return info.users.find(user => friendId === user.id).name;
+        })
+      displayFriends(friendNames)
     })
 }
 
@@ -27,6 +35,16 @@ function displayPersonalInfo(randomUser) {
   nameDisplay.innerText = randomUser.name;
   addressEmail.innerHTML = `${randomUser.address} <br></br> ${randomUser.email}` 
   stepsStride.innerHTML = `Stride Length: ${randomUser.strideLength}<br></br>Daily Step Goal: ${randomUser.dailyStepGoal}` 
+}
+
+function displayFriends(friends) {
+  friends.forEach((friend, index) => {
+    if (!index) {
+      friendsList.innerHTML = friend;
+    } else {
+      friendsList.innerHTML += `<br></br>${friend}`
+    }
+  })
 }
 
 function displayStepComparison(randomUser, users) {
