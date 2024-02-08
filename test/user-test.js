@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { testUsers } from '../src/data/sample-users'; 
-import { getUserInfo, getAverageSteps } from '../src/user';
+import { getUserInfo, getAverageSteps, findFriends } from '../src/user';
 
 describe('get user', function() {
     it('should be a function', function() {
@@ -29,15 +29,15 @@ describe('get average step goal', function() {
     })
 })
 
+describe('find user friends', function() {
+    it('should be a function', function() {
+        expect(findFriends).to.be.a("function");
+    });
 
+    it('should return an array of friend\'s names', function() {
+        const user = getUserInfo(1, testUsers);
+        const usersFriends = findFriends(user.id, testUsers)
 
-// {
-//     id: 1,
-//     name: "LeBron James",
-//     address: "123 Champion Lane, Los Angeles, CA 90001",
-//     email: "lebron.james@example.com",
-//     strideLength: 4.5,
-//     dailyStepGoal: 10000,
-//     friends: [2, 3, 4, 5]
-//   },
-
+        expect(usersFriends).to.deep.equal(['Serena Williams', 'Cristiano Ronaldo', 'Simone Biles', 'Usain Bolt']);
+    })
+});
