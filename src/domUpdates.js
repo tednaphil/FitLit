@@ -1,5 +1,6 @@
 import { getUserInfo, getAverageSteps, findFriends } from './user';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
+import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findHoursSleptWeek, findSleepQualityWeek } from './sleep';
 import { allData, fetchData } from './apiCalls'
 
 //QUERY SELECTORS
@@ -9,7 +10,14 @@ const stepsStride = document.querySelector('#steps-stride')
 const averageStepDisplay = document.querySelector('h3')
 const hydrationWeek = document.querySelector('#hydro-week')
 const friendsList = document.querySelector('#friends')
+const sleepHours = document.querySelector('#sleep-hours')
+const sleepQuality = document.querySelector('#sleep-quality')
+const avgSleep = document.querySelector('#avg-sleep')
 
+//EVENT LISTENERS
+window.addEventListener('load', renderDom)
+
+// FUNCTIONS
 function renderDom(){
   fetchData()
     .then(([info, sleep, hydration]) => {
@@ -18,13 +26,10 @@ function renderDom(){
       displayStepComparison(randomUser, info.users);
       displayHydrationInfo(randomUser, hydration.hydrationData);    
       displayFriends(randomUser, info.users);
+      displaySleepInfo(randomUser, sleep.sleepData);
     })
 }
 
-//EVENT LISTENERS
-window.addEventListener('load', renderDom)
-
-// FUNCTIONS
 function displayPersonalInfo(randomUser) {
   nameDisplay.innerText = randomUser.name;
   addressEmail.innerHTML = `${randomUser.address} <br></br> ${randomUser.email}` 
@@ -64,4 +69,29 @@ function displayHydrationInfo(randomUser, hydrationData) {
     }
   })
 }
+
+function displaySleepInfo(person, dataSet) {
+  let today = dataSet.filter((entry) => {
+    return entry.userID === person.id
+  }).slice(-1)[0].date
+  let avgSleepQuality = calculateAvgSleepQuality(person.id, dataSet)
+  let avgSleepHours = calculateAvgHoursSlept(person.id, dataSet)
+  let weeklySleepQuality = findSleepQualityWeek(person.id, today, dataSet)
+  let weeklyHoursSlept = findHoursSleptWeek(person.id, today, dataSet)
+  avgSleep.innerHTML = `Avg Hours Slept: ${avgSleepHours}<br></br>Avg Sleep Quality: ${avgSleepQuality}/5`
+  weeklyHoursSlept.forEach((day, index) => {
+    if(!index) {
+      sleepHours.innerHTML = `Today: ${day.hoursSlept} hours`;
+    } else {
+      sleepHours.innerHTML += `<br></br>${day.date}: ${day.hoursSlept} hours`
+    }
+  })
+  weeklySleepQuality.forEach((day, index) => {
+    if(!index) {
+      sleepQuality.innerHTML = `Today: ${day.sleepQuality}/5`;
+    } else {
+      sleepQuality.innerHTML += `<br></br>${day.date}: ${day.sleepQuality}/5`
+    }
+  })
+};
 

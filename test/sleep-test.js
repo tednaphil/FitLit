@@ -11,8 +11,8 @@ describe('calculate sleep hours average', function() {
       const user1Avg = calculateAvgHoursSlept(1, testSleepData)
       const user2Avg = calculateAvgHoursSlept(2, testSleepData)
 
-      expect(user1Avg).to.equal(7.025)
-      expect(user2Avg).to.equal(8.3375)
+      expect(user1Avg).to.equal('7.03')
+      expect(user2Avg).to.equal('8.34')
   });
 })
 
