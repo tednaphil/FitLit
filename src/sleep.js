@@ -32,34 +32,43 @@ function findSleepQualityDay(id, date, sleepData) {
     return day ? day.sleepQuality : `There is no entry for the date provided.`;   
 }
 
-function findSleepInfoWeek(id, date, sleepData) {
+function findHoursSleptWeek(id, date, sleepData) {
     const userInfo = (sleepData.filter(data => data.userID === id)).reverse();
     const index = userInfo.findIndex(data => data.date === date);
     const array = userInfo.splice(index, (index + 7));
+    const hours = array.map((date) => { 
+        return date = {
+            userID: id,
+            date: date['date'],
+            hoursSlept: date['hoursSlept']
+        };
+    })
     
-    // const hours = array.map((date) => { 
-    //     return date = {
-    //         date: date['date'],
-    //         sleepQuality: date['sleepQuality']
-    //     }
-    // })
-
-        // const hours = array.map((date) => { 
-    //     return date = {
-    //         date: date['date'],
-    //         hoursSlept: date['hoursSlept']
-    //     }
-    // })
-    
-    return array;
+    return hours;
 }
 
-//SHOULD findSleepInfoWeek BE BROKEN INTO 2 FUNCTIONS?
+function findSleepQualityWeek(id, date, sleepData) {
+    const userInfo = (sleepData.filter(data => data.userID === id)).reverse();
+    const index = userInfo.findIndex(data => data.date === date);
+    const array = userInfo.splice(index, (index + 7));
+    const quality = array.map((date) => { 
+        return date = {
+            userID: id,
+            date: date['date'],
+            sleepQuality: date['sleepQuality']
+        };
+    })
+    
+    return quality;
+}
+
+
 
 export {
     calculateAvgHoursSlept,
     calculateAvgSleepQuality,
     findSleepHourDay,
     findSleepQualityDay,
-    findSleepInfoWeek
+    findHoursSleptWeek,
+    findSleepQualityWeek
  }

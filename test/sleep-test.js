@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { testSleepData } from '../src/data/sample-sleep'; 
-import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findSleepInfoWeek } from '../src/sleep'; 
+import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findHoursSleptWeek, findSleepQualityWeek } from '../src/sleep'; 
 
 describe('calculate sleep hours average', function() {
   it('should be a function', function() {
@@ -92,49 +92,67 @@ describe('get sleep quality for a day', function() {
 
 describe('get hours slept for a week', function() {
   it('should be a function', function() {
-      expect(findSleepInfoWeek).to.be.a("function")
+      expect(findHoursSleptWeek).to.be.a("function")
   });
   
   it('should return users sleep quality for a specific week', function() {
-      const user1Data = findSleepInfoWeek(1, "2023/03/31", testSleepData)
-      const user2Data = findSleepInfoWeek(2, "2023/03/30", testSleepData)
+      const user1Data = findHoursSleptWeek(1, "2023/03/31", testSleepData)
+      const user2Data = findHoursSleptWeek(2, "2023/03/30", testSleepData)
   
       expect(user1Data.length).to.deep.equal(7)
 
       expect(user1Data[5]).to.deep.equal({
         "userID": 1,
         "date": "2023/03/26",
-        "hoursSlept": 7.1,
+        "hoursSlept": 7.1
+      })
+      expect(user2Data[1]).to.deep.equal({
+        "userID": 2,
+        "date": "2023/03/29",
+        "hoursSlept": 4.3
+    })
+  });
+
+  it('should return partial data if there are not entries for the entire week', function() {
+    const user1Data = findHoursSleptWeek(1, "2023/03/26", testSleepData)
+
+    expect(user1Data.length).to.deep.equal(3)
+  });
+})
+
+describe('get sleep quality for a week', function() {
+  it('should be a function', function() {
+      expect(findSleepQualityWeek).to.be.a("function")
+  });
+  
+  it('should return users sleep quality for a specific week', function() {
+      const user1Data = findSleepQualityWeek(1, "2023/03/31", testSleepData)
+      const user2Data = findSleepQualityWeek(2, "2023/03/30", testSleepData)
+  
+      expect(user1Data.length).to.deep.equal(7)
+
+      expect(user1Data[5]).to.deep.equal({
+        "userID": 1,
+        "date": "2023/03/26",
         "sleepQuality": 4.7
       })
       expect(user2Data[1]).to.deep.equal({
         "userID": 2,
         "date": "2023/03/29",
-        "hoursSlept": 4.3,
         "sleepQuality": 2.2
     })
   });
 
   it('should return partial data if there are not entries for the entire week', function() {
-    const user1Data = findSleepInfoWeek(1, "2023/03/26", testSleepData)
+    const user1Data = findSleepQualityWeek(1, "2023/03/26", testSleepData)
 
     expect(user1Data.length).to.deep.equal(3)
   });
 })
 
 
-// {
-//   "userID": 1,
-//   "date": "2023/03/24",
-//   "hoursSlept": 9.6,
-//   "sleepQuality": 4.3
-// },
 
 
 
 
-// Return how many hours a user slept each day over the course of a given week (7 days)
-// This function should be able to calculate this for any week, not just the latest week
-// Return a user’s sleep quality for each day over the course of a given week (7 days)
-// this function should be able to calculate this for any week, not just the latest week
 
