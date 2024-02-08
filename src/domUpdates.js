@@ -1,5 +1,6 @@
 import { getUserInfo, getAverageSteps, findFriends } from './user';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
+import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findHoursSleptWeek, findSleepQualityWeek } from './sleep';
 import { allData, fetchData } from './apiCalls'
 
 //QUERY SELECTORS
@@ -18,6 +19,7 @@ function renderDom(){
       displayStepComparison(randomUser, info.users);
       displayHydrationInfo(randomUser, hydration.hydrationData);    
       displayFriends(randomUser, info.users);
+      displaySleepInfo(randomUser, sleep.sleepData);
     })
 }
 
@@ -64,4 +66,8 @@ function displayHydrationInfo(randomUser, hydrationData) {
     }
   })
 }
+
+function displaySleepInfo(randomUser, sleepData) {
+  console.log('Display Sleep Args: ', arguments)
+};
 
