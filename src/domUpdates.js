@@ -55,10 +55,13 @@ function displayStepComparison(randomUser, users) {
 }
 
 function displayHydrationInfo(randomUser, hydrationData) {
-  const todayInfo = findIntakeWeek(randomUser.id, hydrationData)
-  hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`
-  for (var i = 1; i < todayInfo.length; i++) {
-    hydrationWeek.innerHTML += `<br></br>${todayInfo[i].date}: ${todayInfo[i].numOunces} ounces`
-  }
+  const dailyInfo = findIntakeWeek(randomUser.id, hydrationData)
+  dailyInfo.forEach((day, index) => {
+    if(!index) {
+      hydrationWeek.innerHTML = `Today: ${day.numOunces} ounces`;
+    } else {
+      hydrationWeek.innerHTML += `<br></br>${day.date}: ${day.numOunces} ounces`
+    }
+  })
 }
 
