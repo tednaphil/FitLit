@@ -1,21 +1,34 @@
 import { expect } from 'chai';
 import { testSleepData } from '../src/data/sample-sleep'; 
-import { calculateAverageHoursSlept } from '../src/sleep'; 
+import { calculateAvgHoursSlept, calculateAvgSleepQuality } from '../src/sleep'; 
 
 describe('get user', function() {
   it('should be a function', function() {
-      expect(calculateAverageHoursSlept).to.be.a("function")
+      expect(calculateAvgHoursSlept).to.be.a("function")
   })
 
   it('should calculate the user’s average number of hours slept per day', function() {
-      const user1Avg = calculateAverageHoursSlept(1, testSleepData)
-      const user2Avg = calculateAverageHoursSlept(2, testSleepData)
+      const user1Avg = calculateAvgHoursSlept(1, testSleepData)
+      const user2Avg = calculateAvgHoursSlept(2, testSleepData)
 
       expect(user1Avg).to.equal(7.025)
       expect(user2Avg).to.equal(8.3375)
   })
 })
 
+describe('get user', function() {
+  it('should be a function', function() {
+      expect(calculateAvgSleepQuality).to.be.a("function")
+  })
+
+  it('should calculate the user’s average sleep quality per day over all time', function() {
+      const user1Avg = calculateAvgSleepQuality(1, testSleepData)
+      const user2Avg = calculateAvgSleepQuality(2, testSleepData)
+
+      expect(user1Avg).to.equal(7.025)
+      expect(user2Avg).to.equal(8.3375)
+  })
+})
 
 // {
 //   "userID": 1,
