@@ -1,4 +1,4 @@
-import { getUserInfo, getAverageSteps } from './user';
+import { getUserInfo, getAverageSteps, findFriends } from './user';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
 import { allData, fetchData } from './apiCalls'
 
@@ -10,20 +10,14 @@ const averageStepDisplay = document.querySelector('h3')
 const hydrationWeek = document.querySelector('#hydro-week')
 const friendsList = document.querySelector('#friends')
 
-let infoArray = [];
-let hydrationDataArray = [];
-
 function renderDom(){
   fetchData()
     .then(([info, sleep, hydration]) => {
-      const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users)
-      displayPersonalInfo(randomUser)
-      displayStepComparison(randomUser, info.users)
-      displayHydrationInfo(randomUser, hydration.hydrationData)
-      let friendNames = randomUser.friends.map((friendId) => {
-        return info.users.find(user => friendId === user.id).name;
-        })
-      displayFriends(friendNames)
+      const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
+      displayPersonalInfo(randomUser);
+      displayStepComparison(randomUser, info.users);
+      displayHydrationInfo(randomUser, hydration.hydrationData);    
+      displayFriends(randomUser, info.users);
     })
 }
 
@@ -37,7 +31,8 @@ function displayPersonalInfo(randomUser) {
   stepsStride.innerHTML = `Stride Length: ${randomUser.strideLength}<br></br>Daily Step Goal: ${randomUser.dailyStepGoal}` 
 }
 
-function displayFriends(friends) {
+function displayFriends(person, people) {
+  const friends = findFriends(person.id, people)
   friends.forEach((friend, index) => {
     if (!index) {
       friendsList.innerHTML = friend;
