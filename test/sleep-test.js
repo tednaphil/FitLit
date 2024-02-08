@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { testSleepData } from '../src/data/sample-sleep'; 
-import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepDataDay } from '../src/sleep'; 
+import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay } from '../src/sleep'; 
 
 describe('calculate sleep hours average', function() {
   it('should be a function', function() {
@@ -30,21 +30,41 @@ describe('calculate sleep quality average', function() {
   });
 })
 
-describe('get day sleep data', function() {
+describe('get hours slept for a day', function() {
   it('should be a function', function() {
-      expect(findSleepDataDay).to.be.a("function")
+      expect(findSleepHourDay).to.be.a("function")
   });
 
   it('should return how many hours a user slept for a specific day', function() {
-      const user1Data = findSleepDataDay(1, "2023/03/24", testSleepData)
-      const user2Data = findSleepDataDay(2, "2023/03/25", testSleepData)
+      const user1Data = findSleepHourDay(1, "2023/03/24", testSleepData)
+      const user2Data = findSleepHourDay(2, "2023/03/25", testSleepData)
 
       expect(user1Data).to.equal(9.6)
       expect(user2Data).to.equal(8.1)
   });
 
   it('should return a message if there is no entry for the day in question', function() {
-    const user1Data = findSleepDataDay(1, "2024/1/24", testSleepData)
+    const user1Data = findSleepHourDay(1, "2024/1/24", testSleepData)
+
+    expect(user1Data).to.equal(`There is no entry for the date provided.`)
+  });
+});
+
+describe('get sleep quality for a day', function() {
+  it('should be a function', function() {
+      expect(findSleepQualityDay).to.be.a("function")
+  });
+
+  it('should return users sleep quality for a specific day', function() {
+      const user1Data = findSleepQualityDay(1, "2023/03/24", testSleepData)
+      const user2Data = findSleepQualityDay(2, "2023/03/25", testSleepData)
+
+      expect(user1Data).to.equal(4.3)
+      expect(user2Data).to.equal(4.7)
+  });
+
+  it('should return a message if there is no entry for the day in question', function() {
+    const user1Data = findSleepQualityDay(1, "2024/1/24", testSleepData)
 
     expect(user1Data).to.equal(`There is no entry for the date provided.`)
 });
@@ -58,7 +78,7 @@ describe('get day sleep data', function() {
 // },
 
 
-// Return how many hours a user slept for a specific day
+
 // Return a user’s sleep quality for a specific day
 // Return how many hours a user slept each day over the course of a given week (7 days)
 // This function should be able to calculate this for any week, not just the latest week
