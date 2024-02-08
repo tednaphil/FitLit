@@ -16,4 +16,13 @@ function getAverageSteps(people){
     return averageSteps/people.length;
 }
 
-export { getUserInfo, getAverageSteps }  
+function findFriends(id, people) {
+    const user = people.find((person) => person.id === id);
+    let friendNames = user.friends.map((friendId) => {
+        return people.find(user => friendId === user.id).name;
+    })
+
+    return friendNames;
+}
+
+export { getUserInfo, getAverageSteps, findFriends }  

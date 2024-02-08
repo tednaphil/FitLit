@@ -1,4 +1,4 @@
-import { getUserInfo, getAverageSteps } from './user';
+import { getUserInfo, getAverageSteps, findFriends } from './user';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
 import { allData, fetchData } from './apiCalls'
 
@@ -8,14 +8,16 @@ const addressEmail = document.querySelector('#address-email')
 const stepsStride = document.querySelector('#steps-stride')
 const averageStepDisplay = document.querySelector('h3')
 const hydrationWeek = document.querySelector('#hydro-week')
+const friendsList = document.querySelector('#friends')
 
 function renderDom(){
   fetchData()
     .then(([info, sleep, hydration]) => {
-      const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users)
-      displayPersonalInfo(randomUser)
-      displayStepComparison(randomUser, info.users)
-      displayHydrationInfo(randomUser, hydration.hydrationData)
+      const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
+      displayPersonalInfo(randomUser);
+      displayStepComparison(randomUser, info.users);
+      displayHydrationInfo(randomUser, hydration.hydrationData);    
+      displayFriends(randomUser, info.users);
     })
 }
 
@@ -27,6 +29,17 @@ function displayPersonalInfo(randomUser) {
   nameDisplay.innerText = randomUser.name;
   addressEmail.innerHTML = `${randomUser.address} <br></br> ${randomUser.email}` 
   stepsStride.innerHTML = `Stride Length: ${randomUser.strideLength}<br></br>Daily Step Goal: ${randomUser.dailyStepGoal}` 
+}
+
+function displayFriends(person, people) {
+  const friends = findFriends(person.id, people)
+  friends.forEach((friend, index) => {
+    if (!index) {
+      friendsList.innerHTML = friend;
+    } else {
+      friendsList.innerHTML += `<br></br>${friend}`
+    }
+  })
 }
 
 function displayStepComparison(randomUser, users) {
@@ -42,10 +55,13 @@ function displayStepComparison(randomUser, users) {
 }
 
 function displayHydrationInfo(randomUser, hydrationData) {
-  const todayInfo = findIntakeWeek(randomUser.id, hydrationData)
-  hydrationWeek.innerHTML = `Today: ${todayInfo[0].numOunces} ounces`
-  for (var i = 1; i < todayInfo.length; i++) {
-    hydrationWeek.innerHTML += `<br></br>${todayInfo[i].date}: ${todayInfo[i].numOunces} ounces`
-  }
+  const dailyInfo = findIntakeWeek(randomUser.id, hydrationData)
+  dailyInfo.forEach((day, index) => {
+    if(!index) {
+      hydrationWeek.innerHTML = `Today: ${day.numOunces} ounces`;
+    } else {
+      hydrationWeek.innerHTML += `<br></br>${day.date}: ${day.numOunces} ounces`
+    }
+  })
 }
 
