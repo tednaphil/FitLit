@@ -10,7 +10,12 @@ const stepsStride = document.querySelector('#steps-stride')
 const averageStepDisplay = document.querySelector('h3')
 const hydrationWeek = document.querySelector('#hydro-week')
 const friendsList = document.querySelector('#friends')
+const sleepWeek = document.querySelector('#sleep-week') //
 
+//EVENT LISTENERS
+window.addEventListener('load', renderDom)
+
+// FUNCTIONS
 function renderDom(){
   fetchData()
     .then(([info, sleep, hydration]) => {
@@ -19,14 +24,10 @@ function renderDom(){
       displayStepComparison(randomUser, info.users);
       displayHydrationInfo(randomUser, hydration.hydrationData);    
       displayFriends(randomUser, info.users);
-      displaySleepInfo(randomUser, sleep.sleepData);
+      displaySleepInfo(randomUser, sleep.sleepData); //
     })
 }
 
-//EVENT LISTENERS
-window.addEventListener('load', renderDom)
-
-// FUNCTIONS
 function displayPersonalInfo(randomUser) {
   nameDisplay.innerText = randomUser.name;
   addressEmail.innerHTML = `${randomUser.address} <br></br> ${randomUser.email}` 
@@ -69,5 +70,5 @@ function displayHydrationInfo(randomUser, hydrationData) {
 
 function displaySleepInfo(randomUser, sleepData) {
   console.log('Display Sleep Args: ', arguments)
-};
+}; //
 
