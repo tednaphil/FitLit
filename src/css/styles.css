@@ -1,6 +1,6 @@
 * {
-  font-family: "Poppins", sans-serif;
-  src: url("https://fonts.google.com/specimen/Poppins?query=poppins");
+  font-family: "Neonderthaw", sans-serif;
+  src: url("https://fonts.google.com/specimen/Neonderthaw?query=neon");
   color: yellow;
   text-shadow: #FC0 1px 0 5px;
 }
@@ -12,7 +12,7 @@ body {
 }
 
 header {
-  height: 15vh;
+  height: 12vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,13 +28,13 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 75%;
+  height: 100%;
   width: 95%;
 }
 
 h1 {
-  /* font-family: "Neonderthaw", sans-serif;
-  src: url("https://fonts.google.com/specimen/Neonderthaw?query=neon"); */
+  font-family: "Neonderthaw", sans-serif;
+  src: url("https://fonts.google.com/specimen/Neonderthaw?query=neon");
   font-size: 3vw;
   margin-bottom: 1em;
 }
@@ -42,11 +42,6 @@ h1 {
 h2 {
   margin-bottom: 0;
   font-size: 2vw;
-}
-
-h3 {
-  font-size: 1.4vw;
-  margin: 0;
 }
 
 p {
@@ -74,7 +69,7 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 3%;
+  margin-top: 1%;
 }
 
 .friend-hydro {
@@ -124,19 +119,18 @@ p {
 }
 
 .avg-steps {
-  height: 20%;
   text-align: center;
   width: fit-content;
   margin: 10px;
   padding: .5em;
   padding-right: 1em;
   padding-left: 1em;
+  font-size: 2vw;
 }
 
 .friends,
 .hydration,
 .user-profile,
-.avg-steps,
 .averages,
 .hours,
 .quality {
@@ -148,4 +142,5 @@ p {
 img {
   margin-top: 5%;
   height: 70vh;
+  /* width: 60vw; */
 }
