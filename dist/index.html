@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>FitLit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    href="https://fonts.google.com/specimen/Poppins?query=poppins"
+    href="https://fonts.google.com/specimen/Neonderthaw?query=neon"
+
+  />
   </head>
   <body>
     <header>
@@ -12,24 +17,33 @@
         <h1>My Name</h1>
         <p id="steps-stride">steps and stride</p>
       </section>
-      <section class="avg-steps">
-        <h3></h3>
-      </section>
     </header>
     <main>
       <section class="widgets">
+          <h3 class="avg-steps"></h3>
         <div class="friend-hydro">
           <div class="friends">
+            <h2>Friends</h2>
             <p id="friends"></p>
           </div>
-          <div class="hydration">
-            <p id="hydro-week"></p>
+          <div class="averages">
+            <h2>Average Sleep</h2>
+            <p id="avg-sleep"></p>
           </div>
         </div>
-        <div class="sleep"> 
-          <p id="avg-sleep"></p>
-          <p id="sleep-hours"></p>
-          <p id="sleep-quality"></p>
+        <div class="sleep">
+          <div class="hydration">
+            <h2>Hydration</h2>
+            <p id="hydro-week"></p>
+          </div>
+          <div class="hours">
+            <h2>Hours Slept</h2>
+            <p id="sleep-hours"></p>
+          </div>
+          <div class="quality">
+            <h2>Sleep Quality</h2>
+            <p id="sleep-quality"></p>
+          </div>
         </div>
       </section>
       <section class="celeb">
