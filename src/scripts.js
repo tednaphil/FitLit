@@ -1,17 +1,13 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-
-// An example of how you tell webpack to use a CSS file
+// CSS
 import './css/styles.css';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png';
+// IMAGES
 import './images/background-space.jpg';
 import './images/richard-with-text.png';
+import './images/richard-animation-1.png';
+import './images/richard-animation-2.png';
+import './images/richard-animation-3.png';
+import './images/richard-animation-4.png';
 
-// Example of one way to import functions from the domUpdates file.  You will delete these examples.
-// import { exampleFunction1, exampleFunction2 } from './domUpdates';
+// DOM
 import './domUpdates';
-// exampleFunction1('Travis');
-// exampleFunction2('Travis')
