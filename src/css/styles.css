@@ -33,8 +33,8 @@ main {
 }
 
 h1 {
-  font-family: "Neonderthaw", sans-serif;
-  src: url("https://fonts.google.com/specimen/Neonderthaw");
+  /* font-family: "Neonderthaw", sans-serif;
+  src: url("https://fonts.google.com/specimen/Neonderthaw?query=neon"); */
   font-size: 3vw;
   margin-bottom: 1em;
 }
