@@ -1,3 +1,8 @@
+* {
+  font-family: "Poppins", sans-serif;
+  src: url("https://fonts.google.com/specimen/Poppins?query=poppins");
+}
+
 body {
   height: 100%;
   background-image: url('/src/images/background-space.jpg');
@@ -25,8 +30,19 @@ main {
 }
 
 h1 {
+  font-family: "Neonderthaw";
+  src: url("https://fonts.google.com/specimen/Neonderthaw");
   font-size: 2.3em;
   margin-bottom: 1em;
+}
+
+h2 {
+  margin-bottom: 0;
+}
+
+p {
+  font-size: 1.25em;
+  line-height: .7em;
 }
 
 #steps-stride {
@@ -40,6 +56,7 @@ h1 {
 
 #steps-stride,
 #address-email {
+  font-size: 1em;
   line-height: .7em;
 }
 
@@ -68,9 +85,13 @@ h1 {
 }
 
 .friends ,
-.hydration {
+.averages {
   width: 48%;
   height: 35vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .celeb {
@@ -95,9 +116,11 @@ h3 {
 
 .friends,
 .hydration,
-.sleep,
 .user-profile,
-.avg-steps {
+.avg-steps,
+.averages,
+.hours,
+.quality {
   background-color: rgb(77, 187, 204);
   border-radius: 15px;
   box-shadow: 0px 0px 20px 1px rgb(255, 0, 221);
