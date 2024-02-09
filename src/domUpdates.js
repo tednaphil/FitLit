@@ -36,8 +36,8 @@ function displayPersonalInfo(person) {
   stepsStride.innerHTML = `Stride Length: ${person.strideLength}<br></br>Daily Step Goal: ${person.dailyStepGoal}` 
 }
 
-function displayFriends(person, people) {
-  const friends = findFriends(person.id, people)
+function displayFriends(person, dataSet) {
+  const friends = findFriends(person.id, dataSet)
   friends.forEach((friend, index) => {
     if (!index) {
       friendsList.innerHTML = friend;
@@ -47,8 +47,8 @@ function displayFriends(person, people) {
   })
 }
 
-function displayStepComparison(person, people) {
-  let averageSteps = getAverageSteps(people);
+function displayStepComparison(person, dataSet) {
+  let averageSteps = getAverageSteps(dataSet);
   let differenceInSteps = Math.abs(averageSteps - person.dailyStepGoal); 
   if(averageSteps > person.dailyStepGoal) {
     averageStepDisplay.innerText = `Your step goal was ${differenceInSteps} steps less than the average.`

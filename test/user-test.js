@@ -9,6 +9,7 @@ describe('get user', function() {
 
     it('should return an object with relevant user data', function() {
         const user = getUserInfo(1, testUsers)
+
         expect(user.name).to.equal('LeBron James')
         expect(user.address).to.equal('123 Champion Lane, Los Angeles, CA 90001')
         expect(user.email).to.equal('lebron.james@example.com')
@@ -25,6 +26,7 @@ describe('get average step goal', function() {
 
     it('should get average steps amongst all users', function() {
         const averageSteps = getAverageSteps(testUsers)
+        
         expect(averageSteps).to.equal(10800)
     })
 })
