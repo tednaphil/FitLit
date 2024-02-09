@@ -33,7 +33,7 @@ main {
 }
 
 h1 {
-  font-family: "Neonderthaw";
+  font-family: "Neonderthaw", sans-serif;
   src: url("https://fonts.google.com/specimen/Neonderthaw");
   font-size: 3vw;
   margin-bottom: 1em;
@@ -96,6 +96,7 @@ p {
 .averages {
   width: 48%;
   height: 35vh;
+  text-align: center;
 }
 
 .hydration,

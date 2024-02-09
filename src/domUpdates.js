@@ -13,9 +13,11 @@ const friendsList = document.querySelector('#friends')
 const sleepHours = document.querySelector('#sleep-hours')
 const sleepQuality = document.querySelector('#sleep-quality')
 const avgSleep = document.querySelector('#avg-sleep')
+const richard = document.querySelector('.celeb')
 
 //EVENT LISTENERS
-window.addEventListener('load', renderDom)
+window.addEventListener('load', renderDom);
+richard.addEventListener('click', animateRichard);
 
 // FUNCTIONS
 function renderDom(){
@@ -27,6 +29,7 @@ function renderDom(){
       displayHydrationInfo(randomUser, hydration.hydrationData);    
       displayFriends(randomUser, info.users);
       displaySleepInfo(randomUser, sleep.sleepData);
+      animateRichard();
     })
 }
 
@@ -95,3 +98,31 @@ function displaySleepInfo(person, dataSet) {
   })
 };
 
+function animateRichard() {
+  //   richard.innerHTML = '<img src="./images/richard-animation-2.png" alt="richard-waving"></img>'
+  // setTimeout(function(){
+    richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
+  // }, 200);
+  setTimeout(function(){
+    richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
+  }, 100);
+  setTimeout(function(){
+    richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
+  }, 200);
+  setTimeout(function(){
+    richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
+  }, 300);
+  setTimeout(function(){
+    richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
+  }, 400);
+  setTimeout(function(){
+    richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
+  }, 500);
+  setTimeout(function(){
+    richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
+  }, 600);
+  setTimeout(function(){
+    richard.innerHTML = '<img src="./images/richard-with-text.png" alt="richard-simmons"></img>'
+  }, 700);
+  
+}
