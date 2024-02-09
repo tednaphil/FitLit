@@ -30,10 +30,10 @@ function renderDom(){
     })
 }
 
-function displayPersonalInfo(randomUser) {
-  nameDisplay.innerText = randomUser.name;
-  addressEmail.innerHTML = `${randomUser.address} <br></br> ${randomUser.email}` 
-  stepsStride.innerHTML = `Stride Length: ${randomUser.strideLength}<br></br>Daily Step Goal: ${randomUser.dailyStepGoal}` 
+function displayPersonalInfo(person) {
+  nameDisplay.innerText = person.name;
+  addressEmail.innerHTML = `${person.address} <br></br> ${person.email}` 
+  stepsStride.innerHTML = `Stride Length: ${person.strideLength}<br></br>Daily Step Goal: ${person.dailyStepGoal}` 
 }
 
 function displayFriends(person, people) {
@@ -47,20 +47,20 @@ function displayFriends(person, people) {
   })
 }
 
-function displayStepComparison(randomUser, users) {
-  let averageSteps = getAverageSteps(users);
-  let differenceInSteps = Math.abs(averageSteps - randomUser.dailyStepGoal); 
-  if(averageSteps > randomUser.dailyStepGoal) {
+function displayStepComparison(person, people) {
+  let averageSteps = getAverageSteps(people);
+  let differenceInSteps = Math.abs(averageSteps - person.dailyStepGoal); 
+  if(averageSteps > person.dailyStepGoal) {
     averageStepDisplay.innerText = `Your step goal was ${differenceInSteps} steps less than the average.`
-  } else if (averageSteps < randomUser.dailyStepGoal){
+  } else if (averageSteps < person.dailyStepGoal){
     averageStepDisplay.innerText = `Your step goal was ${differenceInSteps} steps more than the average!`
   } else {
     averageStepDisplay.innerText = `Your step goal was equal to the average, congrats!`
   }
 }
 
-function displayHydrationInfo(randomUser, hydrationData) {
-  const dailyInfo = findIntakeWeek(randomUser.id, hydrationData)
+function displayHydrationInfo(person, dataSet) {
+  const dailyInfo = findIntakeWeek(person.id, dataSet)
   dailyInfo.forEach((day, index) => {
     if(!index) {
       hydrationWeek.innerHTML = `Today: ${day.numOunces} ounces`;
