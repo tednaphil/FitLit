@@ -99,10 +99,7 @@ function displaySleepInfo(person, dataSet) {
 };
 
 function animateRichard() {
-  //   richard.innerHTML = '<img src="./images/richard-animation-2.png" alt="richard-waving"></img>'
-  // setTimeout(function(){
     richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
-  // }, 200);
   setTimeout(function(){
     richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
   }, 100);
