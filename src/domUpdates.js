@@ -26,7 +26,6 @@ function renderDom(){
     .then(([info, sleep, hydration]) => {
       const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
       displayPersonalInfo(randomUser);
-      // displayStepComparison(randomUser, info.users);
       displayHydrationInfo(randomUser, hydration.hydrationData);    
       displayFriends(randomUser, info.users);
       displaySleepInfo(randomUser, sleep.sleepData);
@@ -54,24 +53,12 @@ function displayFriends(person, dataSet) {
   })
 }
 
-function displayStepComparison(person, dataSet) {
-  let averageSteps = getAverageSteps(dataSet);
-  let differenceInSteps = Math.abs(averageSteps - person.dailyStepGoal); 
-  if(averageSteps > person.dailyStepGoal) {
-    message = `Your step goal was ${differenceInSteps} steps less than the average.`
-  } else if (averageSteps < person.dailyStepGoal){
-    message = `Your step goal was ${differenceInSteps} steps more than the average!`
-  } else {
-    message = `Your step goal was equal to the average, congrats!`
-  }
-}
-
 function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
   const today = sleepDataSet.filter((entry) => {
     return entry.userID === person.id
   }).slice(-1)[0].date
   const todayHoursSlept = findSleepHourDay(person.id, today, sleepDataSet)
-  //let findSleepQualityDay = findSleepQualityDay(person.id, today, sleepDataSet)
+  // const findSleepQualityDay = findSleepQualityDay(person.id, today, sleepDataSet)
   const ouncesDrank = findIntakeByDay(person.id, today, hydrationDataSet)
 
   todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water slept ${todayHoursSlept} hours with a sleep quality X of out of 5!`
