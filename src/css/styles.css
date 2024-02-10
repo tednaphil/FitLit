@@ -71,7 +71,7 @@ p {
   align-items: center;
 }
 
-.friend-hydro {
+.friend-avg-hydro {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -87,17 +87,24 @@ p {
   justify-content: space-between;
 }
 
-.friends ,
-.averages {
-  width: 48%;
+.friends,
+.averages,
+.steps {
+  width: 45%;
   height: 35vh;
   text-align: center;
+}
+
+.friends,
+.steps {
+  width: 24%;
 }
 
 .hydration,
 .hours,
 .quality,
-.friends ,
+.friends,
+.steps,
 .averages {
   display: flex;
   flex-direction: column;
@@ -134,10 +141,15 @@ p {
 .user-profile,
 .averages,
 .hours,
+.steps,
 .quality {
   background-color: rgba(0, 221, 255, 0.15);
   border-radius: 15px;
   box-shadow: 0px 0px 20px 1px rgb(255, 0, 221);
+}
+
+.averages {
+  box-shadow: 0px 0px 20px 1px rgb(251, 255, 150);
 }
 
 img {

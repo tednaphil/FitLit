@@ -5,15 +5,16 @@ import { allData, fetchData } from './apiCalls'
 
 //QUERY SELECTORS
 const nameDisplay = document.querySelector('h1')
-const addressEmail = document.querySelector('#address-email')
-const stepsStride = document.querySelector('#steps-stride')
-const averageStepDisplay = document.querySelector('h3')
+const address = document.querySelector('#address')
+const email = document.querySelector('#email')
+const todayInfo = document.querySelector('h3')
 const hydrationWeek = document.querySelector('#hydro-week')
 const friendsList = document.querySelector('#friends')
 const sleepHours = document.querySelector('#sleep-hours')
 const sleepQuality = document.querySelector('#sleep-quality')
 const avgSleep = document.querySelector('#avg-sleep')
 const richard = document.querySelector('.celeb')
+const steps = document.querySelector('#steps')
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
@@ -25,18 +26,20 @@ function renderDom(){
     .then(([info, sleep, hydration]) => {
       const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
       displayPersonalInfo(randomUser);
-      displayStepComparison(randomUser, info.users);
+      // displayStepComparison(randomUser, info.users);
       displayHydrationInfo(randomUser, hydration.hydrationData);    
       displayFriends(randomUser, info.users);
       displaySleepInfo(randomUser, sleep.sleepData);
       animateRichard();
+      displayStepInfo(randomUser)
+      displayTodayInfo(randomUser, sleep.sleepData, hydration.hydrationData)
     })
 }
 
 function displayPersonalInfo(person) {
   nameDisplay.innerText = person.name;
-  addressEmail.innerHTML = `${person.address} <br></br> ${person.email}` 
-  stepsStride.innerHTML = `Stride Length: ${person.strideLength}<br></br>Daily Step Goal: ${person.dailyStepGoal}` 
+  address.innerHTML = `${person.address}` 
+  email.innerHTML = `${person.email}` 
 }
 
 function displayFriends(person, dataSet) {
@@ -62,13 +65,22 @@ function displayStepComparison(person, dataSet) {
   }
 }
 
+function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
+  const today = sleepDataSet.filter((entry) => {
+    return entry.userID === person.id
+  }).slice(-1)[0].date
+  const todayHoursSlept = findSleepHourDay(person.id, today, sleepDataSet)
+  //let findSleepQualityDay = findSleepQualityDay(person.id, today, sleepDataSet)
+  const ouncesDrank = findIntakeByDay(person.id, today, hydrationDataSet)
+
+  todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water slept ${todayHoursSlept} hours with a sleep quality X of out of 5!`
+}
+
 function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet)
   dailyInfo.forEach((day, index) => {
-    if(!index) {
-      hydrationWeek.innerHTML = `Today: ${day.numOunces} ounces`;
-    } else {
-      hydrationWeek.innerHTML += `<br></br>${day.date}: ${day.numOunces} ounces`
+    if(index) {
+      hydrationWeek.innerHTML += `<br></br>${formatDate(day.date)}: ${day.numOunces} ounces`
     }
   })
 }
@@ -83,20 +95,24 @@ function displaySleepInfo(person, dataSet) {
   let weeklyHoursSlept = findHoursSleptWeek(person.id, today, dataSet)
   avgSleep.innerHTML = `Avg Hours Slept: ${avgSleepHours}<br></br>Avg Sleep Quality: ${avgSleepQuality}/5`
   weeklyHoursSlept.forEach((day, index) => {
-    if(!index) {
-      sleepHours.innerHTML = `Today: ${day.hoursSlept} hours`;
-    } else {
-      sleepHours.innerHTML += `<br></br>${day.date}: ${day.hoursSlept} hours`
+    if(index) {
+      sleepHours.innerHTML += `<br></br>${formatDate(day.date)}: ${day.hoursSlept} hours`
     }
   })
   weeklySleepQuality.forEach((day, index) => {
-    if(!index) {
-      sleepQuality.innerHTML = `Today: ${day.sleepQuality}/5`;
-    } else {
-      sleepQuality.innerHTML += `<br></br>${day.date}: ${day.sleepQuality}/5`
+    if(index) {
+      sleepQuality.innerHTML += `<br></br>${formatDate(day.date)}: ${day.sleepQuality} out of 5`
     }
   })
 };
+
+function formatDate(date) {
+  return date.split('').splice(5).join('')
+}
+
+function displayStepInfo(person) {
+  steps.innerHTML = `Stride Length: ${person.strideLength}<br></br>Daily Step Goal: ${person.dailyStepGoal}`
+}
 
 function animateRichard() {
     richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
