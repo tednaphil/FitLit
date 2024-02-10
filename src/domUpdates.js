@@ -12,7 +12,7 @@ const hydrationWeek = document.querySelector('#hydro-week')
 const friendsList = document.querySelector('#friends')
 const sleepHours = document.querySelector('#sleep-hours')
 const sleepQuality = document.querySelector('#sleep-quality')
-const avgSleep = document.querySelector('#avg-sleep')
+const avg = document.querySelector('#avgs')
 const richard = document.querySelector('.celeb')
 const steps = document.querySelector('#steps')
 
@@ -31,8 +31,9 @@ function renderDom(){
       displayFriends(randomUser, info.users);
       displaySleepInfo(randomUser, sleep.sleepData);
       animateRichard();
-      displayStepInfo(randomUser)
+      displayStepInfo(randomUser, info.users)
       displayTodayInfo(randomUser, sleep.sleepData, hydration.hydrationData)
+      displayAverages(randomUser, sleep.sleepData, hydration.hydrationData)
     })
 }
 
@@ -57,11 +58,11 @@ function displayStepComparison(person, dataSet) {
   let averageSteps = getAverageSteps(dataSet);
   let differenceInSteps = Math.abs(averageSteps - person.dailyStepGoal); 
   if(averageSteps > person.dailyStepGoal) {
-    averageStepDisplay.innerText = `Your step goal was ${differenceInSteps} steps less than the average.`
+    message = `Your step goal was ${differenceInSteps} steps less than the average.`
   } else if (averageSteps < person.dailyStepGoal){
-    averageStepDisplay.innerText = `Your step goal was ${differenceInSteps} steps more than the average!`
+    message = `Your step goal was ${differenceInSteps} steps more than the average!`
   } else {
-    averageStepDisplay.innerText = `Your step goal was equal to the average, congrats!`
+    message = `Your step goal was equal to the average, congrats!`
   }
 }
 
@@ -89,11 +90,8 @@ function displaySleepInfo(person, dataSet) {
   let today = dataSet.filter((entry) => {
     return entry.userID === person.id
   }).slice(-1)[0].date
-  let avgSleepQuality = calculateAvgSleepQuality(person.id, dataSet)
-  let avgSleepHours = calculateAvgHoursSlept(person.id, dataSet)
   let weeklySleepQuality = findSleepQualityWeek(person.id, today, dataSet)
   let weeklyHoursSlept = findHoursSleptWeek(person.id, today, dataSet)
-  avgSleep.innerHTML = `Avg Hours Slept: ${avgSleepHours}<br></br>Avg Sleep Quality: ${avgSleepQuality}/5`
   weeklyHoursSlept.forEach((day, index) => {
     if(index) {
       sleepHours.innerHTML += `<br></br>${formatDate(day.date)}: ${day.hoursSlept} hours`
@@ -104,14 +102,31 @@ function displaySleepInfo(person, dataSet) {
       sleepQuality.innerHTML += `<br></br>${formatDate(day.date)}: ${day.sleepQuality} out of 5`
     }
   })
-};
+}
+
+function displayAverages(person, sleepDataSet, hydrationDataSet) {
+  let avgSleepQuality = calculateAvgSleepQuality(person.id, sleepDataSet)
+  let avgSleepHours = calculateAvgHoursSlept(person.id, sleepDataSet)
+  let averageIntake = calculateAverageIntake(person.id, hydrationDataSet)
+  avg.innerHTML = `Hours Slept: ${avgSleepHours}<br></br>Sleep Quality: ${avgSleepQuality} out of 5<br></br>Water Intake: ${averageIntake} Ounces`
+}
+
+function displayStepInfo(person, dataSet) {
+  let averageSteps = getAverageSteps(dataSet);
+  let message;
+  let differenceInSteps = Math.abs(averageSteps - person.dailyStepGoal); 
+  if(averageSteps > person.dailyStepGoal) {
+    message = `Your step goal was ${differenceInSteps} steps less than the average.`
+  } else if (averageSteps < person.dailyStepGoal){
+    message = `Your step goal was ${differenceInSteps} steps more than the average!`
+  } else {
+    message = `Your step goal was equal to the average, congrats!`
+  }
+  steps.innerHTML = `Stride Length: ${person.strideLength}<br></br>Daily Step Goal: ${person.dailyStepGoal}<br></br><br></br>${message}`
+}
 
 function formatDate(date) {
   return date.split('').splice(5).join('')
-}
-
-function displayStepInfo(person) {
-  steps.innerHTML = `Stride Length: ${person.strideLength}<br></br>Daily Step Goal: ${person.dailyStepGoal}`
 }
 
 function animateRichard() {
@@ -137,5 +152,4 @@ function animateRichard() {
   setTimeout(function(){
     richard.innerHTML = '<img src="./images/richard-with-text.png" alt="richard-simmons"></img>'
   }, 700);
-  
 }
