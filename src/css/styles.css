@@ -37,6 +37,9 @@ h1 {
   src: url("https://fonts.google.com/specimen/Neonderthaw?query=neon");
   font-size: 3vw;
   margin-bottom: 1em;
+  position: absolute;
+  left: 40%;
+  font-family: 'Neonderthaw', cursive;
 }
 
 h2 {
@@ -64,10 +67,19 @@ p {
   padding-left: 15px;
 }
 
-#steps-stride,
-#address-email {
+#email,
+#address {
   font-size: 1.25vw;
   line-height: .7em;
+}
+
+#address {
+  width: 30vh;
+  margin-left: 3%
+}
+
+#email {
+  margin-right: 3%
 }
 
 .widgets {
@@ -184,7 +196,7 @@ p {
 #friends {
   position: absolute;
   top: 36%;
-  width: 30vh
+  width: 25vh
 }
 
 img {
