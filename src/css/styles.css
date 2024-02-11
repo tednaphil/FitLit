@@ -1,8 +1,5 @@
 * {
-  /* font-family: "Poppins", sans-serif; */
-  font-family: 'Honk', system-ui;
   font-family: 'Poppins', sans-serif;
-  /* src: url("https://fonts.google.com/specimen/Poppins?query=poppins"); */
   color: yellow;
   text-shadow: #FC0 1px 0 5px;
 }
@@ -35,15 +32,9 @@ main {
 }
 
 h1 {
-  /* font-family: "Neonderthaw", sans-serif;
-  src: url("https://fonts.google.com/specimen/Neonderthaw?query=neon"); */
   font-family: 'Honk', system-ui;
-
   font-size: 5vw;
   margin-bottom: 1em;
-  /* position: absolute; */
-  /* left: 40%; */
-  /* font-family: 'Neonderthaw', cursive; */
 }
 
 h2 {
@@ -197,7 +188,7 @@ p {
 }
 
 .top {
-  margin-top: 0;
+  margin-top: 10px;
   top: 28%;
   position: absolute; 
 }
@@ -237,8 +228,10 @@ button {
   font-weight: bolder; 
 }
 
-#friends {
-  font-size: .8em; 
+#friends, 
+#steps {
+  font-size: .9em; 
   height: 20vh; 
   margin-top: 40px; 
+  overflow: hidden; 
 }
