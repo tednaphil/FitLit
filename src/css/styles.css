@@ -77,6 +77,36 @@ p {
   margin-right: 3%
 }
 
+
+
+.hidden {
+  display: none;
+}
+
+.mode {
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 90%;
+  margin-top:0;
+  cursor: pointer;
+}
+
+.mode:hover {
+  text-decoration: underline;
+}
+
+.graph-icon {
+  height: 3vh;
+  margin-top: 1.5vh;
+  /* margin-left: .5vh; */
+  padding-left: 2vh;
+  /* position: absolute; */
+}
+
+
+
 .widgets {
   width: 70%;
   display: flex;
@@ -232,6 +262,6 @@ button {
 #steps {
   font-size: .9em; 
   height: 20vh; 
-  margin-top: 40px; 
+  margin-top: 9vh; 
   overflow: hidden; 
 }
