@@ -19,6 +19,30 @@ const richard = document.querySelector('.celeb')
 window.addEventListener('load', renderDom);
 richard.addEventListener('click', animateRichard);
 
+const data = [5, 10, 15, 20, 25];
+
+    // Function to render the bar graph
+    function renderBarGraph() {
+        const chartElement = document.getElementById('chart');
+
+        // Clear previous content
+        chartElement.innerHTML = '';
+
+        // Create bars
+        data.forEach(value => {
+            const bar = document.createElement('div');
+            bar.className = 'bar';
+            bar.style.height = value * 5 + 'px'; // Scaling the height for better visualization
+            chartElement.appendChild(bar);
+        });
+    }
+
+    renderBarGraph();
+
+
+
+
+
 // FUNCTIONS
 function renderDom(){
   fetchData()
