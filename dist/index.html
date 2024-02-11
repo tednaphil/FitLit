@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>FitLit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap" rel="stylesheet">
-    
+
+    <!-- href="https://fonts.google.com/specimen/Poppins?query=poppins"
+    href="https://fonts.google.com/specimen/Neonderthaw?query=neon"
+    href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Sixtyfour&display=swap" -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Honk&family=Poppins:ital,wght@0,200;1,100;1,200;1,400&display=swap" rel="stylesheet">
   </head>
   <body>
     <header>
@@ -16,41 +18,60 @@
         <h1>My Name</h1>
         <p id="email"></p>
       </section>
+      <div class="mode">
+        <p>Switch to Graph Mode</p>
+        <img class="graph-icon" src="./images/graph-icon.png" alt="bar graph icon">
+      </div>
     </header>
     <main>
       <section class="widgets">
-          <h3 class="today-info"></h3>
+        <h3 class="today-info"></h3>
         <div class="friend-avg-hydro">
-          <div class="friends">
+          <article class="friends">
             <h2 class="top">Friends</h2>
             <p id="friends"></p>
-          </div>
-          <div class="averages">
+          </article>
+          <article class="averages">
             <h2 id="avg-title">Your Averages</h2>
             <p id="avgs"></p>
-          </div>
-          <div class="steps">
+          </article>
+          <article class="steps">
             <h2 class="top">Steps</h2>
             <p id="steps"></p>
-          </div>
+          </article>
         </div>
-        <div class="sleep">
-          <div class="hydration">
+        <div class="week-info">
+          <article class="hydration">
+            <!-- <div class="mode">
+              <img class="graph-icon" src="./images/graph-icon.png" alt="bar graph icon">
+            </div> -->
             <h2>Hydration</h2>
             <p id="hydro-week" class="week"></p>
-          </div>
-          <div class="hours">
+            <figure id="hydro-graph" class="hidden"></figure>
+          </article>
+          <article class="hours">
+            <!-- <div class="mode">
+              <img class="graph-icon" src="./images/graph-icon.png" alt="bar graph icon">
+            </div> -->
             <h2>Hours Slept</h2>
             <p id="sleep-hours" class="week"></p>
-          </div>
-          <div class="quality">
+            <figure id="sleep-graph" class="hidden"></figure>
+          </article>
+          <article class="quality">
+            <!-- <div class="mode">
+              <img class="graph-icon" src="./images/graph-icon.png" alt="bar graph icon">
+            </div> -->
             <h2>Sleep Quality</h2>
             <p id="sleep-quality" class="week"></p>
-          </div>
+            <figure id="sleep-q-graph" class="hidden"></figure>
+          </article>
         </div>
       </section>
       <section class="celeb">
-        <img src="./images/richard-with-text.png" alt="richard-simmons">
+        <div id="richard-img">
+       <img src="./images/richard-with-text.png" alt="richard-simmons"> 
+       </div>
+       <button type="button"> SAY HELLO 👋</button>
       </section>
     </main>
     <script src="bundle.js"></script>

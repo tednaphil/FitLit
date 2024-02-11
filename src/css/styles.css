@@ -1,5 +1,5 @@
 * {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: yellow;
   text-shadow: #FC0 1px 0 5px;
 }
@@ -7,7 +7,7 @@
 body {
   height: 100vh;
   background-image: url('/src/images/background-space.jpg');
-  background-size: cover;
+  background-size: cover
 }
 
 header {
@@ -32,12 +32,9 @@ main {
 }
 
 h1 {
-  /* font-family: 'Tilt Neon', sans-serif; */
-  font-family: 'Neonderthaw', cursive;
-  font-size: 3vw;
+  font-family: 'Honk', system-ui;
+  font-size: 5vw;
   margin-bottom: 1em;
-  position: absolute;
-  left: 40%;
 }
 
 h2 {
@@ -46,13 +43,13 @@ h2 {
 }
 
 h3 {
-  font-size: x-large;
+  font-size: 1.5vw;
   text-align: center;
   width: 80vh;
 }
 
 p {
-  font-size: 1.3vw;
+  font-size: 1.2vw;
   line-height: .7em;
 }
 
@@ -68,23 +65,54 @@ p {
 #email,
 #address {
   font-size: 1.25vw;
-  line-height: 1.7em;
+  line-height: .8em;
 }
 
 #address {
-  width: 30vh;
-  margin-left: 3%
+  margin-left: 3%; 
+
 }
 
 #email {
   margin-right: 3%
 }
 
+
+
+.hidden {
+  display: none;
+}
+
+.mode {
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 90%;
+  margin-top:0;
+  cursor: pointer;
+}
+
+.mode:hover {
+  text-decoration: underline;
+}
+
+.graph-icon {
+  height: 3vh;
+  margin-top: 1.5vh;
+  /* margin-left: .5vh; */
+  padding-left: 2vh;
+  /* position: absolute; */
+}
+
+
+
 .widgets {
   width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .friend-avg-hydro {
@@ -95,7 +123,7 @@ p {
   margin-left: 5%
 }
 
-.sleep {
+.week-info {
   margin-left: 5%;
   height: 32vh;
   width: 100%;
@@ -126,13 +154,14 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 .hydration,
 .hours,
 .quality {
   width: 31%;
+  line-height: 1.2em; 
 }
 
 .celeb {
@@ -162,11 +191,14 @@ p {
 .quality {
   background-color: rgba(0, 221, 255, 0.15);
   border-radius: 15px;
-  box-shadow: 0px 0px 20px 1px rgb(255, 0, 221);
+  border: solid #FF40AF 2px;
+  box-shadow: 0px 0px 20px 1px #FF40AF;
 }
 
 .averages {
-  box-shadow: 0px 0px 20px 1px rgb(251, 255, 150);
+  box-shadow: 0px 0px 20px 1px #FFFF7D;
+  border: solid #FFFF7D 4px;
+  line-height: 1em; 
 }
 
 .week {
@@ -176,8 +208,9 @@ p {
 }
 
 #avg-title {
-  font-size: 40px;
+  font-size: 3.2vw;
   margin-top: 0;
+  padding-bottom: 25px; 
 }
 
 #avgs {
@@ -185,20 +218,50 @@ p {
 }
 
 .top {
-  margin-top: 0;
-  position: absolute;
-  top: 32%
+  margin-top: 10px;
+  top: 28%;
+  position: absolute; 
 }
 
 #steps,
 #friends {
-  position: absolute;
-  top: 36%;
-  width: 25vh
+  max-width: 100%;
+  top: 30%;
+  width: 25vh;
+  line-height: 1.2em; 
 }
 
 img {
   margin-top: 5%;
-  height: 70vh;
-  /* width: 60vw; */
+  height: 78vh;
+  margin-right: 15px; 
+}
+
+button {
+  border-radius: 50%; 
+  position: absolute; 
+  height: 80px; 
+  width: 80px; 
+  border: solid #FF40AF 3px;
+  box-shadow: 0px 0px 20px 1px #FF40AF;
+  margin-left: 275px; 
+  margin-top: 30px; 
+  background-color: rgba(0, 221, 255, 0.15);
+  cursor: pointer; 
+  font-size: 1.2em;
+  line-height: 1.2em;
+  font-weight: bolder; 
+}
+
+.today-span {
+  color: #00EAE0;
+  font-weight: bolder; 
+}
+
+#friends, 
+#steps {
+  font-size: .9em; 
+  height: 20vh; 
+  margin-top: 9vh; 
+  overflow: hidden; 
 }
