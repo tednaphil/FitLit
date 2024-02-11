@@ -48,7 +48,7 @@ function displayFriends(person, dataSet) {
     if (!index) {
       friendsList.innerHTML = friend;
     } else {
-      friendsList.innerHTML += `<br></br>${friend}`
+      friendsList.innerHTML += `<br></br>${friend}</span>`
     }
   })
 }

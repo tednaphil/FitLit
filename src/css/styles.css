@@ -52,7 +52,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.8vw;
+  font-size: 1.5vw;
   text-align: center;
   width: 80vh;
 }
@@ -198,14 +198,14 @@ p {
 
 .top {
   margin-top: 0;
-  position: absolute;
-  top: 30%
+  top: 28%;
+  position: absolute; 
 }
 
 #steps,
 #friends {
-  position: absolute;
-  top: 36%;
+  max-width: 100%;
+  top: 30%;
   width: 25vh;
   line-height: 1.2em; 
 }
@@ -237,4 +237,8 @@ button {
   font-weight: bolder; 
 }
 
-
+#friends {
+  font-size: .8em; 
+  height: 20vh; 
+  margin-top: 40px; 
+}
