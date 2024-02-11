@@ -1,6 +1,5 @@
 * {
   font-family: "Poppins", sans-serif;
-  src: url("https://fonts.google.com/specimen/Poppins?query=poppins");
   color: yellow;
   text-shadow: #FC0 1px 0 5px;
 }
@@ -33,13 +32,12 @@ main {
 }
 
 h1 {
-  font-family: "Neonderthaw", sans-serif;
-  src: url("https://fonts.google.com/specimen/Neonderthaw?query=neon");
+  /* font-family: 'Tilt Neon', sans-serif; */
+  font-family: 'Neonderthaw', cursive;
   font-size: 3vw;
   margin-bottom: 1em;
   position: absolute;
   left: 40%;
-  font-family: 'Neonderthaw', cursive;
 }
 
 h2 {
