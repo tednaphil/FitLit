@@ -11,37 +11,13 @@ const averageStepDisplay = document.querySelector('h3')
 const hydrationWeek = document.querySelector('#hydro-week')
 const friendsList = document.querySelector('#friends')
 const sleepHours = document.querySelector('#sleep-hours')
-const sleepQuality = document.querySelector('#sleep-quality')
+const sleepQuality = document.querySelector('.quality')
 const avgSleep = document.querySelector('#avg-sleep')
 const richard = document.querySelector('.celeb')
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
 richard.addEventListener('click', animateRichard);
-
-const data = [5, 10, 15, 20, 25];
-
-    // Function to render the bar graph
-    function renderBarGraph() {
-        const chartElement = document.getElementById('chart');
-
-        // Clear previous content
-        chartElement.innerHTML = '';
-
-        // Create bars
-        data.forEach(value => {
-            const bar = document.createElement('div');
-            bar.className = 'bar';
-            bar.style.height = value * 5 + 'px'; // Scaling the height for better visualization
-            chartElement.appendChild(bar);
-        });
-    }
-
-    renderBarGraph();
-
-
-
-
 
 // FUNCTIONS
 function renderDom(){
@@ -88,13 +64,14 @@ function displayStepComparison(person, dataSet) {
 
 function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet)
-  dailyInfo.forEach((day, index) => {
-    if(!index) {
-      hydrationWeek.innerHTML = `Today: ${day.numOunces} ounces`;
-    } else {
-      hydrationWeek.innerHTML += `<br></br>${day.date}: ${day.numOunces} ounces`
-    }
-  })
+  createBarGraph([1, 2, 3, 4, 5, 6, 7], dailyInfo);
+  // dailyInfo.forEach((day, index) => {
+  //   if(!index) {
+  //     hydrationWeek.innerHTML = `Today: ${day.numOunces} ounces`;
+  //   } else {
+  //     hydrationWeek.innerHTML += `<br></br>${day.date}: ${day.numOunces} ounces`
+  //   }
+  // })
 }
 
 function displaySleepInfo(person, dataSet) {
@@ -145,5 +122,30 @@ function animateRichard() {
   setTimeout(function(){
     richard.innerHTML = '<img src="./images/richard-with-text.png" alt="richard-simmons"></img>'
   }, 700);
-  
 }
+
+
+
+const graph = document.querySelector('.chart');
+
+function createBarGraph(dates, info) {
+  const days = [];
+
+  for(let i = 0; i < 7; i++) {
+    days.push({date: dates[i], data: info[i].numOunces})
+  }
+  
+console.log('days', days);
+
+  graph.innerHTML = '';
+
+  days.forEach(day => {
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      // console.log(day.data);
+      bar.style.height = `${(day.data / 12) * 2}vh`;
+      graph.appendChild(bar);
+  });
+}
+
+// createBarGraph([1, 2, 3, 4, 5, 6, 7], hydration.hydrationData);
