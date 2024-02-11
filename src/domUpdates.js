@@ -19,7 +19,7 @@ const button = document.querySelector('button')
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
-button.addEventListener('click', animateRichard);
+button.addEventListener('mouseover', animateRichard);
 
 // FUNCTIONS
 function renderDom(){
