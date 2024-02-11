@@ -58,10 +58,10 @@ function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
     return entry.userID === person.id
   }).slice(-1)[0].date
   const todayHoursSlept = findSleepHourDay(person.id, today, sleepDataSet)
-  // const findSleepQualityDay = findSleepQualityDay(person.id, today, sleepDataSet)
+  const sleepQuality = findSleepQualityDay(person.id, today, sleepDataSet)
   const ouncesDrank = findIntakeByDay(person.id, today, hydrationDataSet)
 
-  todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water slept ${todayHoursSlept} hours with a sleep quality X of out of 5!`
+  todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water slept ${todayHoursSlept} hours with a sleep quality ${sleepQuality} of out of 5!`
 }
 
 function displayHydrationInfo(person, dataSet) {
