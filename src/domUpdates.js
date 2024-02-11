@@ -60,13 +60,15 @@ function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
   const ouncesDrank = findIntakeByDay(person.id, today, hydrationDataSet)
   const todayHoursSlept = findSleepHourDay(person.id, today, sleepDataSet)
   const sleepQualityDay = findSleepQualityDay(person.id, today, sleepDataSet)
-  todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water, slept ${todayHoursSlept} hours with a sleep quality of ${sleepQualityDay} out of 5!`
+  todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water and slept ${todayHoursSlept} hours with a sleep quality of ${sleepQualityDay} out of 5!`
 }
 
 function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet)
   dailyInfo.forEach((day, index) => {
-    if(index) {
+    if(!index) {
+      hydrationWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${day.numOunces} ounces`
+    } else {
       hydrationWeek.innerHTML += `<br></br>${formatDate(day.date)}: ${day.numOunces} ounces`
     }
   })
@@ -79,12 +81,16 @@ function displaySleepInfo(person, dataSet) {
   let weeklySleepQuality = findSleepQualityWeek(person.id, today, dataSet)
   let weeklyHoursSlept = findHoursSleptWeek(person.id, today, dataSet)
   weeklyHoursSlept.forEach((day, index) => {
-    if(index) {
+    if(!index){
+      sleepHours.innerHTML += `<br></br><span class="today-span">TODAY: ${day.hoursSlept} hours</span>`
+    } else {
       sleepHours.innerHTML += `<br></br>${formatDate(day.date)}: ${day.hoursSlept} hours`
     }
   })
   weeklySleepQuality.forEach((day, index) => {
-    if(index) {
+    if(!index){
+      sleepQuality.innerHTML += `<br></br><span class="today-span">TODAY: ${day.sleepQuality} out of 5`
+    } else {
       sleepQuality.innerHTML += `<br></br>${formatDate(day.date)}: ${day.sleepQuality} out of 5`
     }
   })
