@@ -13,11 +13,11 @@ const friendsList = document.querySelector('#friends')
 const sleepHours = document.querySelector('#sleep-hours')
 const sleepQuality = document.querySelector('.quality')
 const avgSleep = document.querySelector('#avg-sleep')
-const richard = document.querySelector('.celeb')
+// const richard = document.querySelector('.celeb')
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
-richard.addEventListener('click', animateRichard);
+// richard.addEventListener('click', animateRichard);
 
 // FUNCTIONS
 function renderDom(){
@@ -64,7 +64,7 @@ function displayStepComparison(person, dataSet) {
 
 function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet)
-  createBarGraph(['6/26', '6/27', '6/28', '6/29', '6/30', '6/31', '7/1'], dailyInfo);
+  createBarGraph(dailyInfo, 'hydration');
   // dailyInfo.forEach((day, index) => {
   //   if(!index) {
   //     hydrationWeek.innerHTML = `Today: ${day.numOunces} ounces`;
@@ -83,20 +83,25 @@ function displaySleepInfo(person, dataSet) {
   let weeklySleepQuality = findSleepQualityWeek(person.id, today, dataSet)
   let weeklyHoursSlept = findHoursSleptWeek(person.id, today, dataSet)
   avgSleep.innerHTML = `Avg Hours Slept: ${avgSleepHours}<br></br>Avg Sleep Quality: ${avgSleepQuality}/5`
-  weeklyHoursSlept.forEach((day, index) => {
-    if(!index) {
-      sleepHours.innerHTML = `Today: ${day.hoursSlept} hours`;
-    } else {
-      sleepHours.innerHTML += `<br></br>${day.date}: ${day.hoursSlept} hours`
-    }
-  })
-  weeklySleepQuality.forEach((day, index) => {
-    if(!index) {
-      sleepQuality.innerHTML = `Today: ${day.sleepQuality}/5`;
-    } else {
-      sleepQuality.innerHTML += `<br></br>${day.date}: ${day.sleepQuality}/5`
-    }
-  })
+  
+  createBarGraph(weeklySleepQuality, 'sleep quality');
+  createBarGraph(weeklyHoursSlept, 'hours slept');
+  
+  
+  // weeklyHoursSlept.forEach((day, index) => {
+  //   if(!index) {
+  //     sleepHours.innerHTML = `Today: ${day.hoursSlept} hours`;
+  //   } else {
+  //     sleepHours.innerHTML += `<br></br>${day.date}: ${day.hoursSlept} hours`
+  //   }
+  // })
+  // weeklySleepQuality.forEach((day, index) => {
+  //   if(!index) {
+  //     sleepQuality.innerHTML = `Today: ${day.sleepQuality}/5`;
+  //   } else {
+  //     sleepQuality.innerHTML += `<br></br>${day.date}: ${day.sleepQuality}/5`
+  //   }
+  // })
 };
 
 function animateRichard() {
@@ -126,20 +131,19 @@ function animateRichard() {
 
 
 
-const graph = document.querySelector('.chart');
+const hydroGraph = document.querySelector('#chart-hydro');
+const sleepQualityGraph = document.querySelector('#chart-sleep-quality');
+const hoursSleptGraph = document.querySelector('#chart-hours-slept');
 
-function createBarGraph(dates, info) {
+function createBarGraph(dataSet, dataCategory) {
   const days = [];
 
-  for(let i = 0; i < 7; i++) {
-    days.push({date: dates[i], data: info[i].numOunces})
-  }
-  
-console.log('days', days);
-
-  graph.innerHTML = '';
-
-  days.forEach(day => {
+  if(dataCategory === 'hydration') {
+    dataSet.forEach((day) => { 
+      days.push({date: day.date, data: day.numOunces})
+    })
+    hydroGraph.innerHTML = '';
+    days.forEach(day => {
       const dayContainer = document.createElement('div');
       dayContainer.className = 'day-container';
       const barContainer = document.createElement('div');
@@ -147,15 +151,61 @@ console.log('days', days);
       barContainer.style.height = `${20}vh`;
       const bar = document.createElement('div');
       bar.className = 'bar'
-      bar.style.height = `${(day.data /100) *20}vh`;
+      bar.style.height = `${(day.data / 100) * 20}vh`;
       const dayLabel = document.createElement('p')
       dayLabel.className = 'day-label'
-      dayLabel.innerText = `${day.date}`
-      graph.appendChild(dayContainer);
+      dayLabel.innerText = `${day.date.slice(5)}`
+      hydroGraph.appendChild(dayContainer);
       dayContainer.appendChild(barContainer)
       barContainer.appendChild(bar);
       dayContainer.appendChild(dayLabel);
-  });
+    });
+  } else if(dataCategory === 'sleep quality') {
+      dataSet.forEach((day) => { 
+        days.push({date: day.date, data: day.sleepQuality})
+      })
+      sleepQualityGraph.innerHTML = '';
+      days.forEach(day => {
+        const dayContainer = document.createElement('div');
+        dayContainer.className = 'day-container';
+        const barContainer = document.createElement('div');
+        barContainer.className = 'bar-container';
+        barContainer.style.height = `${20}vh`;
+        const bar = document.createElement('div');
+        bar.className = 'bar'
+        bar.style.height = `${(day.data / 5) * 20}vh`;
+        const dayLabel = document.createElement('p')
+        dayLabel.className = 'day-label'
+        dayLabel.innerText = `${day.date.slice(5)}`
+        sleepQualityGraph.appendChild(dayContainer);
+        dayContainer.appendChild(barContainer)
+        barContainer.appendChild(bar);
+        dayContainer.appendChild(dayLabel);
+      });
+  } else {
+      dataSet.forEach((day) => { 
+        days.push({date: day.date, data: day.hoursSlept})
+      })
+      hoursSleptGraph.innerHTML = '';
+      days.forEach(day => {
+        const dayContainer = document.createElement('div');
+        dayContainer.className = 'day-container';
+        const barContainer = document.createElement('div');
+        barContainer.className = 'bar-container';
+        barContainer.style.height = `${20}vh`;
+        const bar = document.createElement('div');
+        bar.className = 'bar'
+        bar.style.height = `${(day.data / 12) * 20}vh`;
+        const dayLabel = document.createElement('p')
+        dayLabel.className = 'day-label'
+        dayLabel.innerText = `${day.date.slice(5)}`
+        hoursSleptGraph.appendChild(dayContainer);
+        dayContainer.appendChild(barContainer)
+        barContainer.appendChild(bar);
+        dayContainer.appendChild(dayLabel);
+      });
+   }
 }
+
 
 // createBarGraph([1, 2, 3, 4, 5, 6, 7], hydration.hydrationData);
