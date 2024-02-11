@@ -65,6 +65,7 @@ function displayStepComparison(person, dataSet) {
 function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet)
   createBarGraph(dailyInfo, 'hydration');
+
   // dailyInfo.forEach((day, index) => {
   //   if(!index) {
   //     hydrationWeek.innerHTML = `Today: ${day.numOunces} ounces`;
@@ -140,7 +141,7 @@ function createBarGraph(dataSet, dataCategory) {
 
   if(dataCategory === 'hydration') {
     dataSet.forEach((day) => { 
-      days.push({date: day.date, data: day.numOunces})
+      days.push({date: day.date, data: day.numOunces});
     })
     hydroGraph.innerHTML = '';
     days.forEach(day => {
@@ -150,13 +151,13 @@ function createBarGraph(dataSet, dataCategory) {
       barContainer.className = 'bar-container';
       barContainer.style.height = `${20}vh`;
       const bar = document.createElement('div');
-      bar.className = 'bar'
+      bar.className = 'bar';
       bar.style.height = `${(day.data / 100) * 20}vh`;
       const dayLabel = document.createElement('p')
-      dayLabel.className = 'day-label'
-      dayLabel.innerText = `${day.date.slice(5)}`
+      dayLabel.className = 'day-label';
+      dayLabel.innerText = `${day.date.slice(5)}`;
       hydroGraph.appendChild(dayContainer);
-      dayContainer.appendChild(barContainer)
+      dayContainer.appendChild(barContainer);
       barContainer.appendChild(bar);
       dayContainer.appendChild(dayLabel);
     });
@@ -172,11 +173,11 @@ function createBarGraph(dataSet, dataCategory) {
         barContainer.className = 'bar-container';
         barContainer.style.height = `${20}vh`;
         const bar = document.createElement('div');
-        bar.className = 'bar'
+        bar.className = 'bar';
         bar.style.height = `${(day.data / 5) * 20}vh`;
-        const dayLabel = document.createElement('p')
-        dayLabel.className = 'day-label'
-        dayLabel.innerText = `${day.date.slice(5)}`
+        const dayLabel = document.createElement('p');
+        dayLabel.className = 'day-label';
+        dayLabel.innerText = `${day.date.slice(5)}`;
         sleepQualityGraph.appendChild(dayContainer);
         dayContainer.appendChild(barContainer)
         barContainer.appendChild(bar);
@@ -185,7 +186,7 @@ function createBarGraph(dataSet, dataCategory) {
   } else {
       dataSet.forEach((day) => { 
         days.push({date: day.date, data: day.hoursSlept})
-      })
+      });
       hoursSleptGraph.innerHTML = '';
       days.forEach(day => {
         const dayContainer = document.createElement('div');
@@ -194,18 +195,15 @@ function createBarGraph(dataSet, dataCategory) {
         barContainer.className = 'bar-container';
         barContainer.style.height = `${20}vh`;
         const bar = document.createElement('div');
-        bar.className = 'bar'
+        bar.className = 'bar';
         bar.style.height = `${(day.data / 12) * 20}vh`;
-        const dayLabel = document.createElement('p')
-        dayLabel.className = 'day-label'
-        dayLabel.innerText = `${day.date.slice(5)}`
+        const dayLabel = document.createElement('p');
+        dayLabel.className = 'day-label';
+        dayLabel.innerText = `${day.date.slice(5)}`;
         hoursSleptGraph.appendChild(dayContainer);
         dayContainer.appendChild(barContainer)
         barContainer.appendChild(bar);
         dayContainer.appendChild(dayLabel);
       });
-   }
-}
-
-
-// createBarGraph([1, 2, 3, 4, 5, 6, 7], hydration.hydrationData);
+   };
+};
