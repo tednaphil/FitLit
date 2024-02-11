@@ -18,7 +18,7 @@ const steps = document.querySelector('#steps')
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
-richard.addEventListener('click', animateRichard);
+richard.addEventListener('mouseleave', animateRichard);
 
 // FUNCTIONS
 function renderDom(){
