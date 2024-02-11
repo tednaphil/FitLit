@@ -122,10 +122,10 @@ function formatDate(date) {
 }
 
 function formatAddress(addressInfo) {
-let splitAddress = addressInfo.split(', ')
-let [addrLine1, addrLine2] = splitAddress;
-return `${addrLine1}<br></br>${addrLine2}`
-}
+  let splitAddress = addressInfo.split(', ');
+  let [addrLine1, addrLine2] = splitAddress;
+  return `${addrLine1}<br></br>${addrLine2}`
+};
 
 function animateRichard() {
     richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
