@@ -65,11 +65,10 @@ p {
 #email,
 #address {
   font-size: 1.25vw;
-  line-height: 1.5em;
+  line-height: .8em;
 }
 
 #address {
-  width: 30vh;
   margin-left: 3%; 
 
 }

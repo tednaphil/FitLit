@@ -38,7 +38,7 @@ function renderDom(){
 
 function displayPersonalInfo(person) {
   nameDisplay.innerText = person.name;
-  address.innerHTML = `${person.address}` 
+  address.innerHTML = `${formatAddress(person.address)}` 
   email.innerHTML = `${person.email}` 
 }
 
@@ -120,6 +120,12 @@ function displayStepInfo(person, dataSet) {
 function formatDate(date) {
   return date.split('').splice(5).join('')
 }
+
+function formatAddress(addressInfo) {
+  let splitAddress = addressInfo.split(', ');
+  let [addrLine1, addrLine2] = splitAddress;
+  return `${addrLine1}<br></br>${addrLine2}`
+};
 
 function animateRichard() {
     richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
