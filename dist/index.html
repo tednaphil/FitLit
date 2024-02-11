@@ -1,33 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>FitLit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    href="https://fonts.google.com/specimen/Poppins?query=poppins"
+    href="https://fonts.google.com/specimen/Neonderthaw?query=neon"
+    href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Sixtyfour&display=swap"
+
+  />
   </head>
   <body>
     <header>
       <section class="user-profile">
-        <p id="address-email">address and email</p>
+        <p id="address">address and email</p>
         <h1>My Name</h1>
-        <p id="steps-stride">steps and stride</p>
-      </section>
-      <section class="avg-steps">
-        <h3></h3>
+        <p id="email"></p>
       </section>
     </header>
     <main>
       <section class="widgets">
-        <div class="friend-hydro">
+          <h3 class="today-info"></h3>
+        <div class="friend-avg-hydro">
           <div class="friends">
-            <p>F</p>
+            <h2 class="top">Friends</h2>
+            <p id="friends"></p>
           </div>
-          <div class="hydration">
-            <p id="hydro-week"></p>
+          <div class="averages">
+            <h2 id="avg-title">Your Averages</h2>
+            <p id="avgs"></p>
+          </div>
+          <div class="steps">
+            <h2 class="top">Steps</h2>
+            <p id="steps"></p>
           </div>
         </div>
         <div class="sleep">
-          <p>S</p>
+          <div class="hydration">
+            <h2>Hydration</h2>
+            <p id="hydro-week" class="week"></p>
+          </div>
+          <div class="hours">
+            <h2>Hours Slept</h2>
+            <p id="sleep-hours" class="week"></p>
+          </div>
+          <div class="quality">
+            <h2>Sleep Quality</h2>
+            <p id="sleep-quality" class="week"></p>
+          </div>
         </div>
       </section>
       <section class="celeb">
