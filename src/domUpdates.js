@@ -13,12 +13,13 @@ const friendsList = document.querySelector('#friends')
 const sleepHours = document.querySelector('#sleep-hours')
 const sleepQuality = document.querySelector('#sleep-quality')
 const avg = document.querySelector('#avgs')
-const richard = document.querySelector('.celeb')
+const richard = document.querySelector('#richard-img')
 const steps = document.querySelector('#steps')
+const button = document.querySelector('button')
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
-richard.addEventListener('click', animateRichard);
+button.addEventListener('click', animateRichard);
 
 // FUNCTIONS
 function renderDom(){
@@ -26,12 +27,11 @@ function renderDom(){
     .then(([info, sleep, hydration]) => {
       const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
       displayPersonalInfo(randomUser);
+      displayTodayInfo(randomUser, sleep.sleepData, hydration.hydrationData)
       displayHydrationInfo(randomUser, hydration.hydrationData);    
       displayFriends(randomUser, info.users);
       displaySleepInfo(randomUser, sleep.sleepData);
-      animateRichard();
       displayStepInfo(randomUser, info.users)
-      displayTodayInfo(randomUser, sleep.sleepData, hydration.hydrationData)
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData)
     })
 }
@@ -57,11 +57,10 @@ function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
   const today = sleepDataSet.filter((entry) => {
     return entry.userID === person.id
   }).slice(-1)[0].date
-  const todayHoursSlept = findSleepHourDay(person.id, today, sleepDataSet)
-  // const findSleepQualityDay = findSleepQualityDay(person.id, today, sleepDataSet)
   const ouncesDrank = findIntakeByDay(person.id, today, hydrationDataSet)
-
-  todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water slept ${todayHoursSlept} hours with a sleep quality X of out of 5!`
+  const todayHoursSlept = findSleepHourDay(person.id, today, sleepDataSet)
+  const sleepQualityDay = findSleepQualityDay(person.id, today, sleepDataSet)
+  todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water, slept ${todayHoursSlept} hours with a sleep quality of ${sleepQualityDay} out of 5!`
 }
 
 function displayHydrationInfo(person, dataSet) {
@@ -109,7 +108,7 @@ function displayStepInfo(person, dataSet) {
   } else {
     message = `Your step goal was equal to the average, congrats!`
   }
-  steps.innerHTML = `Stride Length: ${person.strideLength}<br></br>Daily Step Goal: ${person.dailyStepGoal}<br></br><br></br>${message}`
+  steps.innerHTML = `Stride Length: ${person.strideLength}<br></br>Daily Step Goal: ${person.dailyStepGoal}<br></br>${message}`
 }
 
 function formatDate(date) {
