@@ -152,15 +152,33 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  /* border: 1px solid pink; */
-
+  /* border-top: 1px solid pink; */
   /* box-shadow: 0px 0px 20px 1px rgb(234, 255, 0); */
+}
+
+.bar-container {
+  border: 1px solid pink;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .bar {
   display: inline-block;
-  width: 5vh;
+  justify-self: flex-end;
+  width: 100%;
   background-color: yellow;
-  margin-right: 5px;
   box-shadow: 0px 0px 20px 1px rgb(234, 255, 0);
+}
+
+.day-container {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  width: 1vh;
+  margin-right: 5px;
+}
+
+.day-label {
+  font-size: .5em;
 }

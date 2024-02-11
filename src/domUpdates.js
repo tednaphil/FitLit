@@ -64,7 +64,7 @@ function displayStepComparison(person, dataSet) {
 
 function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet)
-  createBarGraph([1, 2, 3, 4, 5, 6, 7], dailyInfo);
+  createBarGraph(['6/26', '6/27', '6/28', '6/29', '6/30', '6/31', '7/1'], dailyInfo);
   // dailyInfo.forEach((day, index) => {
   //   if(!index) {
   //     hydrationWeek.innerHTML = `Today: ${day.numOunces} ounces`;
@@ -140,11 +140,21 @@ console.log('days', days);
   graph.innerHTML = '';
 
   days.forEach(day => {
+      const dayContainer = document.createElement('div');
+      dayContainer.className = 'day-container';
+      const barContainer = document.createElement('div');
+      barContainer.className = 'bar-container';
+      barContainer.style.height = `${20}vh`;
       const bar = document.createElement('div');
-      bar.className = 'bar';
-      // console.log(day.data);
-      bar.style.height = `${(day.data / 12) * 2}vh`;
-      graph.appendChild(bar);
+      bar.className = 'bar'
+      bar.style.height = `${(day.data /100) *20}vh`;
+      const dayLabel = document.createElement('p')
+      dayLabel.className = 'day-label'
+      dayLabel.innerText = `${day.date}`
+      graph.appendChild(dayContainer);
+      dayContainer.appendChild(barContainer)
+      barContainer.appendChild(bar);
+      dayContainer.appendChild(dayLabel);
   });
 }
 
