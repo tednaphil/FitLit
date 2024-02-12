@@ -50,10 +50,11 @@
   ```
 - Wins
   ```
-  - Solidified TDD workflow, writing robust tests, driving code-writing that meets user-story-guided benchmarks.
-  - Making network requests to multiple datasets, processing data with promis chaining and `Promise.all()` calls to enable access to data in our source code.
+  - TDD approach taken to writing robust tests, driving code-writing that meets user-story-guided benchmarks.
+  - Making network requests to multiple datasets, processing data with promise chaining and Promise.all()
   - Working with webpack to execute cross-file imports/exports.
-  - Implementation of GitHub project board, using “Issues” to organize project work and communicate amongst team members working asynchronously.
+  - Integration of graphs on DOM.
+  - Use of GitHub project board to organize tasks and communicate asynchronously amongst team members.
   - Utilizing PR templates to streamline group workflow.
   - Quickly and collaboratively establishing a comfortable, safe, and productive team atmosphere with new teammates.
 
@@ -62,7 +63,7 @@
   ```
   - Working across four time-zones, and collaborators each having rigorous classroom schedules.
   - Working with webpack for the first time, understanding its import/export workflow.
-  - API fetch calls, asynchronous function calls, and using `Promise.all()`.
+  - API fetch calls, asynchronous function calls, and using Promise.all()
 
   ```
 - Future Improvements
