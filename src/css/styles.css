@@ -24,26 +24,44 @@ header {
   margin-right: 2%;
 }
 
+p {
+  padding-top: 1px;
+  font-size: 1.6vw;
+  line-height: .7em;
+  max-width: 100%;
+  top: 30%;
+  width: 25vh;
+}
+
+#email,
+#address {
+  font-size: 1.25vw;
+  line-height: .7em;
+}
+
+#address {
+  margin-left: 2%;
+  width: 25vh;
+}
+
+#email {
+  margin-right: 2%;
+  text-align: right;
+  width: fit-content;
+}
+
+h1 {
+  font-family: 'Honk', system-ui;
+  font-size: 5vw;
+  margin-bottom: 1em;
+}
+
 main {
   height: 80vh;
   width: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* .user-profile {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  width: 95%;
-} */
-
-h1 {
-  font-family: 'Honk', system-ui;
-  font-size: 5vw;
-  margin-bottom: 1em;
 }
 
 h2 {
@@ -57,61 +75,30 @@ h3 {
   width: 100%;
 }
 
-p {
-  padding-top: 1px;
-  font-size: 1.8vw;
-  line-height: .7em;
-  height: fit-content;
-  max-width: 100%;
-  top: 30%;
-  width: 25vh;
-  overflow: hidden; 
+section {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
 }
 
-.fr-st-heading {
+.friend-header,
+.steps-header {
   margin-top: 10px;
   top: 28%;
   font-size: 2.7vw;
 }
 
-
-/* #steps,
 #friends {
-  max-width: 100%;
-  top: 30%;
-  width: 30vh;
-  font-size: 2vw; 
-  overflow: hidden; 
-} */
-
-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-#friends {
+  font-size: 1.8vw;
   line-height: 1.3vw;
 }
 
 #steps {
   line-height: 1.2em;
   font-size: 1.5vw;
-}
-
-#email,
-#address {
-  font-size: 1.25vw;
-  line-height: .7em;
-}
-
-#address {
-  margin-left: 3%; 
-}
-
-#email {
-  margin-right: 3%;
-  text-align: right;
 }
 
 .friend-avg-steps {
@@ -122,89 +109,26 @@ section {
 }
 
 .week-info {
-  height: 32vh;
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-.friends,
-.averages,
-.steps {
-  width: 45%;
+.friend-avg-steps
+.week-info {
   height: 32vh;
-  text-align: center;
 }
 
-.friends,
-.steps {
+.friends-widget,
+.steps-widget {
   width: 24%;
 }
 
-.hydration,
-.hours,
-.quality,
-.friends,
-.steps,
-.averages {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 0;
-}
-
-.hydration,
-.hours,
-.quality {
-  width: 31%;
-  line-height: 1.2em; 
-}
-
-header,
-.friends,
-.hydration,
-.user-profile,
-.averages,
-.hours,
-.steps,
-.quality {
-  background-color: rgba(8, 0, 47, 0.674);
-  border-radius: 15px;
-  /* border: solid #FF40AF 2px; */
-  box-shadow: 0px 0px 20px 1px #FF40AF;
-  /* animation: 5s infinite glow;
-  animation-timing-function: ease-in-out; */
-}
-
-/* @keyframes glow {
-  0% {
-    box-shadow: 0px 0px 10px 1px #FF40AF;
-  }
-  25% {
-    box-shadow: 0px 0px 15px 1px #FF40AF;
-  }
-  50% {
-    box-shadow: 0px 0px 20px 1px #FF40AF;
-  }
-  75% {
-    box-shadow: 0px 0px 15px 1px #FF40AF;
-  }
-  100% {
-    box-shadow: 0px 0px 10px 1px #FF40AF;
-  }
-} */
-
-.averages {
+.averages-widget {
   box-shadow: 0px 0px 20px 1px #FFFF7D;
   border: solid #FFFF7D 4px;
   line-height: 1em; 
-}
-
-.week {
-  margin-top: 0;
-  padding-top: 0;
-  padding-bottom: 15px;
+  width: 45%;
 }
 
 #avg-title {
@@ -214,29 +138,52 @@ header,
 }
 
 #avgs {
-  font-size: 1.6vw;
+  font-size: 2.3vw;
+  width: 80%;
+  margin-bottom: 0;
+  margin-top: 1%;
 }
 
-img {
-  margin-top: 5%;
-  height: 78vh;
-  margin-right: 15px; 
+#hy-title,
+#ho-title,
+#q-title {
+  margin-top: 0;
 }
 
-button {
-  border-radius: 50%; 
-  position: absolute; 
-  height: 80px; 
-  width: 80px; 
-  border: solid #FF40AF 3px;
-  box-shadow: 0px 0px 20px 1px #FF40AF;
-  margin-left: 275px;
-  margin-top: 30px; 
-  background-color: rgba(0, 221, 255, 0.15);
-  cursor: pointer; 
-  font-size: 1.2em;
+.hydration,
+.hours,
+.quality {
+  width: 31%;
   line-height: 1.2em;
-  font-weight: bolder; 
+  position: relative;
+}
+
+header,
+.friends-widget,
+.hydration,
+.user-profile,
+.averages-widget,
+.hours,
+.steps-widget,
+.quality {
+  background-color: rgba(8, 0, 47, 0.674);
+  border-radius: 15px;
+}
+
+header,
+.friends-widget,
+.hydration,
+.user-profile,
+.hours,
+.steps-widget,
+.quality {
+box-shadow: 0px 0px 20px 1px #FF40AF;
+}
+
+.week {
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 15px;
 }
 
 .today-span {
@@ -249,23 +196,20 @@ button {
 }
 
 .mode {
-  height: 5vh;
+  height: 4vh;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   width: 90%;
-  margin-top:0;
-  cursor: pointer;
-}
-
-.mode:hover {
-  text-decoration: underline;
+  margin-top: 0;
 }
 
 .graph-icon {
   height: 3vh;
-  margin-top: 1.5vh;
+  margin-top: 1vh;
   padding-left: 2vh;
+  position: absolute;
+  cursor: pointer;
 }
 
 figure {
