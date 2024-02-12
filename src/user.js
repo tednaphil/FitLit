@@ -4,7 +4,7 @@ function getUserInfo(id, people){
     })
 
     return userInfo; 
-}
+};
 
 function getAverageSteps(people){
     const averageSteps = people.reduce((total, user) => {
@@ -14,7 +14,7 @@ function getAverageSteps(people){
     }, 0)
 
     return averageSteps/people.length;
-}
+};
 
 function findFriends(id, people) {
     const user = people.find((person) => person.id === id);
@@ -23,6 +23,6 @@ function findFriends(id, people) {
     })
 
     return friendNames;
-}
+};
 
-export { getUserInfo, getAverageSteps, findFriends }  
+export { getUserInfo, getAverageSteps, findFriends };  

@@ -1,7 +1,7 @@
 import { getUserInfo, getAverageSteps, findFriends } from './user';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
 import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findHoursSleptWeek, findSleepQualityWeek } from './sleep';
-import { allData, fetchData } from './apiCalls';
+import { fetchData } from './apiCalls';
 
 //QUERY SELECTORS
 const nameDisplay = document.querySelector('h1');
@@ -134,6 +134,7 @@ function formatDate(date) {
 function formatAddress(addressInfo) {
   let splitAddress = addressInfo.split(', ');
   let [addrLine1, addrLine2] = splitAddress;
+
   return `${addrLine1}<br></br>${addrLine2}`
 };
 
