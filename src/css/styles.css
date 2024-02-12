@@ -7,29 +7,38 @@
 body {
   height: 100vh;
   background-image: url('/src/images/background-space.jpg');
-  background-size: cover
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 header {
   height: 12vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 main {
   height: 80vh;
+  width: 95%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.user-profile {
+/* .user-profile {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
   width: 95%;
-}
+} */
 
 h1 {
   font-family: 'Honk', system-ui;
@@ -43,20 +52,57 @@ h2 {
 }
 
 h3 {
-  font-size: 1.5vw;
+  font-size: 1.7vw;
   text-align: center;
-  width: 80vh;
+  width: 100%;
 }
 
 p {
-  font-size: 1.2vw;
+  padding-top: 1px;
+  font-size: 1.8vw;
   line-height: .7em;
+  height: fit-content;
+  max-width: 100%;
+  top: 30%;
+  width: 25vh;
+  overflow: hidden; 
+}
+
+.fr-st-heading {
+  margin-top: 10px;
+  top: 28%;
+  font-size: 2.7vw;
+}
+
+
+/* #steps,
+#friends {
+  max-width: 100%;
+  top: 30%;
+  width: 30vh;
+  font-size: 2vw; 
+  overflow: hidden; 
+} */
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#friends {
+  line-height: 1.3vw;
+}
+
+#steps {
+  line-height: 1.2em;
+  font-size: 1.5vw;
 }
 
 #email,
 #address {
   font-size: 1.25vw;
-  line-height: .8em;
+  line-height: .7em;
 }
 
 #address {
@@ -64,15 +110,8 @@ p {
 }
 
 #email {
-  margin-right: 3%
-}
-
-.widget-container {
-  width: 95%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin-right: 3%;
+  text-align: right;
 }
 
 .friend-avg-steps {
@@ -80,11 +119,9 @@ p {
   justify-content: space-between;
   width: 100%;
   margin-bottom: 3%;
-  margin-left: 5%
 }
 
 .week-info {
-  margin-left: 5%;
   height: 32vh;
   width: 100%;
   display: flex;
@@ -102,12 +139,6 @@ p {
 .friends,
 .steps {
   width: 24%;
-}
-
-.top {
-  margin-top: 10px;
-  top: 28%;
-  position: absolute; 
 }
 
 .hydration,
@@ -130,14 +161,7 @@ p {
   line-height: 1.2em; 
 }
 
-.celeb {
-  width: 30%;
-  display: flex;
-  justify-content: center;
-  margin-left: 5%;
-  margin-top: 3%;
-}
-
+header,
 .friends,
 .hydration,
 .user-profile,
@@ -191,18 +215,6 @@ p {
 
 #avgs {
   font-size: 1.6vw;
-}
-
-#steps,
-#friends {
-  max-width: 100%;
-  top: 30%;
-  width: 25vh;
-  line-height: 1.2em; 
-  font-size: .9em; 
-  height: 20vh; 
-  margin-top: 9vh; 
-  overflow: hidden; 
 }
 
 img {
