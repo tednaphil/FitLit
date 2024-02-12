@@ -13,9 +13,7 @@ const friendsList = document.querySelector('#friends');
 const sleepHours = document.querySelector('#sleep-hours');
 const sleepQuality = document.querySelector('#sleep-quality');
 const avg = document.querySelector('#avgs');
-const richard = document.querySelector('#richard-img');
 const steps = document.querySelector('#steps');
-const button = document.querySelector('button');
 const hydroGraph = document.querySelector('#hydro-graph');
 const sleepQualityGraph = document.querySelector('#sleep-q-graph');
 const hoursSleptGraph = document.querySelector('#sleep-graph');
@@ -26,10 +24,8 @@ const hydroTitle = document.querySelector('#hy-title');
 const qualityTitle = document.querySelector('#q-title');
 const hoursTitle = document.querySelector('#ho-title');
 
-
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
-button.addEventListener('mouseover', animateRichard);
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
 });
@@ -154,45 +150,6 @@ function formatAddress(addressInfo) {
   return `${addrLine1}<br></br>${addrLine2}`
 };
 
-function toggleGraph(category) {
-  let graphURL = "./images/graph-icon.png"
-  let textURL = "./images/txt-icon.png"
-
-  if(category === 'hydration'){
-    hydrationWeek.classList.toggle('hidden');
-    hydroGraph.classList.toggle('hidden');
-    hydroTitle.classList.toggle('hidden');
-    console.log('hydroButton.src', hydroButton.src)
-    console.log('graphURL', graphURL)
-    if(!displayingHydroGraph) {
-      hydroButton.src = textURL;
-    } else {
-      hydroButton.src = graphURL;
-    }
-    displayingHydroGraph = !displayingHydroGraph;
-  } else if (category === 'sleep quality') {
-    sleepQuality.classList.toggle('hidden');
-    sleepQualityGraph.classList.toggle('hidden');
-    qualityTitle.classList.toggle('hidden');
-    if(!displayingQualityGraph) {
-      qualityButton.src = textURL;
-    } else {
-      qualityButton.src = graphURL;
-    }
-    displayingQualityGraph = !displayingQualityGraph;
-  } else {
-    sleepHours.classList.toggle('hidden');
-    hoursSleptGraph.classList.toggle('hidden');
-    hoursTitle.classList.toggle('hidden');
-    if(!displayingHoursGraph) {
-      hoursButton.src = textURL;
-    } else {
-      hoursButton.src = graphURL;
-    }
-    displayingHoursGraph = !displayingHoursGraph;
-  }
-};
-
 function createBarGraph(dataSet, dataCategory) {
   dataSet.forEach(day => {
     const dayContainer = document.createElement('div');
@@ -220,27 +177,39 @@ function createBarGraph(dataSet, dataCategory) {
   });
 };
 
-function animateRichard() {
-  richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
-setTimeout(function(){
-  richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
-}, 100);
-setTimeout(function(){
-  richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
-}, 200);
-setTimeout(function(){
-  richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
-}, 300);
-setTimeout(function(){
-  richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
-}, 400);
-setTimeout(function(){
-  richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
-}, 500);
-setTimeout(function(){
-  richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
-}, 600);
-setTimeout(function(){
-  richard.innerHTML = '<img src="./images/richard-with-text.png" alt="richard-simmons"></img>'
-}, 700);
+function toggleGraph(category) {
+  let graphURL = "./images/graph-icon.png"
+  let textURL = "./images/txt-icon.png"
+
+  if(category === 'hydration'){
+    hydrationWeek.classList.toggle('hidden');
+    hydroGraph.classList.toggle('hidden');
+    hydroTitle.classList.toggle('hidden');
+    if(!displayingHydroGraph) {
+      hydroButton.src = textURL;
+    } else {
+      hydroButton.src = graphURL;
+    }
+    displayingHydroGraph = !displayingHydroGraph;
+  } else if (category === 'sleep quality') {
+    sleepQuality.classList.toggle('hidden');
+    sleepQualityGraph.classList.toggle('hidden');
+    qualityTitle.classList.toggle('hidden');
+    if(!displayingQualityGraph) {
+      qualityButton.src = textURL;
+    } else {
+      qualityButton.src = graphURL;
+    }
+    displayingQualityGraph = !displayingQualityGraph;
+  } else {
+    sleepHours.classList.toggle('hidden');
+    hoursSleptGraph.classList.toggle('hidden');
+    hoursTitle.classList.toggle('hidden');
+    if(!displayingHoursGraph) {
+      hoursButton.src = textURL;
+    } else {
+      hoursButton.src = graphURL;
+    }
+    displayingHoursGraph = !displayingHoursGraph;
+  }
 };
