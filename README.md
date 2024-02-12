@@ -39,7 +39,7 @@
 ## Context: 
 <!-- wins, challenges, time spent, etc -->
 - Ongoing group project begun in the 8th week of contributors learning JavaScript
-- ~ hours to complete test suite and functionality
+- Approximately 20 hours to complete test suite and functionality
 - Goals
   ```
   - perform data manipulation with prototype methods
@@ -50,9 +50,26 @@
   ```
 - Wins
   ```
-  write them here
+  - Solidified TDD workflow, writing robust tests, driving code-writing that meets user-story-guided benchmarks.
+  - Making network requests to multiple datasets, processing data with promis chaining and `Promise.all()` calls to enable access to data in our source code.
+  - Working with webpack to execute cross-file imports/exports.
+  - Implementation of GitHub project board, using “Issues” to organize project work and communicate amongst team members working asynchronously.
+  - Utilizing PR templates to streamline group workflow.
+  - Quickly and collaboratively establishing a comfortable, safe, and productive team atmosphere with new teammates.
+
   ```
 - Challenges
   ```
-  write them here
+  - Working across four time-zones, and collaborators each having rigorous classroom schedules.
+  - Working with webpack for the first time, understanding its import/export workflow.
+  - API fetch calls, asynchronous function calls, and using `Promise.all()`.
+
+  ```
+- Future Improvements
+  ```
+  - More testing for DOM-related functions.
+  - Subtle animations, text-effects, etc. to enhance UX.
+  - Flip cards for graph view.
+  - Refactor some DOM functions to DRY up code, possibly deferring some functionality to other files.
+
   ```
