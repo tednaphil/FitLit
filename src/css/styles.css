@@ -212,7 +212,7 @@ button {
   font-weight: bolder; 
 }
 
-/* .hidden {
+.hidden {
   display: none;
 }
 
@@ -236,7 +236,7 @@ button {
   padding-left: 2vh;
 }
 
-.chart {
+figure {
   width: 60%;
   margin: 20px auto;
   display: flex;
@@ -274,4 +274,4 @@ button {
   font-size: .7em;
   writing-mode: vertical-rl;
   text-orientation: mixed;
-} */
+}
