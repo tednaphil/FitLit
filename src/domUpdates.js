@@ -32,11 +32,17 @@ const hoursTitle = document.querySelector('#ho-title');
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
 button.addEventListener('mouseover', animateRichard);
-modeButton.addEventListener('click', function() {
-  toggleGraph('hydration');
-  toggleGraph('hours slept');
-  toggleGraph('sleep quality');
-});
+// modeButton.addEventListener('click', function() {
+//   toggleGraph('hydration');
+//   toggleGraph('hours slept');
+//   toggleGraph('sleep quality');
+//   if(!graphMode) {
+//     modeLabel.innerText = 'Switch to Text Mode';
+//   } else {
+//     modeLabel.innerText = 'Switch to Graph Mode';
+//   }
+//   graphMode = !graphMode;
+// });
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
 });
@@ -47,8 +53,9 @@ qualityButton.addEventListener('click', function() {
   toggleGraph('sleep quality');
 });
 
-
-
+let displayingHydroGraph = false;
+let displayingHoursGraph = false;
+let displayingQualityGraph = false;
 
 // FUNCTIONS
 function renderDom(){
@@ -160,118 +167,88 @@ function formatAddress(addressInfo) {
   return `${addrLine1}<br></br>${addrLine2}`
 };
 
-function animateRichard() {
-    richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
-  setTimeout(function(){
-    richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
-  }, 100);
-  setTimeout(function(){
-    richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
-  }, 200);
-  setTimeout(function(){
-    richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
-  }, 300);
-  setTimeout(function(){
-    richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
-  }, 400);
-  setTimeout(function(){
-    richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
-  }, 500);
-  setTimeout(function(){
-    richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
-  }, 600);
-  setTimeout(function(){
-    richard.innerHTML = '<img src="./images/richard-with-text.png" alt="richard-simmons"></img>'
-  }, 700);
-};
-
 function toggleGraph(category) {
     if(category === 'hydration'){
       hydrationWeek.classList.toggle('hidden');
       hydroGraph.classList.toggle('hidden');
       hydroTitle.classList.toggle('hidden');
+      displayingHydroGraph = !displayingHydroGraph;
     } else if (category === 'sleep quality') {
       sleepQuality.classList.toggle('hidden');
       sleepQualityGraph.classList.toggle('hidden');
       qualityTitle.classList.toggle('hidden');
+      displayingQualityGraph = !displayingQualityGraph;
     } else {
       sleepHours.classList.toggle('hidden');
       hoursSleptGraph.classList.toggle('hidden');
       hoursTitle.classList.toggle('hidden');
+      displayingHoursGraph = !displayingHoursGraph;
     }
-
-  modeLabel.innerText = 'Switch to Text Mode';
-  modeLabel.className = 'text-mode';
 };
 
-function createBarGraph(dataSet, dataCategory) {
-  const days = [];
+// function toggleGraphButton(category) {
+//   if(category === 'hydration'){
+//     displayingHydroGraph = !displayingHydroGraph;
+//   } else if (category === 'sleep quality') {
+//     sleepQuality.classList.toggle('hidden');
+//     sleepQualityGraph.classList.toggle('hidden');
+//     qualityTitle.classList.toggle('hidden');
+//     displayingQualityGraph = !displayingQualityGraph;
+//   } else {
+//     sleepHours.classList.toggle('hidden');
+//     hoursSleptGraph.classList.toggle('hidden');
+//     hoursTitle.classList.toggle('hidden');
+//     displayingHoursGraph = !displayingHoursGraph;
+//   }
 
-  if(dataCategory === 'hydration') {
-    dataSet.forEach((day) => { 
-      days.push({date: day.date, data: day.numOunces});
-    })
-    hydroGraph.innerHTML = '';
-    days.forEach(day => {
-      const dayContainer = document.createElement('div');
-      dayContainer.className = 'day-container';
-      const barContainer = document.createElement('div');
-      barContainer.className = 'bar-container';
-      // barContainer.style.height = `${20}vh`;
-      const bar = document.createElement('div');
-      bar.className = 'bar';
-      bar.style.height = `${(day.data / 100) * 20}vh`;
-      const dayLabel = document.createElement('p')
-      dayLabel.className = 'day-label';
-      dayLabel.innerText = `${day.date.slice(5)}`;
+function createBarGraph(dataSet, dataCategory) {
+  dataSet.forEach(day => {
+    const dayContainer = document.createElement('div');
+    dayContainer.className = 'day-container';
+    const barContainer = document.createElement('div');
+    barContainer.className = 'bar-container';
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    const dayLabel = document.createElement('p')
+    dayLabel.className = 'day-label';
+    dayContainer.appendChild(barContainer);
+    barContainer.appendChild(bar);
+    dayContainer.appendChild(dayLabel);
+    dayLabel.innerText = `${day.date.slice(5)}`;
+    if(dataCategory === 'hydration') {
+      bar.style.height = `${(day.numOunces / 100) * 20}vh`;
       hydroGraph.appendChild(dayContainer);
-      dayContainer.appendChild(barContainer);
-      barContainer.appendChild(bar);
-      dayContainer.appendChild(dayLabel);
-    });
-  } else if(dataCategory === 'sleep quality') {
-      dataSet.forEach((day) => { 
-        days.push({date: day.date, data: day.sleepQuality})
-      })
-      sleepQualityGraph.innerHTML = '';
-      days.forEach(day => {
-        const dayContainer = document.createElement('div');
-        dayContainer.className = 'day-container';
-        const barContainer = document.createElement('div');
-        barContainer.className = 'bar-container';
-        // barContainer.style.height = `${20}vh`;
-        const bar = document.createElement('div');
-        bar.className = 'bar';
-        bar.style.height = `${(day.data / 5) * 20}vh`;
-        const dayLabel = document.createElement('p');
-        dayLabel.className = 'day-label';
-        dayLabel.innerText = `${day.date.slice(5)}`;
+    } else if(dataCategory === 'sleep quality') {
+        bar.style.height = `${(day.sleepQuality / 5) * 20}vh`;
         sleepQualityGraph.appendChild(dayContainer);
-        dayContainer.appendChild(barContainer)
-        barContainer.appendChild(bar);
-        dayContainer.appendChild(dayLabel);
-      });
-  } else {
-      dataSet.forEach((day) => { 
-        days.push({date: day.date, data: day.hoursSlept})
-      });
-      hoursSleptGraph.innerHTML = '';
-      days.forEach(day => {
-        const dayContainer = document.createElement('div');
-        dayContainer.className = 'day-container';
-        const barContainer = document.createElement('div');
-        barContainer.className = 'bar-container';
-        // barContainer.style.height = `${20}vh`;
-        const bar = document.createElement('div');
-        bar.className = 'bar';
-        bar.style.height = `${(day.data / 12) * 20}vh`;
-        const dayLabel = document.createElement('p');
-        dayLabel.className = 'day-label';
-        dayLabel.innerText = `${day.date.slice(5)}`;
-        hoursSleptGraph.appendChild(dayContainer);
-        dayContainer.appendChild(barContainer)
-        barContainer.appendChild(bar);
-        dayContainer.appendChild(dayLabel);
-      });
-   };
+    } else {
+      bar.style.height = `${(day.hoursSlept / 12) * 20}vh`;
+      hoursSleptGraph.appendChild(dayContainer);
+    }
+  });
+};
+
+function animateRichard() {
+  richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
+setTimeout(function(){
+  richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
+}, 100);
+setTimeout(function(){
+  richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
+}, 200);
+setTimeout(function(){
+  richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
+}, 300);
+setTimeout(function(){
+  richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
+}, 400);
+setTimeout(function(){
+  richard.innerHTML = '<img src="./images/richard-animation-4.png" alt="richard-waving"></img>'
+}, 500);
+setTimeout(function(){
+  richard.innerHTML = '<img src="./images/richard-animation-3.png" alt="richard-waving"></img>'
+}, 600);
+setTimeout(function(){
+  richard.innerHTML = '<img src="./images/richard-with-text.png" alt="richard-simmons"></img>'
+}, 700);
 };
