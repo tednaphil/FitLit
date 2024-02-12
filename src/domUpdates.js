@@ -1,21 +1,21 @@
 import { getUserInfo, getAverageSteps, findFriends } from './user';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
 import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findHoursSleptWeek, findSleepQualityWeek } from './sleep';
-import { allData, fetchData } from './apiCalls'
+import { allData, fetchData } from './apiCalls';
 
 //QUERY SELECTORS
-const nameDisplay = document.querySelector('h1')
-const address = document.querySelector('#address')
-const email = document.querySelector('#email')
-const todayInfo = document.querySelector('h3')
-const hydrationWeek = document.querySelector('#hydro-week')
-const friendsList = document.querySelector('#friends')
-const sleepHours = document.querySelector('#sleep-hours')
-const sleepQuality = document.querySelector('#sleep-quality')
-const avg = document.querySelector('#avgs')
-const richard = document.querySelector('#richard-img')
-const steps = document.querySelector('#steps')
-const button = document.querySelector('button')
+const nameDisplay = document.querySelector('h1');
+const address = document.querySelector('#address');
+const email = document.querySelector('#email');
+const todayInfo = document.querySelector('h3');
+const hydrationWeek = document.querySelector('#hydro-week');
+const friendsList = document.querySelector('#friends');
+const sleepHours = document.querySelector('#sleep-hours');
+const sleepQuality = document.querySelector('#sleep-quality');
+const avg = document.querySelector('#avgs');
+const richard = document.querySelector('#richard-img');
+const steps = document.querySelector('#steps');
+const button = document.querySelector('button');
 // const hydroGraph = document.querySelector('#hydro-graph');
 // const sleepQualityGraph = document.querySelector('#sleep-q-graph');
 // const hoursSleptGraph = document.querySelector('#sleep-graph');
@@ -41,13 +41,13 @@ function renderDom(){
       displayStepInfo(randomUser, info.users)
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData)
     })
-}
+};
 
 function displayPersonalInfo(person) {
   nameDisplay.innerText = person.name;
   address.innerHTML = `${formatAddress(person.address)}` 
   email.innerHTML = `${person.email}` 
-}
+};
 
 function displayFriends(person, dataSet) {
   const friends = findFriends(person.id, dataSet)
@@ -58,7 +58,7 @@ function displayFriends(person, dataSet) {
       friendsList.innerHTML += `<br></br>${friend}</span>`
     }
   })
-}
+};
 
 function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
   const today = sleepDataSet.filter((entry) => {
@@ -68,7 +68,7 @@ function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
   const todayHoursSlept = findSleepHourDay(person.id, today, sleepDataSet)
   const sleepQualityDay = findSleepQualityDay(person.id, today, sleepDataSet)
   todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water and slept ${todayHoursSlept} hours with a sleep quality of ${sleepQualityDay} out of 5!`
-}
+};
 
 function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet)
@@ -80,7 +80,7 @@ function displayHydrationInfo(person, dataSet) {
       hydrationWeek.innerHTML += `<br></br>${formatDate(day.date)}: ${day.numOunces} ounces`
     }
   })
-}
+};
 
 function displaySleepInfo(person, dataSet) {
   let today = dataSet.filter((entry) => {
@@ -104,14 +104,14 @@ function displaySleepInfo(person, dataSet) {
       sleepQuality.innerHTML += `<br></br>${formatDate(day.date)}: ${day.sleepQuality} out of 5`
     }
   })
-}
+};
 
 function displayAverages(person, sleepDataSet, hydrationDataSet) {
   let avgSleepQuality = calculateAvgSleepQuality(person.id, sleepDataSet)
   let avgSleepHours = calculateAvgHoursSlept(person.id, sleepDataSet)
   let averageIntake = calculateAverageIntake(person.id, hydrationDataSet)
   avg.innerHTML = `Hours Slept: ${avgSleepHours}<br></br>Sleep Quality: ${avgSleepQuality} out of 5<br></br>Water Intake: ${averageIntake} Ounces`
-}
+};
 
 function displayStepInfo(person, dataSet) {
   let averageSteps = getAverageSteps(dataSet);
@@ -125,11 +125,11 @@ function displayStepInfo(person, dataSet) {
     message = `Your step goal was equal to the average, congrats!`
   }
   steps.innerHTML = `Stride Length: ${person.strideLength}<br></br>Daily Step Goal: ${person.dailyStepGoal}<br></br>${message}`
-}
+};
 
 function formatDate(date) {
   return date.split('').splice(5).join('')
-}
+};
 
 function formatAddress(addressInfo) {
   let splitAddress = addressInfo.split(', ');
@@ -160,7 +160,7 @@ function animateRichard() {
   setTimeout(function(){
     richard.innerHTML = '<img src="./images/richard-with-text.png" alt="richard-simmons"></img>'
   }, 700);
-}
+};
 
 // function displayGraphs() {
 //   hydrationWeek.classList.add('hidden');
@@ -171,7 +171,7 @@ function animateRichard() {
 //   hoursSleptGraph.classList.remove('hidden');
 //   // modeLabel.innerText = 'Switch to Text Mode';
 //   // modeLabel.className = 'text-mode';
-// }
+// };
 
 // function createBarGraph(dataSet, dataCategory) {
 //   const days = [];
