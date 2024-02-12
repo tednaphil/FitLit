@@ -19,8 +19,6 @@ const button = document.querySelector('button');
 const hydroGraph = document.querySelector('#hydro-graph');
 const sleepQualityGraph = document.querySelector('#sleep-q-graph');
 const hoursSleptGraph = document.querySelector('#sleep-graph');
-const modeButton = document.querySelector('.mode');
-const modeLabel = document.querySelector('#mode-label');
 const hydroButton = document.querySelector('#hydro-button');
 const hoursButton = document.querySelector('#hours-button');
 const qualityButton = document.querySelector('#quality-button');
@@ -32,17 +30,6 @@ const hoursTitle = document.querySelector('#ho-title');
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
 button.addEventListener('mouseover', animateRichard);
-// modeButton.addEventListener('click', function() {
-//   toggleGraph('hydration');
-//   toggleGraph('hours slept');
-//   toggleGraph('sleep quality');
-//   if(!graphMode) {
-//     modeLabel.innerText = 'Switch to Text Mode';
-//   } else {
-//     modeLabel.innerText = 'Switch to Graph Mode';
-//   }
-//   graphMode = !graphMode;
-// });
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
 });
@@ -168,38 +155,43 @@ function formatAddress(addressInfo) {
 };
 
 function toggleGraph(category) {
-    if(category === 'hydration'){
-      hydrationWeek.classList.toggle('hidden');
-      hydroGraph.classList.toggle('hidden');
-      hydroTitle.classList.toggle('hidden');
-      displayingHydroGraph = !displayingHydroGraph;
-    } else if (category === 'sleep quality') {
-      sleepQuality.classList.toggle('hidden');
-      sleepQualityGraph.classList.toggle('hidden');
-      qualityTitle.classList.toggle('hidden');
-      displayingQualityGraph = !displayingQualityGraph;
-    } else {
-      sleepHours.classList.toggle('hidden');
-      hoursSleptGraph.classList.toggle('hidden');
-      hoursTitle.classList.toggle('hidden');
-      displayingHoursGraph = !displayingHoursGraph;
-    }
-};
+  let graphURL = "./images/graph-icon.png"
+  let textURL = "./images/txt-icon.png"
 
-// function toggleGraphButton(category) {
-//   if(category === 'hydration'){
-//     displayingHydroGraph = !displayingHydroGraph;
-//   } else if (category === 'sleep quality') {
-//     sleepQuality.classList.toggle('hidden');
-//     sleepQualityGraph.classList.toggle('hidden');
-//     qualityTitle.classList.toggle('hidden');
-//     displayingQualityGraph = !displayingQualityGraph;
-//   } else {
-//     sleepHours.classList.toggle('hidden');
-//     hoursSleptGraph.classList.toggle('hidden');
-//     hoursTitle.classList.toggle('hidden');
-//     displayingHoursGraph = !displayingHoursGraph;
-//   }
+  if(category === 'hydration'){
+    hydrationWeek.classList.toggle('hidden');
+    hydroGraph.classList.toggle('hidden');
+    hydroTitle.classList.toggle('hidden');
+    console.log('hydroButton.src', hydroButton.src)
+    console.log('graphURL', graphURL)
+    if(!displayingHydroGraph) {
+      hydroButton.src = textURL;
+    } else {
+      hydroButton.src = graphURL;
+    }
+    displayingHydroGraph = !displayingHydroGraph;
+  } else if (category === 'sleep quality') {
+    sleepQuality.classList.toggle('hidden');
+    sleepQualityGraph.classList.toggle('hidden');
+    qualityTitle.classList.toggle('hidden');
+    if(!displayingQualityGraph) {
+      qualityButton.src = textURL;
+    } else {
+      qualityButton.src = graphURL;
+    }
+    displayingQualityGraph = !displayingQualityGraph;
+  } else {
+    sleepHours.classList.toggle('hidden');
+    hoursSleptGraph.classList.toggle('hidden');
+    hoursTitle.classList.toggle('hidden');
+    if(!displayingHoursGraph) {
+      hoursButton.src = textURL;
+    } else {
+      hoursButton.src = graphURL;
+    }
+    displayingHoursGraph = !displayingHoursGraph;
+  }
+};
 
 function createBarGraph(dataSet, dataCategory) {
   dataSet.forEach(day => {
