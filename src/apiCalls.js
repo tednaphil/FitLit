@@ -2,7 +2,7 @@ const allData = [
     fetch(`https://fitlit-api.herokuapp.com/api/v1/users`),
     fetch(`https://fitlit-api.herokuapp.com/api/v1/sleep`),
     fetch(`https://fitlit-api.herokuapp.com/api/v1/hydration`)
-  ]
+  ];
 
   function fetchData() {
    return Promise.all(allData)
@@ -15,6 +15,6 @@ const allData = [
         console.log("error")
         return error; 
       })    
-  }
+  };
 
-  export { allData, fetchData }
+  export { fetchData };

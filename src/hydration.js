@@ -5,7 +5,7 @@ function calculateAverageIntake(id, dataSet) {
     const averageIntake = Math.round(totalIntake / hydrationEntries.length);
     
     return averageIntake;
-}
+};
 
 function findIntakeByDay(id, date, dataSet) {
     const dayEntry = dataSet.find((entry) => {
@@ -14,7 +14,7 @@ function findIntakeByDay(id, date, dataSet) {
     const intake = dayEntry.numOunces;
 
     return intake;
-}
+};
 
 function findIntakeWeek(id, dataSet) {
     const userData = dataSet.filter(entry => {
@@ -22,10 +22,10 @@ function findIntakeWeek(id, dataSet) {
     }).slice(-7).reverse();
  
     return userData;
-}
+};
 
 export { 
     calculateAverageIntake,
     findIntakeByDay,
     findIntakeWeek
-}
+};

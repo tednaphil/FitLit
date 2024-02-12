@@ -6,7 +6,7 @@ function calculateAvgHoursSlept(id, sleepData) {
     }, 0)) / userInfo.length).toFixed(2);
 
     return avgHours;
-}
+};
 
 function calculateAvgSleepQuality(id, sleepData) {
     const userInfo = sleepData.filter(data => data.userID === id);
@@ -16,21 +16,21 @@ function calculateAvgSleepQuality(id, sleepData) {
     }, 0)) / userInfo.length).toFixed(2);
 
     return avgQuality;
-}
+};
 
 function findSleepHourDay(id, date, sleepData) {
     const userInfo = sleepData.filter(data => data.userID === id);
     const day = userInfo.find(data => data.date === date); 
     
     return day ? day.hoursSlept : `There is no entry for the date provided.`;   
-}
+};
 
 function findSleepQualityDay(id, date, sleepData) {
-    const userInfo = sleepData.filter(data => data.userID === id)
-    const day = userInfo.find(data => data.date === date) 
+    const userInfo = sleepData.filter(data => data.userID === id);
+    const day = userInfo.find(data => data.date === date);
     
     return day ? day.sleepQuality : `There is no entry for the date provided.`;   
-}
+};
 
 function findHoursSleptWeek(id, date, sleepData) {
     const userInfo = (sleepData.filter(data => data.userID === id)).reverse();
@@ -42,10 +42,10 @@ function findHoursSleptWeek(id, date, sleepData) {
             date: date['date'],
             hoursSlept: date['hoursSlept']
         };
-    })
+    });
     
     return hours;
-}
+};
 
 function findSleepQualityWeek(id, date, sleepData) {
     const userInfo = (sleepData.filter(data => data.userID === id)).reverse();
@@ -57,12 +57,10 @@ function findSleepQualityWeek(id, date, sleepData) {
             date: date['date'],
             sleepQuality: date['sleepQuality']
         };
-    })
+    });
     
     return quality;
-}
-
-
+};
 
 export {
     calculateAvgHoursSlept,
@@ -71,4 +69,4 @@ export {
     findSleepQualityDay,
     findHoursSleptWeek,
     findSleepQualityWeek
- }
+ };
