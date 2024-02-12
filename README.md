@@ -40,7 +40,7 @@
 <!-- wins, challenges, time spent, etc -->
 - Ongoing group project begun in the 8th week of contributors learning JavaScript
 - Approximately 20 hours to complete test suite and functionality
-- Goals
+- Goals:
   ```
   - perform data manipulation with prototype methods
   - create navigable and easy to follow user interface
@@ -48,7 +48,7 @@
   - implement robust testing suite using TDD
   - retrieve data with network requests
   ```
-- Wins
+- Wins:
   ```
   - TDD approach taken to writing robust tests, driving code-writing that meets user-story-guided benchmarks.
   - Making network requests to multiple datasets, processing data with promise chaining and Promise.all()
@@ -59,14 +59,14 @@
   - Quickly and collaboratively establishing a comfortable, safe, and productive team atmosphere with new teammates.
 
   ```
-- Challenges
+- Challenges:
   ```
   - Working across four time-zones, and collaborators each having rigorous classroom schedules.
   - Working with webpack for the first time, understanding its import/export workflow.
   - API fetch calls, asynchronous function calls, and using Promise.all()
 
   ```
-- Future Improvements
+- Future Improvements:
   ```
   - More testing for DOM-related functions.
   - Subtle animations, text-effects, etc. to enhance UX.
