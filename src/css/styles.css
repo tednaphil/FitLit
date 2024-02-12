@@ -53,15 +53,6 @@ p {
   line-height: .7em;
 }
 
-#steps-stride {
-  text-align: right;
-  padding-right: 15px;
-}
-
-#address-email {
-  padding-left: 15px;
-}
-
 #email,
 #address {
   font-size: 1.25vw;
@@ -70,14 +61,13 @@ p {
 
 #address {
   margin-left: 3%; 
-
 }
 
 #email {
   margin-right: 3%
 }
 
-.widgets {
+.widget-container {
   width: 95%;
   display: flex;
   flex-direction: column;
@@ -85,7 +75,7 @@ p {
   justify-content: center;
 }
 
-.friend-avg-hydro {
+.friend-avg-steps {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -114,6 +104,12 @@ p {
   width: 24%;
 }
 
+.top {
+  margin-top: 10px;
+  top: 28%;
+  position: absolute; 
+}
+
 .hydration,
 .hours,
 .quality,
@@ -140,16 +136,6 @@ p {
   justify-content: center;
   margin-left: 5%;
   margin-top: 3%;
-}
-
-.avg-steps {
-  text-align: center;
-  width: fit-content;
-  margin: 10px;
-  padding: .5em;
-  padding-right: 1em;
-  padding-left: 1em;
-  font-size: 2vw;
 }
 
 .friends,
@@ -187,18 +173,16 @@ p {
   font-size: 1.6vw;
 }
 
-.top {
-  margin-top: 10px;
-  top: 28%;
-  position: absolute; 
-}
-
 #steps,
 #friends {
   max-width: 100%;
   top: 30%;
   width: 25vh;
   line-height: 1.2em; 
+  font-size: .9em; 
+  height: 20vh; 
+  margin-top: 9vh; 
+  overflow: hidden; 
 }
 
 img {
@@ -226,14 +210,6 @@ button {
 .today-span {
   color: #00EAE0;
   font-weight: bolder; 
-}
-
-#friends, 
-#steps {
-  font-size: .9em; 
-  height: 20vh; 
-  margin-top: 9vh; 
-  overflow: hidden; 
 }
 
 /* .hidden {
