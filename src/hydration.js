@@ -11,9 +11,8 @@ function findIntakeByDay(id, date, dataSet) {
     const dayEntry = dataSet.find((entry) => {
         return entry.userID === id && entry.date === date;
     });
-    const intake = dayEntry.numOunces;
-
-    return intake;
+   
+    return dayEntry ? dayEntry.numOunces : `There is no entry for the date provided.`;     
 };
 
 function findIntakeWeek(id, dataSet) {

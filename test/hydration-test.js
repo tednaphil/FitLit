@@ -8,6 +8,7 @@ describe('calculate average intake', function() {
     
     expect(userIntake).to.equal(53);
   });
+
 });
 
 describe('report intake by day', function() {
@@ -18,6 +19,12 @@ describe('report intake by day', function() {
     expect(intake1).to.equal(88);
     expect(intake2).to.equal(64);
   });
+
+  it('should return a message if there is no entry for the day in question', function() {
+    const intake1 = findIntakeByDay(1, "2024/1/24", testHydrationData);
+
+    expect(intake1).to.equal(`There is no entry for the date provided.`);
+  })
 });
 
 describe('report intake by week', function() {
