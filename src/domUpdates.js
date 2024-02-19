@@ -49,8 +49,6 @@ headers: {
 fetch("http://localhost:3001/api/v1/sleep")
 .then(res => res.json())
 .then(data => {
-console.log(randomUser)
-console.log(data.sleepData)
 sleepData = data.sleepData;
 displaySleepInfo(randomUser, sleepData)})
 })

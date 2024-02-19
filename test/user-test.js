@@ -3,10 +3,6 @@ import { testUsers } from '../src/data/sample-users';
 import { getUserInfo, getAverageSteps, findFriends } from '../src/user';
 
 describe('get user', function() {
-    it('should be a function', function() {
-        expect(getUserInfo).to.be.a("function");
-    });
-
     it('should return an object with relevant user data', function() {
         const user = getUserInfo(1, testUsers);
 
@@ -20,10 +16,6 @@ describe('get user', function() {
 });
 
 describe('get average step goal', function() {
-    it('should be a function', function() {
-        expect(getAverageSteps).to.be.a("function");
-    });
-
     it('should get average steps amongst all users', function() {
         const averageSteps = getAverageSteps(testUsers);
         
@@ -32,10 +24,6 @@ describe('get average step goal', function() {
 });
 
 describe('find user friends', function() {
-    it('should be a function', function() {
-        expect(findFriends).to.be.a("function");
-    });
-
     it('should return an array of friend\'s names', function() {
         const user = getUserInfo(1, testUsers);
         const usersFriends = findFriends(user.id, testUsers);

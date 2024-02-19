@@ -3,10 +3,6 @@ import { testSleepData } from '../src/data/sample-sleep';
 import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findHoursSleptWeek, findSleepQualityWeek } from '../src/sleep'; 
 
 describe('calculate sleep hours average', function() {
-  it('should be a function', function() {
-      expect(calculateAvgHoursSlept).to.be.a("function");
-  });
-
   it('should calculate the user’s average number of hours slept per day', function() {
       const user1Avg = calculateAvgHoursSlept(1, testSleepData);
       const user2Avg = calculateAvgHoursSlept(2, testSleepData);
@@ -17,10 +13,6 @@ describe('calculate sleep hours average', function() {
 });
 
 describe('calculate sleep quality average', function() {
-  it('should be a function', function() {
-      expect(calculateAvgSleepQuality).to.be.a("function");
-  });
-
   it('should calculate the user’s average sleep quality per day over all time', function() {
       const user1Avg = calculateAvgSleepQuality(1, testSleepData);
       const user2Avg = calculateAvgSleepQuality(2, testSleepData);
@@ -31,10 +23,6 @@ describe('calculate sleep quality average', function() {
 });
 
 describe('get hours slept for a day', function() {
-  it('should be a function', function() {
-      expect(findSleepHourDay).to.be.a("function");
-  });
-
   it('should return how many hours a user slept for a specific day', function() {
       const user1Data = findSleepHourDay(1, "2023/03/24", testSleepData);
       const user2Data = findSleepHourDay(2, "2023/03/25", testSleepData);
@@ -50,45 +38,28 @@ describe('get hours slept for a day', function() {
   });
 });
 
-describe('get sleep quality for a day', function() {
-  it('should be a function', function() {
-      expect(findSleepQualityDay).to.be.a("function");
-  });
+describe('beforeEach', () => {
+  let user1Data; 
+  let user2Data; 
+  let wrongData; 
 
-  it('should return users sleep quality for a specific day', function() {
-      const user1Data = findSleepQualityDay(1, "2023/03/24", testSleepData);
-      const user2Data = findSleepQualityDay(2, "2023/03/25", testSleepData);
+  beforeEach(() => {
+    user1Data = findSleepQualityDay(1, "2023/03/24", testSleepData);
+    user2Data = findSleepQualityDay(2, "2023/03/25", testSleepData);
+    wrongData = findSleepQualityDay(1, "2024/1/24", testSleepData)
+  })
 
+  describe('get sleep quality for a day', function() {
+    it('should return users sleep quality for a specific day', function() {
       expect(user1Data).to.equal(4.3);
       expect(user2Data).to.equal(4.7);
+    });
+
+    it('should return a message if there is no entry for the day in question', function() {
+      expect(wrongData).to.equal(`There is no entry for the date provided.`);
+    });
   });
-
-  it('should return a message if there is no entry for the day in question', function() {
-    const user1Data = findSleepQualityDay(1, "2024/1/24", testSleepData);
-
-    expect(user1Data).to.equal(`There is no entry for the date provided.`);
-  });
-});
-
-describe('get sleep quality for a day', function() {
-  it('should be a function', function() {
-      expect(findSleepQualityDay).to.be.a("function");
-  });
-
-  it('should return users sleep quality for a specific day', function() {
-      const user1Data = findSleepQualityDay(1, "2023/03/24", testSleepData);
-      const user2Data = findSleepQualityDay(2, "2023/03/25", testSleepData);
-
-      expect(user1Data).to.equal(4.3);
-      expect(user2Data).to.equal(4.7);
-  });
-
-  it('should return a message if there is no entry for the day in question', function() {
-    const user1Data = findSleepQualityDay(1, "2024/1/24", testSleepData);
-
-    expect(user1Data).to.equal(`There is no entry for the date provided.`);
-  });
-});
+})
 
 describe('get hours slept for a week', function() {
   it('should be a function', function() {
@@ -121,10 +92,6 @@ describe('get hours slept for a week', function() {
 });
 
 describe('get sleep quality for a week', function() {
-  it('should be a function', function() {
-      expect(findSleepQualityWeek).to.be.a("function");
-  });
-  
   it('should return users sleep quality for a specific week', function() {
       const user1Data = findSleepQualityWeek(1, "2023/03/31", testSleepData);
       const user2Data = findSleepQualityWeek(2, "2023/03/30", testSleepData);
