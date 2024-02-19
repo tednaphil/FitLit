@@ -23,9 +23,39 @@ const qualityButton = document.querySelector('#quality-button');
 const hydroTitle = document.querySelector('#hy-title');
 const qualityTitle = document.querySelector('#q-title');
 const hoursTitle = document.querySelector('#ho-title');
+const formInfo = document.querySelector('form')
+const date = document.querySelector('.date')
+const hours = document.querySelector('.hours-slept')
+const quality = document.querySelector('.sleep-quality')
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
+formInfo.addEventListener('submit', function(event) {
+event.preventDefault()
+fetch("http://localhost:3001/api/v1/sleep", {
+method: "POST",
+body: JSON.stringify({
+  userID: randomUser.id,
+  date: date.value,
+  hoursSlept: hours.value,
+  sleepQuality: quality.value
+}),
+headers: {
+"Content-type": "application/json"
+}
+})
+.then((response) => response.json())
+.then((data) => {
+fetch("http://localhost:3001/api/v1/sleep")
+.then(res => res.json())
+.then(data => {
+console.log(randomUser)
+console.log(data.sleepData)
+sleepData = data.sleepData;
+displaySleepInfo(randomUser, sleepData)})
+})
+})
+
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
 });
@@ -41,18 +71,25 @@ let displayingHydroGraph = false;
 let displayingHoursGraph = false;
 let displayingQualityGraph = false;
 
+var randomUser;
+var sleepData;
+
+//EVENT LISTENERS
+
+
 // FUNCTIONS
 function renderDom(){
   fetchData()
     .then(([info, sleep, hydration]) => {
-      const randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
+      randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
+      sleepData = sleep.sleepData; 
       displayPersonalInfo(randomUser);
-      displayTodayInfo(randomUser, sleep.sleepData, hydration.hydrationData);
+      displayTodayInfo(randomUser, sleepData, hydration.hydrationData);
       displayHydrationInfo(randomUser, hydration.hydrationData);    
       displayFriends(randomUser, info.users);
-      displaySleepInfo(randomUser, sleep.sleepData);
+      displaySleepInfo(randomUser, sleepData);
       displayStepInfo(randomUser, info.users);
-      displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);
+      displayAverages(randomUser, sleepData, hydration.hydrationData);
     })
 };
 
@@ -107,6 +144,7 @@ function displaySleepInfo(person, dataSet) {
   createBarGraph(weeklyHoursSlept, 'hoursSlept');
   weeklyHoursSlept.forEach((day, index) => {
     if(!index){
+      sleepHours.innerHTML = '';
       sleepHours.innerHTML += `<br></br><span class="today-span">TODAY: ${day.hoursSlept} hours</span>`;
     } else {
       sleepHours.innerHTML += `<br></br>${formatDate(day.date)}: ${day.hoursSlept} hours`;
@@ -114,6 +152,7 @@ function displaySleepInfo(person, dataSet) {
   });
   weeklySleepQuality.forEach((day, index) => {
     if(!index){
+      sleepQuality.innerHTML = '';
       sleepQuality.innerHTML += `<br></br><span class="today-span">TODAY: ${day.sleepQuality} out of 5`;
     } else {
       sleepQuality.innerHTML += `<br></br>${formatDate(day.date)}: ${day.sleepQuality} out of 5`;
