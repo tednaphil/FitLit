@@ -4,7 +4,7 @@ function calculateAverageIntake(id, dataSet) {
        return sum += entry.numOunces}, 0);
     const averageIntake = Math.round(totalIntake / hydrationEntries.length);
     
-    return averageIntake;
+    return totalIntake ? averageIntake : 'You do not have any data yet.';
 };
 
 function findIntakeByDay(id, date, dataSet) {

@@ -9,6 +9,12 @@ describe('calculate average intake', function() {
     expect(userIntake).to.equal(53);
   });
 
+  it('should return a message if the user is new', function() {
+    const newUser = calculateAverageIntake(4, testHydrationData)
+
+    expect(newUser).to.equal(`You do not have any data yet.`)
+  })
+
 });
 
 describe('report intake by day', function() {
