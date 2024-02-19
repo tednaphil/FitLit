@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { testUsers } from '../src/data/sample-users'; 
 import { getUserInfo, getAverageSteps, findFriends } from '../src/user';
 
+describe('user-test.js', function() { 
 describe('get user', function() {
     it('should return an object with relevant user data', function() {
         const user = getUserInfo(1, testUsers);
@@ -30,4 +31,5 @@ describe('find user friends', function() {
 
         expect(usersFriends).to.deep.equal(['Serena Williams', 'Cristiano Ronaldo', 'Simone Biles', 'Usain Bolt']);
     });
+});
 });

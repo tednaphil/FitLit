@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { testSleepData } from '../src/data/sample-sleep'; 
 import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findHoursSleptWeek, findSleepQualityWeek } from '../src/sleep'; 
 
+describe('sleep-test.js', function() { 
 describe('calculate sleep hours average', function() {
   it('should calculate the user’s average number of hours slept per day', function() {
       const user1Avg = calculateAvgHoursSlept(1, testSleepData);
@@ -116,7 +117,7 @@ describe('get sleep quality for a week', function() {
     expect(user1Data.length).to.deep.equal(3);
   });
 });
-
+});
 
 
 

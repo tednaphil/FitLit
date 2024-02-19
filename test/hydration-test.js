@@ -2,8 +2,9 @@ import { expect } from 'chai';
 import { testHydrationData } from '../src/data/sample-hydration'; 
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from '../src/hydration'; 
 
+describe('hydration-test.js', function() { 
 describe('calculate average intake', function() {
-  it('return the user’s average fluid intake for all time', function() {
+  it('should return the user’s average fluid intake for all time', function() {
     const userIntake = calculateAverageIntake(1, testHydrationData);
     
     expect(userIntake).to.equal(53);
@@ -14,11 +15,10 @@ describe('calculate average intake', function() {
 
     expect(newUser).to.equal(`You do not have any data yet.`)
   })
-
 });
 
 describe('report intake by day', function() {
-  it('return the user’s fluid intake for a specific day', function() {   
+  it('should return the user’s fluid intake for a specific day', function() {   
     const intake1 = findIntakeByDay(1, "2023/04/01", testHydrationData);
     const intake2 = findIntakeByDay(2, "2023/04/02", testHydrationData);
     
@@ -59,3 +59,4 @@ describe('report intake by week', function() {
     expect(intake3.length).to.equal(4);
   });
 });
+}); 
