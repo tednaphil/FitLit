@@ -32,6 +32,7 @@ const quality = document.querySelector('.sleep-quality')
 window.addEventListener('load', renderDom);
 formInfo.addEventListener('submit', function(event) {
 event.preventDefault()
+console.log("working?")
 fetch("http://localhost:3001/api/v1/sleep", {
 method: "POST",
 body: JSON.stringify({
@@ -44,13 +45,14 @@ headers: {
 "Content-type": "application/json"
 }
 })
+
 .then((response) => response.json())
 .then((data) => {
 fetch("http://localhost:3001/api/v1/sleep")
 .then(res => res.json())
 .then(data => {
-sleepData = data.sleepData;
-displaySleepInfo(randomUser, sleepData)})
+displaySleepInfo(randomUser, data.sleepData)
+})
 })
 })
 
