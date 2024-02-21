@@ -29,7 +29,7 @@ describe('sleep-test.js', function() {
     });
 
     it('should return a message if the user is new', function() {
-      const user3Avg = calculateAvgHoursSlept(3, testSleepData);
+      const user3Avg = calculateAvgSleepQuality(3, testSleepData);
 
       expect(user3Avg).to.equal(`You do not have any data yet.`)
     })
