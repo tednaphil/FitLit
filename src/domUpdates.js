@@ -4,6 +4,9 @@ import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, fin
 import { fetchData } from './apiCalls';
 
 //QUERY SELECTORS
+const main = document.querySelector('main');
+const header = document.querySelector('header');
+const errorDisplay = document.querySelector('.error-display');
 const nameDisplay = document.querySelector('h1');
 const address = document.querySelector('#address');
 const email = document.querySelector('#email');
@@ -53,6 +56,12 @@ function renderDom(){
       displaySleepInfo(randomUser, sleep.sleepData);
       displayStepInfo(randomUser, info.users);
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);
+    })
+    .catch(error => {
+      main.classList.add('hidden');
+      header.classList.add('hidden');
+      errorDisplay.classList.remove('hidden');
+      // alert(`ERROR MESSAGE: Data fetch failed! ${error}`);
     })
 };
 
