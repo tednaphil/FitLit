@@ -1,21 +1,20 @@
 function calculateAvgHoursSlept(id, sleepData) {
     const userInfo = sleepData.filter(data => data.userID === id);
-    const avgHours = ((userInfo.reduce((total, data) => {
-        total += data.hoursSlept;
-        return total;
-    }, 0)) / userInfo.length).toFixed(2);
+    const avgHours = (userInfo.reduce((total, data) => {
+        return total += data.hoursSlept;
+    }, 0)) 
+    const avgHoursSlept = (avgHours/userInfo.length).toFixed(2);
 
-    return avgHours;
+    return avgHours ? avgHoursSlept : `You do not have any data yet.`;
 };
 
 function calculateAvgSleepQuality(id, sleepData) {
     const userInfo = sleepData.filter(data => data.userID === id);
-    const avgQuality = ((userInfo.reduce((total, data) => {
-        total += data.sleepQuality;
-        return total;
-    }, 0)) / userInfo.length).toFixed(2);
-
-    return avgQuality;
+    const avgQuality = (userInfo.reduce((total, data) => {
+        return total += data.sleepQuality;
+    }, 0))
+    const avgSleepQuality = (avgQuality/userInfo.length).toFixed(2);
+    return avgQuality ? avgSleepQuality : `You do not have any data yet.`;
 };
 
 function findSleepHourDay(id, date, sleepData) {

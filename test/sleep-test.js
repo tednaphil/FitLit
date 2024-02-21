@@ -11,6 +11,12 @@ describe('sleep-test.js', function() {
       expect(user1Avg).to.equal('7.03');
       expect(user2Avg).to.equal('8.34');
     });
+
+    it('should return a message if the user is new', function(){
+      const user3Avg = calculateAvgHoursSlept(3, testSleepData);
+
+      expect(user3Avg).to.equal(`You do not have any data yet.`)
+    })
   });
 
   describe('calculate sleep quality average', function() {
@@ -21,6 +27,12 @@ describe('sleep-test.js', function() {
       expect(user1Avg).to.equal('3.53');
       expect(user2Avg).to.equal('3.01');
     });
+
+    it('should return a message if the user is new', function() {
+      const user3Avg = calculateAvgHoursSlept(3, testSleepData);
+
+      expect(user3Avg).to.equal(`You do not have any data yet.`)
+    })
   });
 
   describe('get hours slept for a day', function() {
