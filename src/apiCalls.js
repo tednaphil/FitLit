@@ -12,9 +12,13 @@ const allData = [
         }))
       })
       .catch(error => {
-        console.log("error")
+        setTimeout(() => {
+          alert(error)
+          }, 1050)
         return error; 
       })    
   };
 
-  export { fetchData };
+  export {
+    fetchData
+  }
