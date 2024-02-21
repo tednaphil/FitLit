@@ -3,7 +3,7 @@ import { testHydrationData } from '../src/data/sample-hydration';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from '../src/hydration'; 
 
 describe('hydration-test.js', function() { 
-  describe('calculate average intake', function() {
+  describe('calculate average fluid intake', function() {
     it('should return the user’s average fluid intake for all time', function() {
       const userIntake = calculateAverageIntake(1, testHydrationData);
     
@@ -17,7 +17,7 @@ describe('hydration-test.js', function() {
     })
   });
 
-  describe('report intake by day', function() {
+  describe('report fluid intake by day', function() {
     it('should return the user’s fluid intake for a specific day', function() {   
       const intake1 = findIntakeByDay(1, "2023/04/01", testHydrationData);
       const intake2 = findIntakeByDay(2, "2023/04/02", testHydrationData);
@@ -33,7 +33,7 @@ describe('hydration-test.js', function() {
     })
   });
 
-  describe('report intake by week', function() {
+  describe('report fluid intake by week', function() {
     it('should return information about daily intake over past week', function() {   
       const intake1 = findIntakeWeek(1, testHydrationData);
       const intake2 = findIntakeWeek(2, testHydrationData);
