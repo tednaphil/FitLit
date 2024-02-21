@@ -18,7 +18,8 @@ function findIntakeByDay(id, date, dataSet) {
 function findIntakeWeek(id, dataSet) {
     const userData = dataSet.filter(entry => {
         return entry.userID === id;
-    }).slice(-7).reverse();
+    }).sort((a, b) =>{
+        return new Date(a.date) - new Date(b.date)}).slice(-7).reverse();
  
     return userData;
 };

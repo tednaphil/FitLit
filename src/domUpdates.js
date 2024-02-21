@@ -25,21 +25,19 @@ const qualityTitle = document.querySelector('#q-title');
 const hoursTitle = document.querySelector('#ho-title');
 const formInfo = document.querySelector('form')
 const date = document.querySelector('.date')
-const hours = document.querySelector('.hours-slept')
-const quality = document.querySelector('.sleep-quality')
+const numOunces = document.querySelector('.num-ounces')
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
 formInfo.addEventListener('submit', function(event) {
 event.preventDefault()
 console.log("working?")
-fetch("http://localhost:3001/api/v1/sleep", {
+fetch("http://localhost:3001/api/v1/hydration", {
 method: "POST",
 body: JSON.stringify({
   userID: randomUser.id,
   date: date.value,
-  hoursSlept: hours.value,
-  sleepQuality: quality.value
+  numOunces: numOunces.value
 }),
 headers: {
 "Content-type": "application/json"
@@ -48,13 +46,19 @@ headers: {
 
 .then((response) => response.json())
 .then((data) => {
-fetch("http://localhost:3001/api/v1/sleep")
+fetch("http://localhost:3001/api/v1/hydration")
 .then(res => res.json())
 .then(data => {
-displaySleepInfo(randomUser, data.sleepData)
+displayHydrationInfo(randomUser, data.hydrationData);
+clearInputFields();
 })
 })
 })
+
+function clearInputFields(){
+  date.value = '';
+  numOunces.value = '';
+}
 
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
@@ -73,6 +77,7 @@ let displayingQualityGraph = false;
 
 var randomUser;
 var sleepData;
+var hydrationData; 
 
 //EVENT LISTENERS
 
@@ -83,13 +88,14 @@ function renderDom(){
     .then(([info, sleep, hydration]) => {
       randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
       sleepData = sleep.sleepData; 
+      hydrationData = hydration.hydrationData; 
       displayPersonalInfo(randomUser);
-      displayTodayInfo(randomUser, sleepData, hydration.hydrationData);
-      displayHydrationInfo(randomUser, hydration.hydrationData);    
+      displayTodayInfo(randomUser, sleepData, hydrationData);
+      displayHydrationInfo(randomUser, hydrationData);    
       displayFriends(randomUser, info.users);
       displaySleepInfo(randomUser, sleepData);
       displayStepInfo(randomUser, info.users);
-      displayAverages(randomUser, sleepData, hydration.hydrationData);
+      displayAverages(randomUser, sleepData, hydrationData);
     })
 };
 
@@ -122,10 +128,10 @@ function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
 
 function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet);
-  
   createBarGraph(dailyInfo, 'hydration');
   dailyInfo.forEach((day, index) => {
     if(!index) {
+      hydrationWeek.innerHTML = '';
       hydrationWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${day.numOunces} ounces`;
     } else {
       hydrationWeek.innerHTML += `<br></br>${formatDate(day.date)}: ${day.numOunces} ounces`;
