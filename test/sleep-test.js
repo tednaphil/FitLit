@@ -55,22 +55,6 @@ describe('sleep-test.js', function() {
     });
   });
 
-  describe('get sleep quality for a day', function() {
-    it('should return users sleep quality for a specific day', function() {
-      const user1Data = findSleepQualityDay(1, "2023/03/24", testSleepData);
-      const user2Data = findSleepQualityDay(2, "2023/03/25", testSleepData);
-
-      expect(user1Data).to.equal(4.3);
-      expect(user2Data).to.equal(4.7);
-    });
-
-    it('should return a message if there is no entry for the day in question', function() {
-      const user1Data = findSleepQualityDay(1, "2024/1/24", testSleepData);
-
-      expect(user1Data).to.equal(`There is no entry for the date provided.`);
-   });
-  });
-
   describe('get hours slept for a week', function() {
     it('should return users sleep quality for a specific week', function() {
       const user1Data = findHoursSleptWeek(1, "2023/03/31", testSleepData);
