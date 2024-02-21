@@ -12,7 +12,7 @@ const allData = [
         }))
       })
       .catch(error => {
-        // alert(error);
+        console.log(`ERROR MESSAGE: ${error}`)
         return error; 
       })    
   };
