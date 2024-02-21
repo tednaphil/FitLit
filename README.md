@@ -1,78 +1,78 @@
-# FitLit Starter Kit
+# <p align="center">FitLit</p>
 
-The details of this project are outline in [this project spec](http://frontend.turing.io/projects/fitlit.html).
+<p align="center">This is a dashboard designed to display a user's activity data including hours of sleep, fluid intake, step goal compared to the community's average, and more!</p>
 
-## Setup
+### <p align="center">Contributors</p>
+<div align="center">
 
-1. Within your group, decide on **one** person to have the project repository (repo) on their GitHub account. Then, that person should *fork* this repo - on the top right corner of this page, click the **Fork** button.
-1. Both memebers of the group should clone down the _forked_ repo. Since you don't want to name your project "activity-tracker-starter", you can use an optional argument when you run git clone (you replace the [...] with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Once you have cloned the repo, change into the directory and install the project dependencies. Run `npm install` to install project dependencies.
-1. Run `npm start` in the terminal to see the HTML page (you should see some boilerplate HTML displayed on the page).  `Control + C` is the command to stop running the local server.  Closing the terminal without stopping the server first could allow the server to continue to run in the background and cause problems. This command is not specific to Webpack; make note of it for future use.   
-1. Make sure both members of your team are collaborators on the forked repo.  
-1. Do not run `npm audit fix --force`.  This will update to the latest version of packages.  We need to be using `webpack-dev-server@3.11.2` which is not the latest version.  If you start to run into Webpack errors, first check that all group members are using the correct version.  
+[Adam Bedient](https://github.com/cOdeBedient) - [Erin Kelley](https://github.com/kelleyej) - [Pareesa Kamgar-Dayhoff](https://github.com/pareesakd1118) - [Tayla Phillips](https://github.com/tednaphil)
 
-## Testing
+</div>
 
-Mocha and chai are already set up, with a boilerplate test for you..
+## Preview:
+<div align="center">
+  <img src="https://github.com/tednaphil/FitLit/assets/76406423/5a5b4e58-e46e-40c2-87b0-20176992f9a9" alt="app demo">
 
 
-## Data Model
 
-**Users**
+</div>
 
-```
-[
-  {
-    "id": [number],
-    "name": [string],
-    "address": [string],
-    "email": [string],
-    "strideLength": [number - feet],
-    "dailyStepGoal": [number - steps],
-    "friends": [array - one-way connection to other user(s)]
-  },
-  ...more user data
-]
-```
+<p align="center">Technologies Used</p>
+<div align="center">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=for-the-badge" alt="javascript badge">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=fff&style=for-the-badge" alt="html badge">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=fff&style=for-the-badge" alt="css badge">
+  <img src="https://img.shields.io/badge/Mocha-8D6748?logo=mocha&logoColor=fff&style=for-the-badge" alt="mocha badge">
+  <img src="https://img.shields.io/badge/Chai-A30701?logo=chai&logoColor=fff&style=for-the-badge" alt="chai badge">
+  <img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?logo=visualstudiocode&logoColor=fff&style=for-the-badge" alt="vscode badge">
+</div>
 
-**Activity**
+## Installation Instructions:
+- Use the green `<> Code` button in the top right corner of the window to access and copy the clone link
+- Run `git clone` on your terminal command line followed by the pasted clone link
+- `cd` into the cloned directory
+- Run `npm install`
+- Run `npm start` then paste the server url into your browser. It will appear like the following:
+    ```
+    Project is running at http://localhost:8080/
+    ```
+- Use `CTRL + C` to stop running the local server when finished browsing the dashboard
 
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "numSteps": [number - steps],
-    "minutesActive": [number - minutes],
-    "flightsOfStairs": [number - flights]
-  },
-  ...more activity data
-]
-```
+## Context: 
+<!-- wins, challenges, time spent, etc -->
+- Ongoing group project begun in the 8th week of contributors learning JavaScript
+- Approximately 20 hours to complete test suite and functionality
+- Goals:
+  ```
+  - perform data manipulation with prototype methods
+  - create navigable and easy to follow user interface
+  - use SRP code that strives for purity
+  - implement robust testing suite using TDD
+  - retrieve data with network requests
+  ```
+- Wins:
+  ```
+  - TDD approach taken to writing robust tests, driving code-writing that meets user-story-guided benchmarks.
+  - Making network requests to multiple datasets, processing data with promise chaining and Promise.all()
+  - Working with webpack to execute cross-file imports/exports.
+  - Integration of graphs on DOM.
+  - Use of GitHub project board to organize tasks and communicate asynchronously amongst team members.
+  - Utilizing PR templates to streamline group workflow.
+  - Quickly and collaboratively establishing a comfortable, safe, and productive team atmosphere with new teammates.
 
-**Hydration**
+  ```
+- Challenges:
+  ```
+  - Working across four time-zones, and collaborators each having rigorous classroom schedules.
+  - Working with webpack for the first time, understanding its import/export workflow.
+  - API fetch calls, asynchronous function calls, and using Promise.all()
 
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "numOunces": [number - ounces]
-  },
-  ...more hydration data
-]
-```
+  ```
+- Future Improvements:
+  ```
+  - More testing for DOM-related functions.
+  - Subtle animations, text-effects, etc. to enhance UX.
+  - Flip cards for graph view.
+  - Refactor some DOM functions to DRY up code, possibly deferring some functionality to other files.
 
-**Sleep**
-
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "hoursSlept": [number - hours],
-    "sleepQuality": [number - unitless]
-  },
-  ...more sleep data
-]
-```
+  ```

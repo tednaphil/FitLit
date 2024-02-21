@@ -21,10 +21,10 @@ function findIntakeWeek(id, dataSet) {
     }).slice(-7).reverse();
  
     return userData;
-}
+};
 
 export { 
     calculateAverageIntake,
     findIntakeByDay,
     findIntakeWeek
-}
+};

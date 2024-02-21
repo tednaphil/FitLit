@@ -1,38 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>FitLit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Honk&family=Poppins:ital,wght@0,200;1,100;1,200;1,400&display=swap" rel="stylesheet">
   </head>
   <body>
     <header>
-      <section class="user-profile">
-        <p id="address-email">address and email</p>
+        <p id="address">address and email</p>
         <h1>My Name</h1>
-        <p id="steps-stride">steps and stride</p>
-      </section>
-      <section class="avg-steps">
-        <h3></h3>
-      </section>
+        <p id="email"></p>
     </header>
-    <main>
-      <section class="widgets">
-        <div class="friend-hydro">
-          <div class="friends">
-            <p id="friends"></p>
+    <h3 class="today-info"></h3>
+    <main class="widget-container" id="widgets">
+      <div class="friend-avg-steps">
+        <section class="friends-widget">
+          <h2 class="friend-header">Friends</h2>
+          <p id="friends"></p>
+        </section>
+        <section class="averages-widget">
+          <h2 id="avg-title">Your Averages</h2>
+          <p id="avgs"></p>
+        </section>
+        <section class="steps-widget">
+          <h2 class="steps-header">Steps</h2>
+          <p id="steps"></p>
+        </section>
+      </div>
+      <div class="week-info">
+        <section class="hydration">
+          <div class="mode">
+            <img class="graph-icon" id="hydro-button" src="./images/graph-icon.png" alt="bar graph icon">
           </div>
-          <div class="hydration">
-            <p id="hydro-week"></p>
+          <h2 id="hy-title">Hydration</h2>
+          <p id="hydro-week" class="week"></p>
+          <figure id="hydro-graph" class="hidden"></figure>
+        </section>
+        <section class="hours">
+          <div class="mode">
+            <img class="graph-icon" id="hours-button" src="./images/graph-icon.png" alt="bar graph icon">
           </div>
-        </div>
-        <div class="sleep">
-          <p>S</p>
-        </div>
-      </section>
-      <section class="celeb">
-        <img src="./images/richard-with-text.png" alt="richard-simmons">
-      </section>
+          <h2 id="ho-title">Hours Slept</h2>
+          <p id="sleep-hours" class="week"></p>
+          <figure id="sleep-graph" class="hidden"></figure>
+        </section>
+        <section class="quality">
+          <div class="mode">
+            <img class="graph-icon" id="quality-button" src="./images/graph-icon.png" alt="bar graph icon">
+          </div>
+          <h2 id="q-title">Sleep Quality</h2>
+          <p id="sleep-quality" class="week"></p>
+          <figure id="sleep-q-graph" class="hidden"></figure>
+        </section>
+      </div>
     </main>
     <script src="bundle.js"></script>
   </body>
