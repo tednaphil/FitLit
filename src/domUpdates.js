@@ -66,9 +66,9 @@ function displayErrorMessage(error) {
   main.classList.add('hidden');
   header.classList.add('hidden');
   errorDisplay.classList.remove('hidden');
-  setTimeout(() => {
-    alert(`ERROR MESSAGE: Data fetch failed! ${error}`)
-    }, 1050)
+  // setTimeout(() => {
+  //   alert(`ERROR MESSAGE: Data fetch failed! ${error}`)
+  //   }, 1050)
 
 };
 

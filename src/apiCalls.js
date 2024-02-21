@@ -12,7 +12,9 @@ const allData = [
         }))
       })
       .catch(error => {
-        console.log(`ERROR MESSAGE: ${error}`)
+        setTimeout(() => {
+          alert(error)
+          }, 1050)
         return error; 
       })    
   };
