@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import { testSleepData } from '../src/data/sample-sleep'; 
-import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findHoursSleptWeek, findSleepQualityWeek } from '../src/sleep'; 
+import { calculateAvgSleepData,
+  findSleepDayInfo,
+  findSleepInfoWeek } from '../src/sleep'; 
 
 describe('sleep-test.js', function() { 
   describe('calculate sleep hours average', function() {
