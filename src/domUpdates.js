@@ -58,11 +58,18 @@ function renderDom(){
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);
     })
     .catch(error => {
-      main.classList.add('hidden');
-      header.classList.add('hidden');
-      errorDisplay.classList.remove('hidden');
-      // alert(`ERROR MESSAGE: Data fetch failed! ${error}`);
+      displayErrorMessage(error);
     })
+};
+
+function displayErrorMessage(error) {
+  main.classList.add('hidden');
+  header.classList.add('hidden');
+  errorDisplay.classList.remove('hidden');
+  setTimeout(() => {
+    alert(`ERROR MESSAGE: Data fetch failed! ${error}`)
+    }, 1050)
+
 };
 
 function displayPersonalInfo(person) {
