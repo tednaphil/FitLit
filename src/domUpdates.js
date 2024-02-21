@@ -1,6 +1,6 @@
 import { getUserInfo, getAverageSteps, findFriends } from './user';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
-import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findHoursSleptWeek, findSleepQualityWeek } from './sleep';
+import { calculateAvgSleepData, findSleepDayInfo, findSleepInfoWeek } from './sleep';
 import { fetchData } from './apiCalls';
 
 //QUERY SELECTORS
@@ -78,8 +78,8 @@ function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
     return entry.userID === person.id;
   }).slice(-1)[0].date;
   const ouncesDrank = findIntakeByDay(person.id, today, hydrationDataSet);
-  const todayHoursSlept = findSleepHourDay(person.id, today, sleepDataSet);
-  const sleepQualityDay = findSleepQualityDay(person.id, today, sleepDataSet);
+  const todayHoursSlept = findSleepDayInfo(person.id, today, sleepDataSet, "hoursSlept");
+  const sleepQualityDay = findSleepDayInfo(person.id, today, sleepDataSet, "sleepQuality");
   todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water and slept ${todayHoursSlept} hours with a sleep quality of ${sleepQualityDay} out of 5!`;
 };
 
@@ -100,19 +100,18 @@ function displaySleepInfo(person, dataSet) {
   let today = dataSet.filter((entry) => {
     return entry.userID === person.id;
   }).slice(-1)[0].date;
-  let weeklySleepQuality = findSleepQualityWeek(person.id, today, dataSet);
-  let weeklyHoursSlept = findHoursSleptWeek(person.id, today, dataSet);
+  let weeklySleepInfo = findSleepInfoWeek(person.id, today, dataSet);
 
-  createBarGraph(weeklySleepQuality, 'sleep quality');
-  createBarGraph(weeklyHoursSlept, 'hoursSlept');
-  weeklyHoursSlept.forEach((day, index) => {
+  createBarGraph(weeklySleepInfo, 'sleep quality');
+  createBarGraph(weeklySleepInfo, 'hoursSlept');
+  weeklySleepInfo.forEach((day, index) => {
     if(!index){
       sleepHours.innerHTML += `<br></br><span class="today-span">TODAY: ${day.hoursSlept} hours</span>`;
     } else {
       sleepHours.innerHTML += `<br></br>${formatDate(day.date)}: ${day.hoursSlept} hours`;
     };
   });
-  weeklySleepQuality.forEach((day, index) => {
+  weeklySleepInfo.forEach((day, index) => {
     if(!index){
       sleepQuality.innerHTML += `<br></br><span class="today-span">TODAY: ${day.sleepQuality} out of 5`;
     } else {
@@ -122,8 +121,8 @@ function displaySleepInfo(person, dataSet) {
 };
 
 function displayAverages(person, sleepDataSet, hydrationDataSet) {
-  let avgSleepQuality = calculateAvgSleepQuality(person.id, sleepDataSet);
-  let avgSleepHours = calculateAvgHoursSlept(person.id, sleepDataSet);
+  let avgSleepQuality = calculateAvgSleepData(person.id, sleepDataSet, 'sleepQuality');
+  let avgSleepHours = calculateAvgSleepData(person.id, sleepDataSet, 'hoursSlept');
   let averageIntake = calculateAverageIntake(person.id, hydrationDataSet);
 
   avg.innerHTML = `Hours Slept: ${avgSleepHours}<br></br>Sleep Quality: ${avgSleepQuality} out of 5<br></br>Water Intake: ${averageIntake} Ounces`
