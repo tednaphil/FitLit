@@ -84,7 +84,7 @@ qualityButton.addEventListener('click', function() {
   toggleGraph('sleep quality');
 });
 
-partyButton.addEventListener('click', displayFriendSelector)
+partyButton.addEventListener('click', displayFriendSelector);
 
 // GLOBAL VARIABLES
 let displayingHydroGraph = false;
@@ -108,7 +108,8 @@ function renderDom(){
       displaySleepInfo(randomUser, sleep.sleepData);
       displayStepInfo(randomUser, info.users);
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);
-      clearInputFields();  
+      clearInputFields();
+      makeFriendSelector(randomUser, info.users)
     })
     // .catch(error => {
     //   displayErrorMessage(error);
@@ -372,18 +373,20 @@ function makeChart(dataSet, dataCategory) {
   newChart.update();
 }
 
+function makeFriendSelector(person, dataSet){
+  friendSelectors.innerHTML = `<h3>Who's In?!<h4>`
+  const friends = findFriends(person.id, dataSet)
+  friends.forEach((friend) => {
+      friendSelectors.innerHTML +=  `
+      <label>
+        <input type='radio' name='${friend}' id='friend-${person.id}'>${friend}
+      </label>`
+  });
+  friendSelectors.innerHTML += `<button id='lets-party'>LET'S PARTY!</button>`
+};
+
+
 function displayFriendSelector() {
-  
-  <label>
-  <input type='radio' name='dish-type' id='side'>Side
-</label>
-<label>
-  <input type='radio' name='dish-type' id='main'>Main Dish
-</label>
-<label>
-  <input type='radio' name='dish-type' id='dessert'>Dessert
-</label>
-<label>
-  <input type='radio' name='dish-type' id='meal'>Entire Meal
-</label>
+  partyButton.classList.add('hidden');
+  friendSelectors.classList.remove('hidden');
 }

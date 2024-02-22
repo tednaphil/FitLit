@@ -369,3 +369,15 @@ canvas {
   width: 90%;
 }
 
+.friend-selectors {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+}
+
