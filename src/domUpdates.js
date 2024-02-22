@@ -30,12 +30,25 @@ const formInfo = document.querySelector('form')
 const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field')
+const infoButton = document.querySelector('.info-button')
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
 
+infoButton.addEventListener('click', function() {
+  formInfo.classList.toggle('hidden')
+  main.classList.toggle('hidden')
+  if (infoButton.innerText === "Enter Today's Info!") {
+    infoButton.innerText = "Back to Home Page"
+  } else {
+    infoButton.innerText = "Enter Today's Info!"
+  }
+})
+
 formInfo.addEventListener('submit', function(event) {
   event.preventDefault();
+  formInfo.classList.add('hidden')
+  main.classList.remove('hidden')
   if (!submittedTodaysData) {
     submittedTodaysData = true;
     return Promise.all(runPost(randomUser.id, hydroField, hoursField, qualityField))

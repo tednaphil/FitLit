@@ -23,9 +23,11 @@ header,
   width: 95%;
   margin-left: 2%;
   margin-right: 2%;
+  position: absolute;
+  top: 2%
 }
 
-input {
+input, button {
   color: rgba(8, 0, 47, 0.674);
 }
 
@@ -59,6 +61,19 @@ h1 {
   font-family: 'Honk', system-ui;
   font-size: 5vw;
   margin-bottom: 1em;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
 }
 
 main {

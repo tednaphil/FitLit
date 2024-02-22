@@ -7,25 +7,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Honk&family=Poppins:ital,wght@0,200;1,100;1,200;1,400&display=swap" rel="stylesheet">
   </head>
   <body>
-   <header>
-      <form>
-        <label>Date:</label>
-        <!-- <input class="date-field" type="text" placeholder="YYYY/MM/DD" pattern="\d{4}/\d{2}/\d{2}" required> -->
-        <label>Number of ounces drank:</label>
-        <input class="hydro-field" type="text" placeholder="Number of Ounces" required>
-        <label>Hours slept:</label>
-        <input class="hours-field" type="text" placeholder="Number of Hours" required>
-        <label>Sleep quality:</label>
-        <input class="quality-field" type="text" placeholder="Sleep Quality Score" required>
-        <button type="submit">Submit</button>
-      </form>
+    <header>
+      <button class="info-button">Enter Today's Info!</button>   
         <p id="address">address and email</p>
         <h1>My Name</h1>
         <p id="email"></p>
     </header>
+    <form class="hidden">
+      <div class="form-item">
+        <label>Number of ounces drank:</label>
+        <input class="hydro-field" type="text" placeholder="Number of Ounces" required>
+      </div>
+      <div class="form-item">
+        <label>Hours slept:</label>
+        <input class="hours-field" type="text" placeholder="Number of Hours" required>
+      </div>
+      <div class="form-item">
+        <label>Sleep quality:</label>
+        <input class="quality-field" type="text" placeholder="Sleep Quality Score" required>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
     <section class="error-display hidden">WHOOPS! SOMETHING'S NOT WORKING!</section>
-    <h3 class="today-info"></h3>
+    <!-- <h3 class="today-info"></h3> -->
     <main class="widget-container" id="widgets">
+      <h3 class="today-info"></h3>
       <div class="friend-avg-steps">
         <section class="friends-widget">
           <h2 class="friend-header">Friends</h2>
