@@ -312,13 +312,12 @@ function storeFriends(person, dataSet) {
   friendsByData = friendsData;
 };
 
-function makeFriendSelector(person, dataSet){
+function makeFriendSelector(){
   friendSelectors.innerHTML = `<h3>Who's In?!<h4>`
-  const friends = findFriends(person.id, dataSet)
-  friends.forEach((friend) => {
+  friendsByData.forEach((friend) => {
       friendSelectors.innerHTML +=  `
       <label>
-        <input type='radio' name='${friend}' id='friend-${person.id}'>${friend}
+        <input type='radio' name='${friend.name}' id='friend-id-${friend.id}'>${friend.name}
       </label>`
   });
 };
@@ -478,7 +477,6 @@ function renderStepChart() {
   newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
   newChart.options.scales.y.min = 0;
   newChart.options.scales.y.max = 100;
-  // hydroChart.style.height = chartContainer.style.height;
   newChart.update();
 }
 
@@ -488,13 +486,35 @@ function togglePartyMode() {
   partyChartContainer.classList.remove('hidden');
 }
 
-function computePartyMode(friendsParticipating) {
-  friends.map(() => {
-    
+
+// friendSelector: parent div in which the radios live.
+// letsPartyButton has a click event on it
+
+
+
+
+function computePartyMode() {
+  let bubbles = friendSelectors.querySelectorAll('input');
+  let selectedFriendsFullIds = [];
+  bubbles.forEach((bubble) => {
+    if(bubble.checked) {
+      selectedFriendsFullIds.push(bubble.id);
+    }
+  });
+
+  let selectedFriendsIds = selectedFriendsFullIds.map((friend) => {
+    return parseInt(friend.split('-')[2]);
   })
+
+  let finalSelectedFriendObjects = friendsByData.filter((friend) => {
+    return selectedFriendsIds.includes(friend.id);
+  })
+
+  finalSelectedFriendObjects.push(randomUser);
 }
 
 function generatePartyMode() {
+  computePartyMode();
   togglePartyMode()
   renderStepChart();
 }
