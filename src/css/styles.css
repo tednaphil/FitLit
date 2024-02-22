@@ -71,6 +71,10 @@ form {
   text-align: center;
 }
 
+.form-title {
+  font-size: 30px;
+}
+
 .form-item {
   display: flex;
   flex-direction: column;
