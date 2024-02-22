@@ -12,7 +12,6 @@ const address = document.querySelector('#address');
 const email = document.querySelector('#email');
 const todayInfo = document.querySelector('h3');
 const hydrationWeek = document.querySelector('#hydro-week');
-const friendsList = document.querySelector('#friends');
 const sleepHours = document.querySelector('#sleep-hours');
 const sleepQuality = document.querySelector('#sleep-quality');
 const avg = document.querySelector('#avgs');
@@ -96,7 +95,7 @@ function renderDom(){
       displayPersonalInfo(randomUser);
       displayTodayInfo(randomUser, sleep.sleepData, hydration.hydrationData);
       displayHydrationInfo(randomUser, hydration.hydrationData);    
-      displayFriends(randomUser, info.users);
+      // displayFriends(randomUser, info.users);
       displaySleepInfo(randomUser, sleep.sleepData);
       displayStepInfo(randomUser, info.users);
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);
@@ -218,7 +217,7 @@ function formatAddress(addressInfo) {
   let splitAddress = addressInfo.split(', ');
   let [addrLine1, addrLine2] = splitAddress;
 
-  return `${addrLine1}<br></br>${addrLine2}`;
+  return `${addrLine1},</br>${addrLine2}`;
 };
 
 function createBarGraph(dataSet, dataCategory) {
