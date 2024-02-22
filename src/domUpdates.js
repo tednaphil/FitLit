@@ -41,6 +41,13 @@ formInfo.addEventListener('submit', function(event) {
   .then(res => {
     renderDom()
   })
+  .catch(error => {
+    setTimeout(() => {
+      alert(error)
+      }, 1050)
+    displayErrorMessage(error)
+    return error; 
+  })
 })
  
 hydroButton.addEventListener('click', function() {
