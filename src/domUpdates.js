@@ -2,6 +2,7 @@ import { getUserInfo, getAverageSteps, findFriends } from './user';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
 import { calculateAvgSleepData, findSleepDayInfo, findSleepInfoWeek } from './sleep';
 import { fetchData, runPost } from './apiCalls';
+import Chart from 'chart.js/auto';
 
 //QUERY SELECTORS
 const main = document.querySelector('main');
@@ -16,7 +17,7 @@ const sleepHours = document.querySelector('#sleep-hours');
 const sleepQuality = document.querySelector('#sleep-quality');
 const avg = document.querySelector('#avgs');
 const steps = document.querySelector('#steps');
-const hydroGraph = document.querySelector('#hydro-graph');
+// const hydroGraph = document.querySelector('#hydro-graph');
 const sleepQualityGraph = document.querySelector('#sleep-q-graph');
 const hoursSleptGraph = document.querySelector('#sleep-graph');
 const hydroButton = document.querySelector('#hydro-button');
@@ -31,7 +32,11 @@ const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field');
 const infoButton = document.querySelector('.info-button');
 
+const friendSelectors = document.querySelector('#friend-selectors');
+const partyButton = document.querySelector('.step-party-button');
+
 const hydroChart = document.querySelector('#hydro-chart');
+const chartContainer = document.querySelector('#chart-container');
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
@@ -78,6 +83,8 @@ hoursButton.addEventListener('click', function() {
 qualityButton.addEventListener('click', function() {
   toggleGraph('sleep quality');
 });
+
+partyButton.addEventListener('click', displayFriendSelector)
 
 // GLOBAL VARIABLES
 let displayingHydroGraph = false;
@@ -151,7 +158,7 @@ function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
 function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet);
 
-  makeChart(dailyInfo, 'hydration')
+  makeChart(dailyInfo, 'hydration');
   // createBarGraph(dailyInfo, 'hydration');
   dailyInfo.forEach((day, index) => {
     if(!index) {
@@ -256,7 +263,7 @@ function toggleGraph(category) {
 
   if(category === 'hydration'){
     hydrationWeek.classList.toggle('hidden');
-    hydroChart.classList.toggle('hidden');
+    chartContainer.classList.toggle('hidden');
     hydroTitle.classList.toggle('hidden');
     if(!displayingHydroGraph) {
       hydroButton.src = textURL;
@@ -292,7 +299,8 @@ function makeChart(dataSet, dataCategory) {
   if (dataCategory === 'hydration'){
     ctx = hydroChart.getContext('2d');
   }
-  ctx.canvas.height = hydroChart.style.height;
+  console.log(ctx.canvas.height)
+  ctx.canvas.height = chartContainer.style.height;
   const newChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -362,4 +370,20 @@ function makeChart(dataSet, dataCategory) {
   newChart.options.scales.y.max = 100;
   // hydroChart.style.height = chartContainer.style.height;
   newChart.update();
+}
+
+function displayFriendSelector() {
+  
+  <label>
+  <input type='radio' name='dish-type' id='side'>Side
+</label>
+<label>
+  <input type='radio' name='dish-type' id='main'>Main Dish
+</label>
+<label>
+  <input type='radio' name='dish-type' id='dessert'>Dessert
+</label>
+<label>
+  <input type='radio' name='dish-type' id='meal'>Entire Meal
+</label>
 }

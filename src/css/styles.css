@@ -184,14 +184,7 @@ section {
   position: relative;
 }
 
-header,
-.friends-widget,
-.hydration,
-.user-profile,
-.averages-widget,
-.hours,
-.steps-widget,
-.quality {
+.averages-widget {
   background-color: rgba(8, 0, 47, 0.674);
   border-radius: 15px;
 }
@@ -204,6 +197,8 @@ header,
 .steps-widget,
 .quality {
   border: solid #ff40af 3px;
+  background-color: rgba(8, 0, 47, 0.674);
+  border-radius: 15px;
 }
 
 header {
@@ -300,9 +295,24 @@ header {
   cursor: pointer;
 }
 
-figure {
-  width: 60%;
-  margin: 20px auto;
+#chart-container {
+  width: 80%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+figure,
+canvas {
+  /* width: 100% !important;
+  height: 100% !important; */
+  /* margin-right: 10% !important; */
+  /* margin-left: 5% !important;
+  margin-right: 10% !important;
+  margin-top: -10% !important;
+  margin-bottom: 1% !important; */
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -340,23 +350,22 @@ figure {
   text-orientation: mixed;
 }
 
-canvas {
-  width: 80%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.step-party-button {
+  width: 85%;
+  cursor: pointer;
 }
 
-figure {
-  /* width: 100% !important;
-  height: 100% !important; */
-  /* margin-right: 10% !important; */
-  /* margin-left: 5% !important;
-  margin-right: 10% !important;
-  margin-top: -10% !important;
-  margin-bottom: 1% !important; */
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+@keyframes button-expand {
+  0% {
+    width: 85%;
+  }
+  100% {
+    width: 90%;
+  }
 }
+
+.step-party-button:hover {
+  animation: ease-in-out .05s button-expand;
+  width: 90%;
+}
+

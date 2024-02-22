@@ -11,6 +11,9 @@
   "author": "Turing School of Software and Design",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "babel-loader": "^9.1.3",
     "chai": "^4.3.4",
     "css-loader": "^5.2.6",
     "file-loader": "^6.2.0",
@@ -22,5 +25,8 @@
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.1"
   }
 }

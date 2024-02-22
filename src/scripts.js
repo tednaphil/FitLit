@@ -5,6 +5,8 @@ import './css/styles.css';
 import './images/background-space.jpg';
 import './images/txt-icon.png';
 import './images/graph-icon.png';
+import './images/step-party.png';
+
 
 // DOM
 import './domUpdates';
