@@ -24,15 +24,6 @@ function findIntakeWeek(id, dataSet) {
     return userData;
 };
 
-// function addData(id, num, date, dataSet){
-//     dataSet.forEach(entry => {
-//         if(entry.userID === id && entry.date === date){
-//             entry.numOunces += num; 
-//         }
-//     });
-//     return dataSet; 
-//   }
-
 export { 
     calculateAverageIntake,
     findIntakeByDay,

@@ -51,4 +51,4 @@ function runPost(id, dateField, hydroField, hoursField, qualityField){
 
 
 
-  export { fetchData, runPost, runGet};
+  export { fetchData, runPost};

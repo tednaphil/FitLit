@@ -1,7 +1,7 @@
 import { getUserInfo, getAverageSteps, findFriends } from './user';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
 import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findHoursSleptWeek, findSleepQualityWeek } from './sleep';
-import { fetchData, runPost, runGet } from './apiCalls';
+import { fetchData, runPost } from './apiCalls';
 
 //QUERY SELECTORS
 const nameDisplay = document.querySelector('h1');
@@ -28,7 +28,6 @@ const dateField = document.querySelector('.date-field')
 const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field')
-
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
@@ -57,8 +56,6 @@ let displayingHoursGraph = false;
 let displayingQualityGraph = false;
 
 var randomUser;
-//EVENT LISTENERS
-
 
 // FUNCTIONS
 function renderDom(){
@@ -171,7 +168,7 @@ function displayStepInfo(person, dataSet) {
   } else if (averageSteps < person.dailyStepGoal){
     message = `Your step goal was ${differenceInSteps} steps more than the average!`;
   } else {
-    message = `Your step goal was equal to the average, congrats!`;
+    message = `Your step goal was equal to the average.`;
   }
   steps.innerHTML = `Stride Length: ${person.strideLength}<br></br>Daily Step Goal: ${person.dailyStepGoal}<br></br>${message}`;
 };
