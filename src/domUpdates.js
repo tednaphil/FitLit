@@ -31,9 +31,13 @@ const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field');
 const infoButton = document.querySelector('.info-button');
+const friendsWidget = document.querySelector('.friends-widget');
 
 const friendSelectors = document.querySelector('#friend-selectors');
 const partyButton = document.querySelector('.step-party-button');
+const letsPartyButton = document.querySelector('#lets-party');
+const partyChartContainer = document.querySelector('#party-chart-container');
+const partyChart = document.querySelector('#party-chart');
 
 const hydroChart = document.querySelector('#hydro-chart');
 const chartContainer = document.querySelector('#chart-container');
@@ -85,13 +89,14 @@ qualityButton.addEventListener('click', function() {
 });
 
 partyButton.addEventListener('click', displayFriendSelector);
+letsPartyButton.addEventListener('click', generatePartyMode)
 
 // GLOBAL VARIABLES
 let displayingHydroGraph = false;
 let displayingHoursGraph = false;
 let displayingQualityGraph = false;
 let submittedTodaysData = false;
-let friends = [];
+let friendsByData = [];
 
 var randomUser;
 
@@ -134,7 +139,7 @@ function displayErrorMessage(error) {
 function displayPersonalInfo(person) {
   nameDisplay.innerText = person.name;
   address.innerHTML = `${formatAddress(person.address)}`;
-  email.innerHTML = `${person.email}`;
+  email.innerHTML = `Email:</br>${person.email}`;
 };
 
 function displayFriends(person, dataSet) {
@@ -230,7 +235,7 @@ function formatAddress(addressInfo) {
   let splitAddress = addressInfo.split(', ');
   let [addrLine1, addrLine2] = splitAddress;
 
-  return `${addrLine1},</br>${addrLine2}`;
+  return `Address:</br>${addrLine1},</br>${addrLine2}`;
 };
 
 function createBarGraph(dataSet, dataCategory) {
@@ -298,8 +303,13 @@ function toggleGraph(category) {
 };
 
 function storeFriends(person, dataSet) {
-  friends = findFriends(person.id, dataSet);
-  console.log('friends', friends);
+  let friends = findFriends(person.id, dataSet);
+  const friendsData = friends.map((friendName) => {
+    return dataSet.find(friend => friendName === friend.name)
+  })
+  friendsData.push(person);
+
+  friendsByData = friendsData;
 };
 
 function makeFriendSelector(person, dataSet){
@@ -311,12 +321,13 @@ function makeFriendSelector(person, dataSet){
         <input type='radio' name='${friend}' id='friend-${person.id}'>${friend}
       </label>`
   });
-  friendSelectors.innerHTML += `<button id='lets-party'>LET'S PARTY!</button>`
 };
 
 function displayFriendSelector() {
   partyButton.classList.add('hidden');
   friendSelectors.classList.remove('hidden');
+  friendsWidget.classList.remove('friends-background');
+  letsPartyButton.classList.remove('hidden');
 }
 
 function makeChart(dataSet, dataCategory) {
@@ -324,7 +335,6 @@ function makeChart(dataSet, dataCategory) {
   if (dataCategory === 'hydration'){
     ctx = hydroChart.getContext('2d');
   }
-  console.log(ctx.canvas.height)
   ctx.canvas.height = chartContainer.style.height;
   const newChart = new Chart(ctx, {
     type: 'bar',
@@ -397,12 +407,10 @@ function makeChart(dataSet, dataCategory) {
   newChart.update();
 }
 
-function makeStepChart() {
+function renderStepChart() {
   let ctx;
-  friendSelectors.innerHTML = ''
-  ctx = friendSelectors.getContext('2d');
-  console.log(ctx.canvas.height)
-  ctx.canvas.height = chartContainer.style.height;
+  ctx = partyChart.getContext('2d');
+  ctx.canvas.height = partyChartContainer.style.height;
   const newChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
@@ -472,4 +480,21 @@ function makeStepChart() {
   newChart.options.scales.y.max = 100;
   // hydroChart.style.height = chartContainer.style.height;
   newChart.update();
+}
+
+function togglePartyMode() {
+  letsPartyButton.innerText = 'Back Home';
+  friendSelectors.classList.add('hidden');
+  partyChartContainer.classList.remove('hidden');
+}
+
+function computePartyMode(friendsParticipating) {
+  friends.map(() => {
+    
+  })
+}
+
+function generatePartyMode() {
+  togglePartyMode()
+  renderStepChart();
 }

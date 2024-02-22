@@ -34,14 +34,17 @@
     <main class="widget-container" id="widgets">
       <h3 class="today-info"></h3>
       <div class="friend-avg-steps">
-        <section class="friends-widget">
+        <section class="friends-widget friends-background">
           <img class="step-party-button" src="./images/step-party.png" alt="Step party">
           <div class="hidden" id="friend-selectors">
             <!-- friend selectors will go here -->
             <!-- or -->
             <!-- step chart will go here -->
-            <button id="lets-party">LET'S PARTY!</button>
           </div>
+          <div class="hidden" id="party-chart-container">
+            <canvas id="party-chart"></canvas>
+          </div>
+          <button class="hidden" id="lets-party">LET'S PARTY!</button>
           
         </section>
         <section class="averages-widget">
