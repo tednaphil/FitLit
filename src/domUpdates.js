@@ -79,7 +79,7 @@ function renderDom(){
 };
 
 function clearInputFields(){
-  date.value = '';
+  dateField.value = '';
   hydroField.value = '';
   hoursField.value = '';
   qualityField.value = '';

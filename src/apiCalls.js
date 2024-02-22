@@ -34,19 +34,19 @@ function runPost(id, dateField, hydroField, hoursField, qualityField){
       }),
     ];
     return postData; 
-  }
+  };
 
   function fetchData() {
    return Promise.all(runGet())
-      .then((res) => {
-       return Promise.all(res.map((item) => {
-        return item.json();
-        }))
-      })
-      .catch(error => {
-        console.log("error")
-        return error; 
-      })    
+    .then((res) => {
+      return Promise.all(res.map((item) => {
+      return item.json();
+      }))
+    })
+    .catch(error => {
+      console.log("error")
+      return error; 
+    });   
   };
 
 
