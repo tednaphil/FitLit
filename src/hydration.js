@@ -1,9 +1,7 @@
 function calculateAverageIntake(id, dataSet) {
     const hydrationEntries = dataSet.filter(day => day.userID === id);
-    console.log(hydrationEntries.length)
     const totalIntake = hydrationEntries.reduce((sum, entry) => {
        return sum += entry.numOunces}, 0);
-       console.log(typeof totalIntake)
     const averageIntake = Math.round(totalIntake / hydrationEntries.length); 
 
     return totalIntake ? averageIntake : 'You do not have any data yet.';

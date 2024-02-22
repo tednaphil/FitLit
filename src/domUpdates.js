@@ -24,7 +24,7 @@ const hydroTitle = document.querySelector('#hy-title');
 const qualityTitle = document.querySelector('#q-title');
 const hoursTitle = document.querySelector('#ho-title');
 const formInfo = document.querySelector('form')
-const date = document.querySelector('.date')
+const dateField = document.querySelector('.date-field')
 const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field')
@@ -35,8 +35,7 @@ window.addEventListener('load', renderDom);
 
 formInfo.addEventListener('submit', function(event) {
   event.preventDefault();
-  console.log("We made it!")
-  return Promise.all(runPost(randomUser.id, date, hydroField, hoursField, qualityField))
+  return Promise.all(runPost(randomUser.id, dateField, hydroField, hoursField, qualityField))
   .then(res => {
     renderDom()
   })
@@ -63,7 +62,6 @@ var randomUser;
 
 // FUNCTIONS
 function renderDom(){
-  console.log("Made it to the next part!")
   fetchData()
     .then(([info, sleep, hydration]) => {
       if(!randomUser){
