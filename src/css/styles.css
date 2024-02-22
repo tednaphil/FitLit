@@ -14,11 +14,8 @@ body {
   justify-content: space-evenly;
 }
 
-input {
-  color: black; 
-}
-
-header {
+header,
+.error-display {
   height: 12vh;
   display: flex;
   justify-content: space-between;

@@ -4,6 +4,7 @@ function runGet(){
     fetch(`http://localhost:3001/api/v1/sleep`),
     fetch(`http://localhost:3001/api/v1/hydration`)
   ];
+
   return allData; 
 }
 
@@ -33,6 +34,7 @@ function runPost(id, dateField, hydroField, hoursField, qualityField){
         }
       }),
     ];
+
     return postData; 
   };
 
@@ -44,11 +46,11 @@ function runPost(id, dateField, hydroField, hoursField, qualityField){
       }))
     })
     .catch(error => {
-      console.log("error")
+      setTimeout(() => {
+        alert(error)
+        }, 1050)
       return error; 
     });   
   };
-
-
 
   export { fetchData, runPost};
