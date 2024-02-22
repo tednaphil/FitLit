@@ -1,7 +1,7 @@
 import { getUserInfo, getAverageSteps, findFriends } from './user';
 import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
 import { calculateAvgHoursSlept, calculateAvgSleepQuality, findSleepHourDay, findSleepQualityDay, findHoursSleptWeek, findSleepQualityWeek } from './sleep';
-import { fetchData } from './apiCalls';
+import { fetchData, runPost, runGet } from './apiCalls';
 
 //QUERY SELECTORS
 const nameDisplay = document.querySelector('h1');
@@ -25,41 +25,23 @@ const qualityTitle = document.querySelector('#q-title');
 const hoursTitle = document.querySelector('#ho-title');
 const formInfo = document.querySelector('form')
 const date = document.querySelector('.date')
-const numOunces = document.querySelector('.num-ounces')
+const hydroField = document.querySelector('.hydro-field');
+const hoursField = document.querySelector('.hours-field');
+const qualityField = document.querySelector('.quality-field')
+
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
+
 formInfo.addEventListener('submit', function(event) {
-event.preventDefault()
-console.log("working?")
-fetch("http://localhost:3001/api/v1/hydration", {
-method: "POST",
-body: JSON.stringify({
-  userID: randomUser.id,
-  date: date.value,
-  numOunces: numOunces.value
-}),
-headers: {
-"Content-type": "application/json"
-}
+  event.preventDefault();
+  console.log("We made it!")
+  return Promise.all(runPost(randomUser.id, date, hydroField, hoursField, qualityField))
+  .then(res => {
+    renderDom()
+  })
 })
-
-.then((response) => response.json())
-.then((data) => {
-fetch("http://localhost:3001/api/v1/hydration")
-.then(res => res.json())
-.then(data => {
-displayHydrationInfo(randomUser, data.hydrationData);
-clearInputFields();
-})
-})
-})
-
-function clearInputFields(){
-  date.value = '';
-  numOunces.value = '';
-}
-
+ 
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
 });
@@ -76,28 +58,34 @@ let displayingHoursGraph = false;
 let displayingQualityGraph = false;
 
 var randomUser;
-var sleepData;
-var hydrationData; 
-
 //EVENT LISTENERS
 
 
 // FUNCTIONS
 function renderDom(){
+  console.log("Made it to the next part!")
   fetchData()
     .then(([info, sleep, hydration]) => {
-      randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
-      sleepData = sleep.sleepData; 
-      hydrationData = hydration.hydrationData; 
+      if(!randomUser){
+        randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
+      }
       displayPersonalInfo(randomUser);
-      displayTodayInfo(randomUser, sleepData, hydrationData);
-      displayHydrationInfo(randomUser, hydrationData);    
+      displayTodayInfo(randomUser, sleep.sleepData, hydration.hydrationData);
+      displayHydrationInfo(randomUser, hydration.hydrationData);    
       displayFriends(randomUser, info.users);
-      displaySleepInfo(randomUser, sleepData);
+      displaySleepInfo(randomUser, sleep.sleepData);
       displayStepInfo(randomUser, info.users);
-      displayAverages(randomUser, sleepData, hydrationData);
+      displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);
+      clearInputFields();  
     })
 };
+
+function clearInputFields(){
+  date.value = '';
+  hydroField.value = '';
+  hoursField.value = '';
+  qualityField.value = '';
+}
 
 function displayPersonalInfo(person) {
   nameDisplay.innerText = person.name;
@@ -139,6 +127,14 @@ function displayHydrationInfo(person, dataSet) {
   });
 };
 
+function displayAverages(person, sleepDataSet, hydrationDataSet) {
+  let avgSleepQuality = calculateAvgSleepQuality(person.id, sleepDataSet);
+  let avgSleepHours = calculateAvgHoursSlept(person.id, sleepDataSet);
+  let avgIntake = calculateAverageIntake(person.id, hydrationDataSet);
+  avg.innerHTML = '';
+  avg.innerHTML += `Hours Slept: ${avgSleepHours}<br></br>Sleep Quality: ${avgSleepQuality} out of 5<br></br>Water Intake: ${avgIntake} Ounces`
+};
+
 function displaySleepInfo(person, dataSet) {
   let today = dataSet.filter((entry) => {
     return entry.userID === person.id;
@@ -166,13 +162,6 @@ function displaySleepInfo(person, dataSet) {
   });
 };
 
-function displayAverages(person, sleepDataSet, hydrationDataSet) {
-  let avgSleepQuality = calculateAvgSleepQuality(person.id, sleepDataSet);
-  let avgSleepHours = calculateAvgHoursSlept(person.id, sleepDataSet);
-  let averageIntake = calculateAverageIntake(person.id, hydrationDataSet);
-
-  avg.innerHTML = `Hours Slept: ${avgSleepHours}<br></br>Sleep Quality: ${avgSleepQuality} out of 5<br></br>Water Intake: ${averageIntake} Ounces`
-};
 
 function displayStepInfo(person, dataSet) {
   let averageSteps = getAverageSteps(dataSet);

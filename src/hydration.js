@@ -1,9 +1,11 @@
 function calculateAverageIntake(id, dataSet) {
     const hydrationEntries = dataSet.filter(day => day.userID === id);
+    console.log(hydrationEntries.length)
     const totalIntake = hydrationEntries.reduce((sum, entry) => {
        return sum += entry.numOunces}, 0);
-    const averageIntake = Math.round(totalIntake / hydrationEntries.length);
-    
+       console.log(typeof totalIntake)
+    const averageIntake = Math.round(totalIntake / hydrationEntries.length); 
+
     return totalIntake ? averageIntake : 'You do not have any data yet.';
 };
 
@@ -24,8 +26,17 @@ function findIntakeWeek(id, dataSet) {
     return userData;
 };
 
+// function addData(id, num, date, dataSet){
+//     dataSet.forEach(entry => {
+//         if(entry.userID === id && entry.date === date){
+//             entry.numOunces += num; 
+//         }
+//     });
+//     return dataSet; 
+//   }
+
 export { 
     calculateAverageIntake,
     findIntakeByDay,
-    findIntakeWeek
+    findIntakeWeek,
 };
