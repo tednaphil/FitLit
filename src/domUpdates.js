@@ -25,11 +25,13 @@ const qualityButton = document.querySelector('#quality-button');
 const hydroTitle = document.querySelector('#hy-title');
 const qualityTitle = document.querySelector('#q-title');
 const hoursTitle = document.querySelector('#ho-title');
-const formInfo = document.querySelector('form')
+const formInfo = document.querySelector('form');
 const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
-const qualityField = document.querySelector('.quality-field')
-const infoButton = document.querySelector('.info-button')
+const qualityField = document.querySelector('.quality-field');
+const infoButton = document.querySelector('.info-button');
+
+const hydroChart = document.querySelector('#hydro-chart');
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
@@ -101,9 +103,9 @@ function renderDom(){
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);
       clearInputFields();  
     })
-    .catch(error => {
-      displayErrorMessage(error);
-    })
+    // .catch(error => {
+    //   displayErrorMessage(error);
+    // })
 };
 
 function clearInputFields(){
@@ -149,7 +151,8 @@ function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
 function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet);
 
-  createBarGraph(dailyInfo, 'hydration');
+  makeChart(dailyInfo, 'hydration')
+  // createBarGraph(dailyInfo, 'hydration');
   dailyInfo.forEach((day, index) => {
     if(!index) {
       hydrationWeek.innerHTML = '';
@@ -253,7 +256,7 @@ function toggleGraph(category) {
 
   if(category === 'hydration'){
     hydrationWeek.classList.toggle('hidden');
-    hydroGraph.classList.toggle('hidden');
+    hydroChart.classList.toggle('hidden');
     hydroTitle.classList.toggle('hidden');
     if(!displayingHydroGraph) {
       hydroButton.src = textURL;
@@ -283,3 +286,80 @@ function toggleGraph(category) {
     displayingHoursGraph = !displayingHoursGraph;
   };
 };
+
+function makeChart(dataSet, dataCategory) {
+  let ctx;
+  if (dataCategory === 'hydration'){
+    ctx = hydroChart.getContext('2d');
+  }
+  ctx.canvas.height = hydroChart.style.height;
+  const newChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      // labels: ['1', '2', '3', '4', '5', '6', '7'],
+      datasets: [{
+        // data: [8, 5, 7, 9, 6, 6, 8],
+        backgroundColor: 'yellow',
+        // tension: .1,
+        barThickness: 10,
+        pointRadius: 0,
+        pointBorderColor: 'yellow',
+        borderColor: [
+          'yellow',
+        ],
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+            display: false,
+        }
+      },
+      scales: {
+        y: {
+          ticks: {
+            padding: 5,
+            color: 'yellow',
+          },
+          // grid: {
+          //   display: true,
+          //   color: 'lightgrey'
+          // },
+          title: {
+              display: true,
+              text: 'num of ounces',
+              color: '#FF40AF'
+          },
+          border: {
+            color: '#FF40AF',
+            width: 1
+          }
+        },
+        x: {
+          ticks: {
+            padding: -5,
+            color: 'yellow',
+            maxRotation: 45,
+            minRotation: 45
+          },
+          title: {
+            display: true,
+            text: 'day',
+            color: '#FF40AF'
+        },
+          border: {
+            color: '#FF40AF',
+            width: 1
+          }
+        }
+      }
+    },
+  })
+  newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
+  newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
+  newChart.options.scales.y.min = 0;
+  newChart.options.scales.y.max = 100;
+  // hydroChart.style.height = chartContainer.style.height;
+  newChart.update();
+}
