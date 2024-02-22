@@ -91,6 +91,7 @@ let displayingHydroGraph = false;
 let displayingHoursGraph = false;
 let displayingQualityGraph = false;
 let submittedTodaysData = false;
+let friends = [];
 
 var randomUser;
 
@@ -109,6 +110,7 @@ function renderDom(){
       displayStepInfo(randomUser, info.users);
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);
       clearInputFields();
+      storeFriends(randomUser, info.users);
       makeFriendSelector(randomUser, info.users)
     })
     // .catch(error => {
@@ -295,6 +297,28 @@ function toggleGraph(category) {
   };
 };
 
+function storeFriends(person, dataSet) {
+  friends = findFriends(person.id, dataSet);
+  console.log('friends', friends);
+};
+
+function makeFriendSelector(person, dataSet){
+  friendSelectors.innerHTML = `<h3>Who's In?!<h4>`
+  const friends = findFriends(person.id, dataSet)
+  friends.forEach((friend) => {
+      friendSelectors.innerHTML +=  `
+      <label>
+        <input type='radio' name='${friend}' id='friend-${person.id}'>${friend}
+      </label>`
+  });
+  friendSelectors.innerHTML += `<button id='lets-party'>LET'S PARTY!</button>`
+};
+
+function displayFriendSelector() {
+  partyButton.classList.add('hidden');
+  friendSelectors.classList.remove('hidden');
+}
+
 function makeChart(dataSet, dataCategory) {
   let ctx;
   if (dataCategory === 'hydration'){
@@ -373,20 +397,79 @@ function makeChart(dataSet, dataCategory) {
   newChart.update();
 }
 
-function makeFriendSelector(person, dataSet){
-  friendSelectors.innerHTML = `<h3>Who's In?!<h4>`
-  const friends = findFriends(person.id, dataSet)
-  friends.forEach((friend) => {
-      friendSelectors.innerHTML +=  `
-      <label>
-        <input type='radio' name='${friend}' id='friend-${person.id}'>${friend}
-      </label>`
-  });
-  friendSelectors.innerHTML += `<button id='lets-party'>LET'S PARTY!</button>`
-};
-
-
-function displayFriendSelector() {
-  partyButton.classList.add('hidden');
-  friendSelectors.classList.remove('hidden');
+function makeStepChart() {
+  let ctx;
+  friendSelectors.innerHTML = ''
+  ctx = friendSelectors.getContext('2d');
+  console.log(ctx.canvas.height)
+  ctx.canvas.height = chartContainer.style.height;
+  const newChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      // labels: ['1', '2', '3', '4', '5', '6', '7'],
+      datasets: [{
+        // data: [8, 5, 7, 9, 6, 6, 8],
+        backgroundColor: 'yellow',
+        // tension: .1,
+        barThickness: 10,
+        pointRadius: 0,
+        pointBorderColor: 'yellow',
+        borderColor: [
+          'yellow',
+        ],
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+            display: false,
+        }
+      },
+      scales: {
+        y: {
+          ticks: {
+            padding: 5,
+            color: 'yellow',
+          },
+          // grid: {
+          //   display: true,
+          //   color: 'lightgrey'
+          // },
+          title: {
+              display: true,
+              text: 'num of ounces',
+              color: '#FF40AF'
+          },
+          border: {
+            color: '#FF40AF',
+            width: 1
+          }
+        },
+        x: {
+          ticks: {
+            padding: -5,
+            color: 'yellow',
+            maxRotation: 45,
+            minRotation: 45
+          },
+          title: {
+            display: true,
+            text: 'day',
+            color: '#FF40AF'
+        },
+          border: {
+            color: '#FF40AF',
+            width: 1
+          }
+        }
+      }
+    },
+  })
+  newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
+  newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
+  newChart.options.scales.y.min = 0;
+  newChart.options.scales.y.max = 100;
+  // hydroChart.style.height = chartContainer.style.height;
+  newChart.update();
 }
