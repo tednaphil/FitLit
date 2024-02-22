@@ -27,7 +27,6 @@ const hydroTitle = document.querySelector('#hy-title');
 const qualityTitle = document.querySelector('#q-title');
 const hoursTitle = document.querySelector('#ho-title');
 const formInfo = document.querySelector('form')
-const dateField = document.querySelector('.date-field')
 const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field')
@@ -37,17 +36,23 @@ window.addEventListener('load', renderDom);
 
 formInfo.addEventListener('submit', function(event) {
   event.preventDefault();
-  return Promise.all(runPost(randomUser.id, dateField, hydroField, hoursField, qualityField))
-  .then(res => {
-    renderDom()
-  })
-  .catch(error => {
-    setTimeout(() => {
-      alert(error)
-      }, 1050)
-    displayErrorMessage(error)
-    return error; 
-  })
+  if (!submittedTodaysData) {
+    submittedTodaysData = true;
+    return Promise.all(runPost(randomUser.id, hydroField, hoursField, qualityField))
+    .then(res => {
+      renderDom()
+    })
+    .catch(error => {
+      setTimeout(() => {
+        alert(error)
+        }, 1050)
+      displayErrorMessage(error)
+      return error; 
+    })
+  } else {
+    alert('Oops! You have already submitted info for today.');
+  }
+  clearInputFields();
 })
  
 hydroButton.addEventListener('click', function() {
@@ -64,6 +69,7 @@ qualityButton.addEventListener('click', function() {
 let displayingHydroGraph = false;
 let displayingHoursGraph = false;
 let displayingQualityGraph = false;
+let submittedTodaysData = false;
 
 var randomUser;
 
@@ -90,10 +96,9 @@ function renderDom(){
 
 function clearInputFields(){
   formInfo.value = '';
-  // dateField.value = '';
-  // hydroField.value = '';
-  // hoursField.value = '';
-  // qualityField.value = '';
+  hydroField.value = '';
+  hoursField.value = '';
+  qualityField.value = '';
 }
 
 function displayErrorMessage(error) {

@@ -8,13 +8,13 @@ function runGet(){
   return allData; 
 }
 
-function runPost(id, dateField, hydroField, hoursField, qualityField){
+function runPost(id, hydroField, hoursField, qualityField) {
   const postData = [
     fetch(`http://localhost:3001/api/v1/hydration`, {
       method: "POST",
       body: JSON.stringify({
         userID: id,
-        date: dateField.value,
+        date: "2023/07/01",
         numOunces: Number(hydroField.value)
       }),
       headers: {
@@ -25,7 +25,7 @@ function runPost(id, dateField, hydroField, hoursField, qualityField){
       method: "POST",
       body: JSON.stringify({
         userID: id,
-        date: dateField.value,
+        date: "2023/07/01",
         hoursSlept: Number(hoursField.value),
         sleepQuality: Number(qualityField.value),
       }),

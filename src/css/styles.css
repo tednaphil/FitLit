@@ -25,6 +25,10 @@ header,
   margin-right: 2%;
 }
 
+input {
+  color: rgba(8, 0, 47, 0.674);
+}
+
 p {
   padding-top: 1px;
   font-size: 1.6vw;
