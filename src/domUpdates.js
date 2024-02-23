@@ -30,7 +30,7 @@ const formInfo = document.querySelector('form');
 const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field');
-const infoButton = document.querySelector('.info-button');
+// const infoButton = document.querySelector('.info-button');
 const friendsWidget = document.querySelector('.friends-widget');
 
 const friendSelectors = document.querySelector('#friend-selectors');
@@ -38,32 +38,23 @@ const partyButton = document.querySelector('.step-party-button');
 const letsPartyButton = document.querySelector('#lets-party');
 const partyChartContainer = document.querySelector('#party-chart-container');
 const partyChart = document.querySelector('#party-chart');
-
+const footer = document.querySelector('footer')
 const hydroChart = document.querySelector('#hydro-chart');
 const chartContainer = document.querySelector('#chart-container');
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
 
-infoButton.addEventListener('click', function() {
-  formInfo.classList.toggle('hidden')
-  main.classList.toggle('hidden')
-  if (infoButton.innerText === "Enter Today's Info!") {
-    infoButton.innerText = "Back to Home Page"
-  } else {
-    infoButton.innerText = "Enter Today's Info!"
-  }
-})
-
 formInfo.addEventListener('submit', function(event) {
   event.preventDefault();
-  formInfo.classList.add('hidden')
-  main.classList.remove('hidden')
   if (!submittedTodaysData) {
     submittedTodaysData = true;
+    console.log(submittedTodaysData)
+    console.log("YESSSS")
     return Promise.all(runPost(randomUser.id, hydroField, hoursField, qualityField))
     .then(res => {
       renderDom()
+      clearForm()
     })
     .catch(error => {
       setTimeout(() => {
@@ -75,8 +66,7 @@ formInfo.addEventListener('submit', function(event) {
   } else {
     alert('Oops! You have already submitted info for today.');
   }
-  clearInputFields();
-})
+});
  
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
@@ -114,17 +104,24 @@ function renderDom(){
       displaySleepInfo(randomUser, sleep.sleepData);
       displayStepInfo(randomUser, info.users);
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);
-      clearInputFields();
       storeFriends(randomUser, info.users);
       makeFriendSelector(randomUser, info.users)
+      clearInputFields()
     })
     // .catch(error => {
     //   displayErrorMessage(error);
     // })
 };
 
+function clearForm(){
+  footer.classList.add("fade-out")
+  setTimeout(() => {
+    footer.classList.add("fade-in")
+    footer.innerText = "You did it! Congrats on entering your hydration and sleep information for today.";
+   }, 2000)
+}
+
 function clearInputFields(){
-  formInfo.value = '';
   hydroField.value = '';
   hoursField.value = '';
   qualityField.value = '';
@@ -160,7 +157,12 @@ function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
   const ouncesDrank = findIntakeByDay(person.id, today, hydrationDataSet);
   const todayHoursSlept = findSleepDayInfo(person.id, today, sleepDataSet, "hoursSlept");
   const sleepQualityDay = findSleepDayInfo(person.id, today, sleepDataSet, "sleepQuality");
+  if(submittedTodaysData){
+    todayInfo.innerText = `Today you drank ${hydroField.value} ounces of water and slept ${hoursField.value} hours with a sleep quality of ${qualityField.value} out of 5!`;
+    console.log(hydroField.value)
+}  else {
   todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water and slept ${todayHoursSlept} hours with a sleep quality of ${sleepQualityDay} out of 5!`;
+  }
 };
 
 function displayHydrationInfo(person, dataSet) {
