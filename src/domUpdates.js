@@ -9,6 +9,8 @@ const main = document.querySelector('main');
 const header = document.querySelector('header');
 const errorDisplay = document.querySelector('.error-display');
 const nameDisplay = document.querySelector('h1');
+const profileButton = document.querySelector('#user-profile-button');
+const userProfile = document.querySelector('#user-profile');
 const address = document.querySelector('#address');
 const email = document.querySelector('#email');
 const todayInfo = document.querySelector('h3');
@@ -44,7 +46,7 @@ const chartContainer = document.querySelector('#chart-container');
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
-
+profileButton.addEventListener('click', changeDisplay);
 infoButton.addEventListener('click', function() {
   formInfo.classList.toggle('hidden')
   main.classList.toggle('hidden')
@@ -53,7 +55,7 @@ infoButton.addEventListener('click', function() {
   } else {
     infoButton.innerText = "Enter Today's Info!"
   }
-})
+});
 
 formInfo.addEventListener('submit', function(event) {
   event.preventDefault();
@@ -118,9 +120,9 @@ function renderDom(){
       storeFriends(randomUser, info.users);
       makeFriendSelector(randomUser, info.users)
     })
-    // .catch(error => {
-    //   displayErrorMessage(error);
-    // })
+    .catch(error => {
+      displayErrorMessage(error);
+    })
 };
 
 function clearInputFields(){
@@ -517,4 +519,9 @@ function generatePartyMode() {
   computePartyMode();
   togglePartyMode()
   renderStepChart();
+}
+
+function changeDisplay() {
+  main.classList.toggle('hidden');
+  userProfile.classList.toggle('hidden');
 }
