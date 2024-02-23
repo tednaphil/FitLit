@@ -11,6 +11,7 @@ const errorDisplay = document.querySelector('.error-display');
 const nameDisplay = document.querySelector('h1');
 const profileButton = document.querySelector('#user-profile-button');
 const userProfile = document.querySelector('#user-profile');
+const friendsList = document.querySelector('#friends-list');
 const address = document.querySelector('#address');
 const email = document.querySelector('#email');
 const todayInfo = document.querySelector('h3');
@@ -112,7 +113,7 @@ function renderDom(){
       displayPersonalInfo(randomUser);
       displayTodayInfo(randomUser, sleep.sleepData, hydration.hydrationData);
       displayHydrationInfo(randomUser, hydration.hydrationData);    
-      // displayFriends(randomUser, info.users);
+      displayFriends(randomUser, info.users);
       displaySleepInfo(randomUser, sleep.sleepData);
       displayStepInfo(randomUser, info.users);
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);

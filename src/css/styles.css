@@ -420,8 +420,12 @@ label {
   height: 100%;
 }
 
-/* aside {
-  border: solid 2px black;
+aside {
+  outline: groove black 5px;
+}
+
+aside > h2 {
+  text-align: center;
 }
 
 #user-profile-button {
@@ -430,9 +434,9 @@ label {
       cursor: pointer;
       animation: ease-in-out .35s .05s wiggle;
     }
-} */
+}
 
-details {
+/* details {
   font: 16px;
   margin-right: 10px;
     &:hover {
@@ -443,7 +447,7 @@ details {
 details > p {
   padding: 2px 6px;
   margin: 0;
-}
+} */
 
 /* details[open] > p {
   background: white;
