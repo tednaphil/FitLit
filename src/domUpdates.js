@@ -118,7 +118,7 @@ function clearForm(){
   setTimeout(() => {
     footer.classList.add("fade-in")
     footer.innerText = "You did it! Congrats on entering your hydration and sleep information for today.";
-   }, 2000)
+   }, 1500)
 }
 
 function clearInputFields(){
