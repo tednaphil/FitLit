@@ -30,7 +30,6 @@ const formInfo = document.querySelector('form');
 const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field');
-// const infoButton = document.querySelector('.info-button');
 const friendsWidget = document.querySelector('.friends-widget');
 
 const friendSelectors = document.querySelector('#friend-selectors');
@@ -47,12 +46,9 @@ window.addEventListener('load', renderDom);
 
 formInfo.addEventListener('submit', function(event) {
   event.preventDefault();
-  if (!submittedTodaysData) {
-    submittedTodaysData = true;
-    console.log(submittedTodaysData)
-    console.log("YESSSS")
     return Promise.all(runPost(randomUser.id, hydroField, hoursField, qualityField))
     .then(res => {
+      console.log(res)
       renderDom()
       clearForm()
     })
@@ -63,9 +59,6 @@ formInfo.addEventListener('submit', function(event) {
       displayErrorMessage(error)
       return error; 
     })
-  } else {
-    alert('Oops! You have already submitted info for today.');
-  }
 });
  
 hydroButton.addEventListener('click', function() {
@@ -85,7 +78,6 @@ letsPartyButton.addEventListener('click', generatePartyMode)
 let displayingHydroGraph = false;
 let displayingHoursGraph = false;
 let displayingQualityGraph = false;
-let submittedTodaysData = false;
 let friendsByData = [];
 
 var randomUser;
@@ -108,9 +100,6 @@ function renderDom(){
       makeFriendSelector(randomUser, info.users)
       clearInputFields()
     })
-    // .catch(error => {
-    //   displayErrorMessage(error);
-    // })
 };
 
 function clearForm(){
@@ -155,14 +144,11 @@ function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
     return entry.userID === person.id;
   }).slice(-1)[0].date;
   const ouncesDrank = findIntakeByDay(person.id, today, hydrationDataSet);
+  console.log(ouncesDrank)
   const todayHoursSlept = findSleepDayInfo(person.id, today, sleepDataSet, "hoursSlept");
   const sleepQualityDay = findSleepDayInfo(person.id, today, sleepDataSet, "sleepQuality");
-  if(submittedTodaysData){
-    todayInfo.innerText = `Today you drank ${hydroField.value} ounces of water and slept ${hoursField.value} hours with a sleep quality of ${qualityField.value} out of 5!`;
-    console.log(hydroField.value)
-}  else {
+
   todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water and slept ${todayHoursSlept} hours with a sleep quality of ${sleepQualityDay} out of 5!`;
-  }
 };
 
 function displayHydrationInfo(person, dataSet) {
@@ -193,7 +179,7 @@ function displaySleepInfo(person, dataSet) {
     return entry.userID === person.id;
   }).slice(-1)[0].date;
   let weeklySleepInfo = findSleepInfoWeek(person.id, today, dataSet);
-
+  console.log(today)
   createBarGraph(weeklySleepInfo, 'sleep quality');
   createBarGraph(weeklySleepInfo, 'hoursSlept');
   weeklySleepInfo.forEach((day, index) => {
