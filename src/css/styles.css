@@ -420,6 +420,18 @@ label {
   height: 100%;
 }
 
+aside {
+  border: solid 2px black;
+}
+
+#user-profile-button {
+  width: 75px;
+    &:hover {
+      cursor: pointer;
+      animation: ease-in-out .35s .05s wiggle;
+    }
+}
+
 .hidden {
   display: none;
 }
