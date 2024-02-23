@@ -422,10 +422,13 @@ label {
 
 aside {
   outline: groove black 5px;
+  width: 70%;
+  text-align: center;
+  font-size: 1rem;
 }
 
-aside > h2 {
-  text-align: center;
+aside > p {
+  width: auto;
 }
 
 #user-profile-button {
