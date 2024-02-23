@@ -46,7 +46,7 @@ p {
   line-height: 1.3em;
 }
 
-#address {
+/* #address {
   margin-left: 2%;
   width: 25vh;
 }
@@ -55,7 +55,7 @@ p {
   margin-right: 2%;
   text-align: right;
   width: fit-content;
-}
+} */
 
 h1 {
   font-family: 'Honk', system-ui;
@@ -420,7 +420,7 @@ label {
   height: 100%;
 }
 
-aside {
+/* aside {
   border: solid 2px black;
 }
 
@@ -430,6 +430,19 @@ aside {
       cursor: pointer;
       animation: ease-in-out .35s .05s wiggle;
     }
+} */
+
+details {
+  font: 16px;
+  margin-right: 10px;
+    &:hover {
+      cursor: pointer;
+    }
+}
+
+details > p {
+  padding: 2px 6px;
+  margin: 0;
 }
 
 .hidden {
