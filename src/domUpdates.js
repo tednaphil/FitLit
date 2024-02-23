@@ -142,7 +142,7 @@ function displayErrorMessage(error) {
 function displayPersonalInfo(person) {
   nameDisplay.innerText = person.name;
   address.innerHTML = `${formatAddress(person.address)}`;
-  email.innerHTML = `Email:</br>${person.email}`;
+  email.innerHTML = `${person.email}`;
 };
 
 function displayFriends(person, dataSet) {
@@ -238,7 +238,7 @@ function formatAddress(addressInfo) {
   let splitAddress = addressInfo.split(', ');
   let [addrLine1, addrLine2] = splitAddress;
 
-  return `Address:</br>${addrLine1},</br>${addrLine2}`;
+  return `${addrLine1},</br>${addrLine2}`;
 };
 
 function createBarGraph(dataSet, dataCategory) {
