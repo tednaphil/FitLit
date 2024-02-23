@@ -525,4 +525,9 @@ function generatePartyMode() {
 function changeDisplay() {
   main.classList.toggle('hidden');
   userProfile.classList.toggle('hidden');
+  if (main.classList.contains('hidden')) {
+    profileButton.src="./images/home-icon.png"
+  } else if (userProfile.classList.contains('hidden')) {
+    profileButton.src="./images/profile-icon.png"
+  }
 }

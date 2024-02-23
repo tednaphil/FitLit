@@ -421,14 +421,33 @@ label {
 }
 
 aside {
-  outline: groove black 5px;
-  width: 70%;
+  width: 60%;
   text-align: center;
   font-size: 1rem;
 }
 
+aside > img {
+  border-radius: 100%;
+  border: solid #FFFF7D 2px;
+  margin-top: 20px;
+  width: 30%;
+}
+
 aside > p {
   width: auto;
+    &:last-child {
+      margin-bottom: 3px;
+    }
+}
+
+aside > h2,
+h3,
+p {
+  margin: 0;
+}
+
+#friends-list {
+  margin-bottom: 20px;
 }
 
 #user-profile-button {
