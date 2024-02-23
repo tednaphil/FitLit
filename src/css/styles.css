@@ -445,6 +445,11 @@ details > p {
   margin: 0;
 }
 
+/* details[open] > p {
+  background: white;
+  color: #0E0744
+} */
+
 .hidden {
   display: none;
 }
