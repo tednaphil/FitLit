@@ -214,6 +214,7 @@ function displaySleepInfo(person, dataSet) {
 
 function displayStepInfo(person, dataSet) {
   let averageSteps = getAverageSteps(dataSet);
+  console.log("averageSteps", averageSteps)
   let message;
   let differenceInSteps = Math.abs(averageSteps - person.dailyStepGoal);
 
@@ -406,92 +407,41 @@ function makeChart(dataSet, dataCategory) {
   newChart.update();
 }
 
+
 function renderStepChart() {
-  let ctx;
-  ctx = partyChart.getContext('2d');
-  ctx.canvas.height = partyChartContainer.style.height;
+
+  let filled = parseInt(computePartyMode()) / 12000 * 100;
+  console.log("filled:", filled)
+  let ctx = partyChart.getContext('2d');
+  // Set the canvas height
+  partyChart.height = partyChartContainer.clientHeight;
   const newChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      // labels: ['1', '2', '3', '4', '5', '6', '7'],
+      labels: ['Friends Step Goal Average', 'Max Amount of Steps'],
       datasets: [{
-        // data: [8, 5, 7, 9, 6, 6, 8],
-        backgroundColor: 'yellow',
-        // tension: .1,
-        barThickness: 10,
-        pointRadius: 0,
-        pointBorderColor: 'yellow',
-        borderColor: [
-          'yellow',
-        ],
+        data: [filled, 100 - filled],
+        backgroundColor: ['yellow', 'transparent'], // Background color array
         borderWidth: 2,
       }]
     },
     options: {
       plugins: {
         legend: {
-            display: false,
-        }
-      },
-      scales: {
-        y: {
-          ticks: {
-            padding: 5,
-            color: 'yellow',
-          },
-          // grid: {
-          //   display: true,
-          //   color: 'lightgrey'
-          // },
-          title: {
-              display: true,
-              text: 'num of ounces',
-              color: '#FF40AF'
-          },
-          border: {
-            color: '#FF40AF',
-            width: 1
-          }
-        },
-        x: {
-          ticks: {
-            padding: -5,
-            color: 'yellow',
-            maxRotation: 45,
-            minRotation: 45
-          },
-          title: {
-            display: true,
-            text: 'day',
-            color: '#FF40AF'
-        },
-          border: {
-            color: '#FF40AF',
-            width: 1
-          }
+          display: false,
         }
       }
-    },
+    } 
   })
-  newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-  newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
-  newChart.options.scales.y.min = 0;
-  newChart.options.scales.y.max = 100;
-  newChart.update();
+  console.log("we made it here 2");
 }
+
 
 function togglePartyMode() {
   letsPartyButton.innerText = 'Back Home';
   friendSelectors.classList.add('hidden');
   partyChartContainer.classList.remove('hidden');
 }
-
-
-// friendSelector: parent div in which the radios live.
-// letsPartyButton has a click event on it
-
-
-
 
 function computePartyMode() {
   let bubbles = friendSelectors.querySelectorAll('input');
@@ -511,6 +461,14 @@ function computePartyMode() {
   })
 
   finalSelectedFriendObjects.push(randomUser);
+  
+  let friendsStepGoalAverage = finalSelectedFriendObjects.reduce((total, friend) => {
+    total += friend.dailyStepGoal
+    
+    return total 
+  }, 0) / finalSelectedFriendObjects.length
+
+  return friendsStepGoalAverage 
 }
 
 function generatePartyMode() {
