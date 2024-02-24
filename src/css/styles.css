@@ -18,13 +18,10 @@ header,
 .error-display {
   height: 12vh;
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   width: 95%;
   margin-left: 2%;
   margin-right: 2%;
-  /* position: absolute;
-  top: 2% */
 }
 
 p {
@@ -116,11 +113,6 @@ section {
   display: flex;
   justify-content: space-between;
 }
-
-/* .friend-avg-steps,
-.week-info {
-  height: 32vh;
-} */
 
 .friends-widget,
 .steps-widget {
@@ -283,13 +275,6 @@ header {
   margin-left: -6%;
   margin-bottom: 2%;
 }
-
-/* figure,
-canvas {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-} */
 
 .day-container {
   display: flex;
@@ -478,10 +463,9 @@ p {
 }
 
 #user-profile-button {
-  /* width: 75px; */
   width: 6%;
   margin-right: 10px;
-  margin-left: -60px;
+  margin-left: -65px;
     &:hover {
       cursor: pointer;
       animation: ease-in-out .35s .05s wiggle;
