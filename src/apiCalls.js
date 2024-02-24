@@ -45,12 +45,12 @@ function runPost(id, hydroField, hoursField, qualityField) {
       return item.json();
       }))
     })
-    .catch(error => {
-      setTimeout(() => {
-        alert(error)
-        }, 1050)
-      return error; 
-    });   
+    // .catch(error => {
+    //   setTimeout(() => {
+    //     alert(error)
+    //     }, 1050)
+    //   return error; 
+    // });   
   };
 
   export { fetchData, runPost};

@@ -60,13 +60,13 @@ formInfo.addEventListener('submit', function(event) {
       renderDom()
       clearForm()
     })
-    .catch(error => {
-      setTimeout(() => {
-        alert(error)
-        }, 1050)
-      displayErrorMessage(error)
-      return error; 
-    })
+    // .catch(error => {
+    //   setTimeout(() => {
+    //     alert(error)
+    //     }, 1050)
+    //   displayErrorMessage(error)
+    //   return error; 
+    // })
 });
  
 hydroButton.addEventListener('click', function() {
@@ -746,6 +746,7 @@ function renderPartyChart() {
 function changeDisplay() {
   main.classList.toggle('hidden');
   userProfile.classList.toggle('hidden');
+  footer.classList.toggle('hidden');
   if (main.classList.contains('hidden')) {
     profileButton.src="./images/home-icon.png"
   } else if (userProfile.classList.contains('hidden')) {
