@@ -423,10 +423,14 @@ function makeChart(dataSet, dataCategory) {
   let ctx;
   if (dataCategory === 'hydration'){
     if(renderedHydroChart) {
+      console.log('made it here on click')
+      console.log("renderedHydroChart before destroy:", renderedHydroChart)
       renderedHydroChart.destroy();
+      console.log("renderedHydroChart after destroy:", renderedHydroChart)
     }
     ctx = hydroChart.getContext('2d');
     ctx.canvas.height = hydroChartContainer.style.height;
+    console.log("renderedHydroChart on load:", renderedHydroChart)
     renderedHydroChart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -498,13 +502,14 @@ function makeChart(dataSet, dataCategory) {
     renderedHydroChart.options.scales.y.max = 100;
     renderedHydroChart.options.scales.y.title.text = 'number of ounces';
     renderedHydroChart.update();
+    console.log("renderedHydroChart on after initial build", renderedHydroChart)
   } else if (dataCategory === 'sleepQuality') {
       if(renderedQualityChart) {
         renderedQualityChart.destroy();
       }
       ctx = qualityChart.getContext('2d');
       ctx.canvas.height = qualityChartContainer.style.height;
-      renderedHydroChart = new Chart(ctx, {
+      renderedQualityChart = new Chart(ctx, {
         type: 'line',
         data: {
           datasets: [{
@@ -569,15 +574,15 @@ function makeChart(dataSet, dataCategory) {
           }
         },
       })
-      renderedHydroChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-      renderedHydroChart.data.datasets[0].data = dataSet.map((day) => { return day.sleepQuality });
-      renderedHydroChart.options.scales.y.min = 0;
-      renderedHydroChart.options.scales.y.max = 5;
-      renderedHydroChart.options.scales.y.title.text = 'sleep quality';
-      renderedHydroChart.update();
+      renderedQualityChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
+      renderedQualityChart.data.datasets[0].data = dataSet.map((day) => { return day.sleepQuality });
+      renderedQualityChart.options.scales.y.min = 0;
+      renderedQualityChart.options.scales.y.max = 5;
+      renderedQualityChart.options.scales.y.title.text = 'sleep quality';
+      renderedQualityChart.update();
   } else {
       if(renderedHoursChart) {
-          renderedHoursChart.destroy();
+        renderedHoursChart.destroy();
       }
       ctx = hoursChart.getContext('2d');
       ctx.canvas.height = hoursChartContainer.style.height;
