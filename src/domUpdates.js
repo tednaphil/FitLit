@@ -130,6 +130,7 @@ function clearInputFields(){
 function displayErrorMessage(error) {
   main.classList.add('hidden');
   header.classList.add('hidden');
+  footer.classList.add('hidden');
   errorDisplay.classList.remove('hidden');
 };
 
@@ -388,13 +389,6 @@ function togglePartyMode() {
   friendSelectors.classList.add('hidden');
   partyChartContainer.classList.remove('hidden');
 }
-
-
-// friendSelector: parent div in which the radios live.
-// letsPartyButton has a click event on it
-
-
-
 
 function computePartyMode() {
   let bubbles = friendSelectors.querySelectorAll('input');

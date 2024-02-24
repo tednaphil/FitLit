@@ -40,17 +40,23 @@ function runPost(id, hydroField, hoursField, qualityField) {
 
   function fetchData() {
    return Promise.all(runGet())
+   .then(responses => {
+    if (responses.every(response => response.ok)) {
+      return responses
+    } else {
+      throw new Error(`&{error.message}`)
+    }
+   })
     .then((res) => {
       return Promise.all(res.map((item) => {
       return item.json();
       }))
     })
-    // .catch(error => {
-    //   setTimeout(() => {
-    //     alert(error)
-    //     }, 1050)
-    //   return error; 
-    // });   
+    .catch(error => {
+      let errorText = error.message
+      console.log('Fetch Error:', errorText)
+      return errorText
+    })  
   };
 
   export { fetchData, runPost};
