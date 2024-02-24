@@ -11,12 +11,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
 }
 
 header,
 .error-display {
-  height: 12vh;
+  height: 10vh;
   display: flex;
   /* justify-content: space-between; */
   align-items: center;
@@ -26,6 +26,14 @@ header,
   /* position: absolute;
   top: 2% */
 }
+
+header,
+.today-form,
+.friend-avg-steps {
+  margin-bottom: 1%;
+}
+
+
 
 p {
   padding-top: 1px;
@@ -64,6 +72,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* justify-content: space-evenly; */
 }
 
 h2 {
@@ -102,13 +111,14 @@ section {
 #steps {
   line-height: 1.2em;
   font-size: 1.5vw;
+  margin-bottom: 5%;
 }
 
 .friend-avg-steps {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 3%;
+  margin-bottom: 2%;
 }
 
 .week-info {
@@ -160,6 +170,7 @@ section {
   width: 31%;
   line-height: 1.2em;
   position: relative;
+  margin-bottom: 2%;
 }
 
 .averages-widget  {
@@ -255,7 +266,7 @@ header {
 }
 
 .mode {
-  height: 4vh;
+  height: 1.75vh;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -279,61 +290,21 @@ header {
 #quality-chart-container {
   width: 80%;
   height: 100%;
-  /* position: relative; */
   margin-left: -6%;
   margin-bottom: 2%;
 }
 
-/* figure,
-canvas {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-} */
-
-.day-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 1vh;
-  height: 100%;
-  margin-right: 5px;
-}
-
-.bar-container {
-  border: 1px solid pink;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  margin-bottom: 4px;
-  width: 100%;
-  height: 20vh;
-}
-
-.bar {
-  display: inline-block;
-  width: 100%;
-  background-color: yellow;
-  box-shadow: 0px 0px 20px 1px rgb(234, 255, 0);
-}
-
-.day-label {
-  font-size: .7em;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-}
-
 .step-party-button {
-  width: 85%;
+  width: 75%;
   cursor: pointer;
 }
 
 @keyframes button-expand {
   0% {
-    width: 85%;
+    width: 75%;
   }
   100% {
-    width: 90%;
+    width: 80%;
   }
 }
 
@@ -368,9 +339,8 @@ canvas {
 }
 
 .step-party-button:hover {
-  animation: ease-in-out .05s button-expand;
-  animation: linear .35s  wiggle;
-  width: 90%;
+  /* animation: .35s ease-in-out button-expand; */
+  animation: .35s linear wiggle;
 }
 
 .friend-selectors {
@@ -388,7 +358,8 @@ canvas {
 }
 
 label {
-  margin-right: .5em; 
+  margin-right: .5em;
+  font-size: 1.3vw;
 }
 
 .form-style {
@@ -413,18 +384,16 @@ label {
   margin-right: 2em; 
 }
 
-footer {
+.today-form {
   background-color: rgba(8, 0, 47, 0.674);
-  height: 5%;
-  width: 95%;
+  height: 6%;
+  width: 100%;
   box-shadow: 0px 0px 20px 1px #FFFF7D;
   border: solid #FFFF7D 2px;
-  position: relative;
-  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  border-radius: 7px; 
+  border-radius: 10px; 
   font-size: 80%;
 }
 
@@ -439,7 +408,10 @@ input, button {
   background-color: lightyellow;
   height: 90%; 
   border-radius: 14px; 
-  font-size: 90%;
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #party-chart-container {
@@ -455,7 +427,7 @@ aside {
 
 aside > img {
   border-radius: 100%;
-  border: solid #FFFF7D 2px;
+  border: solid #eded00 2px;
   margin-top: 20px;
   width: 30%;
 }
@@ -479,7 +451,7 @@ p {
 
 #user-profile-button {
   /* width: 75px; */
-  width: 6%;
+  width: 4%;
   margin-right: 10px;
   margin-left: -60px;
     &:hover {

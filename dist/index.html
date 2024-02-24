@@ -12,9 +12,27 @@
         <img class="buttons" id="user-profile-button" src="./images/profile-icon.png"/>
     </header>
     <section class="error-display hidden">WHOOPS! SOMETHING'S NOT WORKING!</section>
-    <!-- <h3 class="today-info"></h3> -->
     <main class="widget-container" id="widgets">
-      <h3 class="today-info"></h3>
+      <!-- <h3 class="today-info"></h3> -->
+      <div class="today-form">
+        <form>
+          <div class="form-style">
+            <label>Ounces drank:</label>
+          </div>
+          <input class="hydro-field" type="number" min="0" placeholder="Enter Number" required>
+          <div class="form-style">
+            <label>Hours slept:</label>
+          </div>
+          <input class="hours-field" type="number" min="0" max="24" placeholder="Enter Number" required>
+          <div class="form-style">
+            <label>Sleep quality (0-5):</label>
+          </div>
+          <input class="quality-field" type="number" min="0" max="5" step=".01" placeholder="Enter Sleep Score" required>
+          <div class="form-style">
+            <button class="submit-button" type="submit">Add Today's Data!</button>
+          </div>
+        </form>
+      </div>
       <div class="friend-avg-steps">
         <section class="friends-widget friends-background">
           <img class="step-party-button" src="./images/step-party.png" alt="Step party">
@@ -25,7 +43,6 @@
             <canvas id="party-chart"></canvas>
           </div>
           <button class="hidden" id="lets-party">LET'S PARTY!</button>
-          
         </section>
         <section class="averages-widget">
           <h2 id="avg-title">Your Averages</h2>
@@ -71,27 +88,7 @@
           </div>
         </section>
       </div>
-  
     </main>
-    <footer class="footer-container">
-      <form>
-        <div class="form-style">
-        <label>Ounces drank:</label>
-        </div>
-        <input class="hydro-field" type="number" min="0" placeholder="Enter Number" required>
-        <div class="form-style">
-        <label>Hours slept:</label>
-        </div>
-        <input class="hours-field" type="number" min="0" max="24" placeholder="Enter Number" required>
-        <div class="form-style">
-        <label>Sleep quality (0-5):</label>
-        </div>
-        <input class="quality-field" type="number" min="0" max="5" step=".01" placeholder="Enter Sleep Score" required>
-        <div class="form-style">
-        <button class="submit-button" type="submit">Add Today's Data!</button>
-        </div>
-      </form>
-    </footer>
     <aside class="user-profile hidden" id="user-profile">
       <img src="./images/profile-photo.png" alt="user profile picture of Richard Simmons">
       <h2>Contact Info</h2>

@@ -34,13 +34,12 @@ const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field');
 const friendsWidget = document.querySelector('.friends-widget');
-
 const friendSelectors = document.querySelector('#friend-selectors');
 const partyButton = document.querySelector('.step-party-button');
 const letsPartyButton = document.querySelector('#lets-party');
 const partyChartContainer = document.querySelector('#party-chart-container');
 const partyChart = document.querySelector('#party-chart');
-const footer = document.querySelector('footer')
+const todayForm = document.querySelector('.today-form')
 const hydroChart = document.querySelector('#hydro-chart');
 const hydroChartContainer = document.querySelector('#hydro-chart-container');
 const qualityChart = document.querySelector('#quality-chart');
@@ -117,10 +116,10 @@ function renderDom(){
 };
 
 function clearForm(){
-  footer.classList.add("fade-out")
+  todayForm.classList.add("fade-out")
   setTimeout(() => {
-    footer.classList.add("fade-in")
-    footer.innerText = "You did it! Congrats on entering your hydration and sleep information for today.";
+    todayForm.classList.add("fade-in")
+    todayForm.innerText = "You did it! Congrats on entering your hydration and sleep information for today.";
    }, 1500)
 }
 
@@ -746,7 +745,7 @@ function renderPartyChart() {
 function changeDisplay() {
   main.classList.toggle('hidden');
   userProfile.classList.toggle('hidden');
-  footer.classList.toggle('hidden');
+  todayForm.classList.toggle('hidden');
   if (main.classList.contains('hidden')) {
     profileButton.src="./images/home-icon.png"
   } else if (userProfile.classList.contains('hidden')) {
