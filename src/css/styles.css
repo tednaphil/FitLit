@@ -27,10 +27,6 @@ header,
   top: 2% */
 }
 
-input, button {
-  color: rgba(8, 0, 47, 0.674);
-}
-
 p {
   padding-top: 1px;
   font-size: 1.6vw;
@@ -65,19 +61,10 @@ h1 {
 
 form {
   display: flex;
-  flex-direction: column;
-  height: 50%;
-  justify-content: space-evenly;
-  text-align: center;
-}
-
-.form-title {
-  font-size: 30px;
-}
-
-.form-item {
-  display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center; 
+  height: 70%; 
+  width: 100%; 
 }
 
 main {
@@ -139,10 +126,10 @@ section {
   justify-content: space-between;
 }
 
-.friend-avg-steps
+/* .friend-avg-steps,
 .week-info {
   height: 32vh;
-}
+} */
 
 .friends-widget,
 .steps-widget {
@@ -184,7 +171,7 @@ section {
   position: relative;
 }
 
-.averages-widget {
+.averages-widget  {
   background-color: rgba(8, 0, 47, 0.674);
   border-radius: 15px;
 }
@@ -296,30 +283,22 @@ header {
   cursor: pointer;
 }
 
-#chart-container {
+#hydro-chart-container,
+#hours-chart-container,
+#quality-chart-container {
   width: 80%;
   height: 100%;
-  position: relative;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+  /* position: relative; */
+  margin-left: -6%;
+  margin-bottom: 2%;
 }
 
-figure,
+/* figure,
 canvas {
-  /* width: 100% !important;
-  height: 100% !important; */
-  /* margin-right: 10% !important; */
-  /* margin-left: 5% !important;
-  margin-right: 10% !important;
-  margin-top: -10% !important;
-  margin-bottom: 1% !important; */
-  margin-right: 2%;
-  margin-bottom: 2%;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-}
+} */
 
 .day-container {
   display: flex;
@@ -399,7 +378,7 @@ canvas {
 
 .step-party-button:hover {
   animation: ease-in-out .05s button-expand;
-  animation: ease-in-out .35s .05s wiggle;
+  animation: linear .35s  wiggle;
   width: 90%;
 }
 
@@ -410,9 +389,66 @@ canvas {
   align-items: center;
 }
 
+.hydro-field,
+.quality-field,
+.hours-field {
+  margin-right: 1.2em; 
+  height: 70%; 
+}
+
 label {
-  display: flex;
+  margin-right: .5em; 
+}
+
+.form-style {
+  display: flex; 
   flex-direction: column;
+  justify-content: center;
+}
+
+.hydro-field,
+.quality-field,
+.hours-field {
+  text-align: center; 
+  background-color: lightskyblue;
+  color: black; 
+  font-weight: 500; 
+  height: 70%; 
+  width: 12%;
+  font-size: 90%;
+}
+
+.quality-field {
+  margin-right: 2em; 
+}
+
+footer {
+  background-color: rgba(8, 0, 47, 0.674);
+  height: 5%;
+  width: 95%;
+  box-shadow: 0px 0px 20px 1px #FFFF7D;
+  border: solid #FFFF7D 2px;
+  position: relative;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 7px; 
+  font-size: 80%;
+}
+
+input, button {
+  color: black; 
+}
+
+.submit-button {
+  border: solid #ff40af 3px;
+  box-shadow: 0px 0px 30px 1px #ff40af;
+  cursor: pointer; 
+  background-color: lightyellow;
+  height: 90%; 
+  border-radius: 14px; 
+  font-size: 90%;
 }
 
 #party-chart-container {
@@ -460,4 +496,33 @@ p {
 
 .hidden {
   display: none;
+}
+
+.fade-out {
+  animation: fadeOut 1.5s; 
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1; 
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1.5s; 
+  text-align: center;
+  font-weight: 400; 
+  font-style: italic; 
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; 
+  }
+  to {
+    opacity: 1;
+  }
 }

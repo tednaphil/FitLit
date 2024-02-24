@@ -14,7 +14,7 @@ function runPost(id, hydroField, hoursField, qualityField) {
       method: "POST",
       body: JSON.stringify({
         userID: id,
-        date: "2023/07/01",
+        date: "2023/07/02",
         numOunces: Number(hydroField.value)
       }),
       headers: {
@@ -25,7 +25,7 @@ function runPost(id, hydroField, hoursField, qualityField) {
       method: "POST",
       body: JSON.stringify({
         userID: id,
-        date: "2023/07/01",
+        date: "2023/07/02",
         hoursSlept: Number(hoursField.value),
         sleepQuality: Number(qualityField.value),
       }),

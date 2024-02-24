@@ -12,22 +12,6 @@
         <h1>My Name</h1>
         <img class="buttons" id="user-profile-button" src="./images/profile-icon.png"/>
     </header>
-    <form class="hidden">
-      <h4 class="form-title">Enter Your Information for the Day!</h4>
-      <div class="form-item">
-        <label>Number of ounces drank:</label>
-        <input class="hydro-field" type="text" placeholder="Number of Ounces" required>
-      </div>
-      <div class="form-item">
-        <label>Hours slept:</label>
-        <input class="hours-field" type="text" placeholder="Number of Hours" required>
-      </div>
-      <div class="form-item">
-        <label>Sleep quality:</label>
-        <input class="quality-field" type="text" placeholder="Sleep Quality Score" required>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
     <section class="error-display hidden">WHOOPS! SOMETHING'S NOT WORKING!</section>
     <!-- <h3 class="today-info"></h3> -->
     <main class="widget-container" id="widgets">
@@ -61,7 +45,7 @@
           <h2 id="hy-title">Hydration</h2>
           <p id="hydro-week" class="week"></p>
           <!-- <figure id="hydro-graph" class="hidden"></figure> -->
-          <div id="chart-container" class="hidden">
+          <div id="hydro-chart-container" class="hidden">
             <canvas id="hydro-chart"></canvas>
           </div>
         </section>
@@ -71,7 +55,10 @@
           </div>
           <h2 id="ho-title">Hours Slept</h2>
           <p id="sleep-hours" class="week"></p>
-          <figure id="sleep-graph" class="hidden"></figure>
+          <!-- <figure id="sleep-graph" class="hidden"></figure> -->
+          <div id="hours-chart-container" class="hidden">
+            <canvas id="hours-chart"></canvas>
+          </div>
         </section>
         <section class="quality">
           <div class="mode">
@@ -79,10 +66,33 @@
           </div>
           <h2 id="q-title">Sleep Quality</h2>
           <p id="sleep-quality" class="week"></p>
-          <figure id="sleep-q-graph" class="hidden"></figure>
+          <!-- <figure id="sleep-q-graph" class="hidden"></figure> -->
+          <div id="quality-chart-container" class="hidden">
+            <canvas id="quality-chart"></canvas>
+          </div>
         </section>
       </div>
+  
     </main>
+    <footer class="footer-container">
+      <form>
+        <div class="form-style">
+        <label>Ounces drank:</label>
+        </div>
+        <input class="hydro-field" type="number" min="0" placeholder="Enter Number" required>
+        <div class="form-style">
+        <label>Hours slept:</label>
+        </div>
+        <input class="hours-field" type="number" min="0" max="24" placeholder="Enter Number" required>
+        <div class="form-style">
+        <label>Sleep quality (0-5):</label>
+        </div>
+        <input class="quality-field" type="number" min="0" max="5" step=".01" placeholder="Enter Sleep Score" required>
+        <div class="form-style">
+        <button class="submit-button" type="submit">Add Today's Data!</button>
+        </div>
+      </form>
+    </footer>
     <aside class="user-profile hidden" id="user-profile">
       <img src="./images/profile-photo.png" alt="user profile picture of Richard Simmons">
       <h2>Contact Info</h2>
