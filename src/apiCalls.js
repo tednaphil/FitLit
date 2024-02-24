@@ -44,7 +44,9 @@ function runPost(id, hydroField, hoursField, qualityField) {
     if (responses.every(response => response.ok)) {
       return responses
     } else {
-      throw new Error(`&{error.message}`)
+      let responseText = responses[0].statusText
+      let responseCode = responses[0].status
+      throw new Error(`${responseCode} - ${responseText} :(`)
     }
    })
     .then((res) => {
@@ -54,8 +56,8 @@ function runPost(id, hydroField, hoursField, qualityField) {
     })
     .catch(error => {
       let errorText = error.message
-      console.log('Fetch Error:', errorText)
-      return errorText
+      console.log('Fetch Error')
+      throw new Error(`${errorText}`)
     })  
   };
 
