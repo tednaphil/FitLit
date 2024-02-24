@@ -52,18 +52,24 @@ profileButton.addEventListener('click', changeDisplay);
 formInfo.addEventListener('submit', function(event) {
   event.preventDefault();
     return Promise.all(runPost(randomUser.id, hydroField, hoursField, qualityField))
+    .then(responses => {
+      if (responses.every(response => response.ok)) {
+        return responses
+      } else {
+        let responseText = responses.find(response => !response.ok).statusText
+        let responseCode = responses.find(response => !response.ok).status
+        throw new Error(`Failed to Post ${responseCode} - ${responseText} :(`)
+      }
+    })
     .then(res => {
-      console.log(res)
       renderDom()
       clearForm()
     })
-    // .catch(error => {
-    //   setTimeout(() => {
-    //     alert(error)
-    //     }, 1050)
-    //   displayErrorMessage(error)
-    //   return error; 
-    // })
+    .catch(error => {
+      let errorText = error.message
+      console.log('Post Error')
+      displayErrorMessage(errorText)
+    })
 });
  
 hydroButton.addEventListener('click', function() {
@@ -132,6 +138,7 @@ function displayErrorMessage(error) {
   header.classList.add('hidden');
   footer.classList.add('hidden');
   errorDisplay.classList.remove('hidden');
+  errorDisplay.innerText += error;
 };
 
 function displayPersonalInfo(person) {

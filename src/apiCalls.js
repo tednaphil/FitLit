@@ -44,8 +44,8 @@ function runPost(id, hydroField, hoursField, qualityField) {
     if (responses.every(response => response.ok)) {
       return responses
     } else {
-      let responseText = responses[0].statusText
-      let responseCode = responses[0].status
+      let responseText = responses.find(response => !response.ok).statusText
+      let responseCode = responses.find(response => !response.ok).status
       throw new Error(`${responseCode} - ${responseText} :(`)
     }
    })
