@@ -18,7 +18,7 @@ header,
 .error-display {
   height: 12vh;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   width: 95%;
   margin-left: 2%;
@@ -46,6 +46,8 @@ h1 {
   font-family: 'Honk', system-ui;
   font-size: 5vw;
   margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 form {
@@ -479,6 +481,7 @@ p {
   /* width: 75px; */
   width: 6%;
   margin-right: 10px;
+  margin-left: -60px;
     &:hover {
       cursor: pointer;
       animation: ease-in-out .35s .05s wiggle;
