@@ -163,7 +163,6 @@ function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet);
 
   makeChart(dailyInfo, 'hydration');
-  // createBarGraph(dailyInfo, 'hydration');
   dailyInfo.forEach((day, index) => {
     if(!index) {
       hydrationWeek.innerHTML = '';
@@ -233,33 +232,6 @@ function formatAddress(addressInfo) {
   return `Address:</br>${addrLine1},</br>${addrLine2}`;
 };
 
-// function createBarGraph(dataSet, dataCategory) {
-//   dataSet.forEach(day => {
-//     const dayContainer = document.createElement('div');
-//     dayContainer.className = 'day-container';
-//     const barContainer = document.createElement('div');
-//     barContainer.className = 'bar-container';
-//     const bar = document.createElement('div');
-//     bar.className = 'bar';
-//     const dayLabel = document.createElement('p');
-//     dayLabel.className = 'day-label';
-//     dayContainer.appendChild(barContainer);
-//     barContainer.appendChild(bar);
-//     dayContainer.appendChild(dayLabel);
-//     dayLabel.innerText = `${day.date.slice(5)}`;
-//     if(dataCategory === 'hydration') {
-//       bar.style.height = `${(day.numOunces / 100) * 20}vh`;
-//       hydroGraph.appendChild(dayContainer);
-//     } else if(dataCategory === 'sleep quality') {
-//         bar.style.height = `${(day.sleepQuality / 5) * 20}vh`;
-//         sleepQualityGraph.appendChild(dayContainer);
-//     } else {
-//       bar.style.height = `${(day.hoursSlept / 12) * 20}vh`;
-//       hoursSleptGraph.appendChild(dayContainer);
-//     };
-//   });
-// };
-
 function toggleGraph(category) {
   let graphURL = "./images/graph-icon.png";
   let textURL = "./images/txt-icon.png";
@@ -323,6 +295,129 @@ function displayFriendSelector() {
   friendsWidget.classList.remove('friends-background');
   letsPartyButton.classList.remove('hidden');
 }
+  
+//   const newChart = new Chart(ctx, {
+//     type: 'line',
+//     data: {
+//       datasets: [{
+//         backgroundColor: 'yellow',
+//         barThickness: 10,
+//         pointRadius: 0,
+//         pointBorderColor: 'yellow',
+//         borderColor: [
+//           'yellow',
+//         ],
+//         borderWidth: 2,
+//       }]
+//     },
+//     options: {
+//       plugins: {
+//         legend: {
+//             display: false,
+//         }
+//       },
+//       scales: {
+//         y: {
+//           ticks: {
+//             padding: 5,
+//             color: 'yellow',
+//           },
+//           grid: {
+//             display: true,
+//             color: 'rgba(128, 128, 128, 0.376)',
+//             // opacity: .1
+//           },
+//           title: {
+//               display: true,
+//               color: '#FF40AF'
+//           },
+//           border: {
+//             color: '#FF40AF',
+//             width: 1
+//           }
+//         },
+//         x: {
+//           ticks: {
+//             padding: -3,
+//             color: 'yellow',
+//             maxRotation: 45,
+//             minRotation: 45
+//           },
+//           grid: {
+//             display: true,
+//             color: 'rgba(128, 128, 128, 0.376)',
+//             // opacity: .1
+//           },
+//           title: {
+//             display: true,
+//             text: 'day',
+//             color: '#FF40AF'
+//         },
+//           border: {
+//             color: '#FF40AF',
+//             width: 1
+//           }
+//         }
+//       }
+//     },
+//   })
+//   newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
+//   if (dataCategory === 'hydration'){
+//     newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
+//     newChart.options.scales.y.min = 0;
+//     newChart.options.scales.y.max = 100;
+//     newChart.options.scales.y.title.text = 'number of ounces';
+//   } else if (dataCategory === 'sleepQuality') {
+//     newChart.data.datasets[0].data = dataSet.map((day) => { return day.sleepQuality });
+//     newChart.options.scales.y.min = 0;
+//     newChart.options.scales.y.max = 5;
+//     newChart.options.scales.y.title.text = 'sleep quality';
+//   } else {
+//     newChart.data.datasets[0].data = dataSet.map((day) => { return day.hoursSlept });
+//     newChart.options.scales.y.min = 0;
+//     newChart.options.scales.y.max = 12;
+//     newChart.options.scales.y.title.text = 'hours slept';
+//   }
+// }
+
+function togglePartyMode() {
+  letsPartyButton.innerText = 'Back Home';
+  friendSelectors.classList.add('hidden');
+  partyChartContainer.classList.remove('hidden');
+}
+
+
+// friendSelector: parent div in which the radios live.
+// letsPartyButton has a click event on it
+
+
+
+
+function computePartyMode() {
+  let bubbles = friendSelectors.querySelectorAll('input');
+  let selectedFriendsFullIds = [];
+  bubbles.forEach((bubble) => {
+    if(bubble.checked) {
+      selectedFriendsFullIds.push(bubble.id);
+    }
+  });
+
+  let selectedFriendsIds = selectedFriendsFullIds.map((friend) => {
+    return parseInt(friend.split('-')[2]);
+  })
+
+  let finalSelectedFriendObjects = friendsByData.filter((friend) => {
+    return selectedFriendsIds.includes(friend.id);
+  })
+
+  finalSelectedFriendObjects.push(randomUser);
+}
+
+function generatePartyMode() {
+  computePartyMode();
+  togglePartyMode()
+  renderPartyChart();
+}
 
 function makeChart(dataSet, dataCategory) {
   let ctx;
@@ -332,110 +427,242 @@ function makeChart(dataSet, dataCategory) {
     }
     ctx = hydroChart.getContext('2d');
     ctx.canvas.height = hydroChartContainer.style.height;
+    renderedHydroChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        datasets: [{
+          backgroundColor: 'yellow',
+          barThickness: 10,
+          pointRadius: 0,
+          pointBorderColor: 'yellow',
+          borderColor: [
+            'yellow',
+          ],
+          borderWidth: 2,
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+              display: false,
+          }
+        },
+        scales: {
+          y: {
+            ticks: {
+              padding: 5,
+              color: 'yellow',
+            },
+            grid: {
+              display: true,
+              color: 'rgba(128, 128, 128, 0.376)',
+              // opacity: .1
+            },
+            title: {
+                display: true,
+                color: '#FF40AF'
+            },
+            border: {
+              color: '#FF40AF',
+              width: 1
+            }
+          },
+          x: {
+            ticks: {
+              padding: -3,
+              color: 'yellow',
+              maxRotation: 45,
+              minRotation: 45
+            },
+            grid: {
+              display: true,
+              color: 'rgba(128, 128, 128, 0.376)',
+              // opacity: .1
+            },
+            title: {
+              display: true,
+              text: 'day',
+              color: '#FF40AF'
+          },
+            border: {
+              color: '#FF40AF',
+              width: 1
+            }
+          }
+        }
+      },
+    })
+    renderedHydroChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
+    renderedHydroChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
+    renderedHydroChart.options.scales.y.min = 0;
+    renderedHydroChart.options.scales.y.max = 100;
+    renderedHydroChart.options.scales.y.title.text = 'number of ounces';
+    renderedHydroChart.update();
   } else if (dataCategory === 'sleepQuality') {
       if(renderedQualityChart) {
         renderedQualityChart.destroy();
       }
       ctx = qualityChart.getContext('2d');
       ctx.canvas.height = qualityChartContainer.style.height;
+      renderedHydroChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          datasets: [{
+            backgroundColor: 'yellow',
+            barThickness: 10,
+            pointRadius: 0,
+            pointBorderColor: 'yellow',
+            borderColor: [
+              'yellow',
+            ],
+            borderWidth: 2,
+          }]
+        },
+        options: {
+          plugins: {
+            legend: {
+                display: false,
+            }
+          },
+          scales: {
+            y: {
+              ticks: {
+                padding: 5,
+                color: 'yellow',
+              },
+              grid: {
+                display: true,
+                color: 'rgba(128, 128, 128, 0.376)',
+                // opacity: .1
+              },
+              title: {
+                  display: true,
+                  color: '#FF40AF'
+              },
+              border: {
+                color: '#FF40AF',
+                width: 1
+              }
+            },
+            x: {
+              ticks: {
+                padding: -3,
+                color: 'yellow',
+                maxRotation: 45,
+                minRotation: 45
+              },
+              grid: {
+                display: true,
+                color: 'rgba(128, 128, 128, 0.376)',
+                // opacity: .1
+              },
+              title: {
+                display: true,
+                text: 'day',
+                color: '#FF40AF'
+            },
+              border: {
+                color: '#FF40AF',
+                width: 1
+              }
+            }
+          }
+        },
+      })
+      renderedHydroChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
+      renderedHydroChart.data.datasets[0].data = dataSet.map((day) => { return day.sleepQuality });
+      renderedHydroChart.options.scales.y.min = 0;
+      renderedHydroChart.options.scales.y.max = 5;
+      renderedHydroChart.options.scales.y.title.text = 'sleep quality';
+      renderedHydroChart.update();
   } else {
       if(renderedHoursChart) {
-        renderedHoursChart.destroy();
+          renderedHoursChart.destroy();
       }
       ctx = hoursChart.getContext('2d');
       ctx.canvas.height = hoursChartContainer.style.height;
-  }
-  
-  const newChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      datasets: [{
-        backgroundColor: 'yellow',
-        barThickness: 10,
-        pointRadius: 0,
-        pointBorderColor: 'yellow',
-        borderColor: [
-          'yellow',
-        ],
-        borderWidth: 2,
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-            display: false,
-        }
-      },
-      scales: {
-        y: {
-          ticks: {
-            padding: 5,
-            color: 'yellow',
+      renderedHoursChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+          datasets: [{
+              backgroundColor: 'yellow',
+              barThickness: 10,
+              pointRadius: 0,
+              pointBorderColor: 'yellow',
+              borderColor: [
+              'yellow',
+              ],
+              borderWidth: 2,
+          }]
           },
-          grid: {
-            display: true,
-            color: 'rgba(128, 128, 128, 0.376)',
-            // opacity: .1
-          },
-          title: {
-              display: true,
-              color: '#FF40AF'
-          },
-          border: {
-            color: '#FF40AF',
-            width: 1
+          options: {
+              plugins: {
+                  legend: {
+                      display: false,
+                  }
+              },
+              scales: {
+                  y: {
+                      ticks: {
+                          padding: 5,
+                          color: 'yellow',
+                      },
+                      grid: {
+                          display: true,
+                          color: 'rgba(128, 128, 128, 0.376)',
+                          // opacity: .1
+                      },
+                      title: {
+                          display: true,
+                          color: '#FF40AF'
+                      },
+                      border: {
+                          color: '#FF40AF',
+                          width: 1
+                      }
+                  },
+                  x: {
+                      ticks: {
+                          padding: -3,
+                          color: 'yellow',
+                          maxRotation: 45,
+                          minRotation: 45
+                      },
+                      grid: {
+                          display: true,
+                          color: 'rgba(128, 128, 128, 0.376)',
+                          // opacity: .1
+                      },
+                      title: {
+                          display: true,
+                          text: 'day',
+                          color: '#FF40AF'
+                      },
+                      border: {
+                          color: '#FF40AF',
+                          width: 1
+                      }
+                  }
+              }
           }
-        },
-        x: {
-          ticks: {
-            padding: -3,
-            color: 'yellow',
-            maxRotation: 45,
-            minRotation: 45
-          },
-          grid: {
-            display: true,
-            color: 'rgba(128, 128, 128, 0.376)',
-            // opacity: .1
-          },
-          title: {
-            display: true,
-            text: 'day',
-            color: '#FF40AF'
-        },
-          border: {
-            color: '#FF40AF',
-            width: 1
-          }
-        }
-      }
-    },
-  })
-  newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-  if (dataCategory === 'hydration'){
-    newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
-    newChart.options.scales.y.min = 0;
-    newChart.options.scales.y.max = 100;
-    newChart.options.scales.y.title.text = 'number of ounces';
-  } else if (dataCategory === 'sleepQuality') {
-    newChart.data.datasets[0].data = dataSet.map((day) => { return day.sleepQuality });
-    newChart.options.scales.y.min = 0;
-    newChart.options.scales.y.max = 5;
-    newChart.options.scales.y.title.text = 'sleep quality';
-  } else {
-    newChart.data.datasets[0].data = dataSet.map((day) => { return day.hoursSlept });
-    newChart.options.scales.y.min = 0;
-    newChart.options.scales.y.max = 12;
-    newChart.options.scales.y.title.text = 'hours slept';
+      })
+      renderedHoursChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
+      renderedHoursChart.data.datasets[0].data = dataSet.map((day) => { return day.hoursSlept });
+      renderedHoursChart.options.scales.y.min = 0;
+      renderedHoursChart.options.scales.y.max = 12;
+      renderedHoursChart.options.scales.y.title.text = 'hours slept';
+      renderedHoursChart.update();
   }
-  newChart.update();
 }
 
-function renderStepChart() {
+function renderPartyChart() {
+  if(renderedPartyChart) {
+    renderedPartyChart.destroy();
+  }
   let ctx;
   ctx = partyChart.getContext('2d');
   ctx.canvas.height = partyChartContainer.style.height;
-  const newChart = new Chart(ctx, {
+  renderedPartyChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
       // labels: ['1', '2', '3', '4', '5', '6', '7'],
@@ -498,48 +725,9 @@ function renderStepChart() {
       }
     },
   })
-  newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-  newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
-  newChart.options.scales.y.min = 0;
-  newChart.options.scales.y.max = 100;
-  newChart.update();
-}
-
-function togglePartyMode() {
-  letsPartyButton.innerText = 'Back Home';
-  friendSelectors.classList.add('hidden');
-  partyChartContainer.classList.remove('hidden');
-}
-
-
-// friendSelector: parent div in which the radios live.
-// letsPartyButton has a click event on it
-
-
-
-
-function computePartyMode() {
-  let bubbles = friendSelectors.querySelectorAll('input');
-  let selectedFriendsFullIds = [];
-  bubbles.forEach((bubble) => {
-    if(bubble.checked) {
-      selectedFriendsFullIds.push(bubble.id);
-    }
-  });
-
-  let selectedFriendsIds = selectedFriendsFullIds.map((friend) => {
-    return parseInt(friend.split('-')[2]);
-  })
-
-  let finalSelectedFriendObjects = friendsByData.filter((friend) => {
-    return selectedFriendsIds.includes(friend.id);
-  })
-
-  finalSelectedFriendObjects.push(randomUser);
-}
-
-function generatePartyMode() {
-  computePartyMode();
-  togglePartyMode()
-  renderStepChart();
+  // renderedPartyChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
+  // renderedPartyChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
+  // renderedPartyChart.options.scales.y.min = 0;
+  // renderedPartyChart.options.scales.y.max = 100;
+  // renderedPartyChart.update();
 }
