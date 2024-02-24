@@ -39,7 +39,11 @@ const partyChartContainer = document.querySelector('#party-chart-container');
 const partyChart = document.querySelector('#party-chart');
 const footer = document.querySelector('footer')
 const hydroChart = document.querySelector('#hydro-chart');
-const chartContainer = document.querySelector('#chart-container');
+const hydroChartContainer = document.querySelector('#hydro-chart-container');
+const qualityChart = document.querySelector('#quality-chart');
+const qualityChartContainer = document.querySelector('#quality-chart-container');
+const hoursChart = document.querySelector('#hours-chart');
+const hoursChartContainer = document.querySelector('#hours-chart-container');
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
@@ -65,10 +69,10 @@ hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
 });
 hoursButton.addEventListener('click', function() {
-  toggleGraph('hours slept');
+  toggleGraph('hoursSlept');
 });
 qualityButton.addEventListener('click', function() {
-  toggleGraph('sleep quality');
+  toggleGraph('sleepQuality');
 });
 
 partyButton.addEventListener('click', displayFriendSelector);
@@ -79,6 +83,10 @@ let displayingHydroGraph = false;
 let displayingHoursGraph = false;
 let displayingQualityGraph = false;
 let friendsByData = [];
+let renderedHydroChart;
+let renderedHoursChart;
+let renderedQualityChart;
+let renderedPartyChart;
 
 var randomUser;
 
@@ -179,9 +187,8 @@ function displaySleepInfo(person, dataSet) {
     return entry.userID === person.id;
   }).slice(-1)[0].date;
   let weeklySleepInfo = findSleepInfoWeek(person.id, today, dataSet);
-  console.log(today)
-  createBarGraph(weeklySleepInfo, 'sleep quality');
-  createBarGraph(weeklySleepInfo, 'hoursSlept');
+  makeChart(weeklySleepInfo, 'sleepQuality');
+  makeChart(weeklySleepInfo, 'hoursSlept');
   weeklySleepInfo.forEach((day, index) => {
     if(!index){
       sleepHours.innerHTML = '';
@@ -226,32 +233,32 @@ function formatAddress(addressInfo) {
   return `Address:</br>${addrLine1},</br>${addrLine2}`;
 };
 
-function createBarGraph(dataSet, dataCategory) {
-  dataSet.forEach(day => {
-    const dayContainer = document.createElement('div');
-    dayContainer.className = 'day-container';
-    const barContainer = document.createElement('div');
-    barContainer.className = 'bar-container';
-    const bar = document.createElement('div');
-    bar.className = 'bar';
-    const dayLabel = document.createElement('p');
-    dayLabel.className = 'day-label';
-    dayContainer.appendChild(barContainer);
-    barContainer.appendChild(bar);
-    dayContainer.appendChild(dayLabel);
-    dayLabel.innerText = `${day.date.slice(5)}`;
-    if(dataCategory === 'hydration') {
-      bar.style.height = `${(day.numOunces / 100) * 20}vh`;
-      hydroGraph.appendChild(dayContainer);
-    } else if(dataCategory === 'sleep quality') {
-        bar.style.height = `${(day.sleepQuality / 5) * 20}vh`;
-        sleepQualityGraph.appendChild(dayContainer);
-    } else {
-      bar.style.height = `${(day.hoursSlept / 12) * 20}vh`;
-      hoursSleptGraph.appendChild(dayContainer);
-    };
-  });
-};
+// function createBarGraph(dataSet, dataCategory) {
+//   dataSet.forEach(day => {
+//     const dayContainer = document.createElement('div');
+//     dayContainer.className = 'day-container';
+//     const barContainer = document.createElement('div');
+//     barContainer.className = 'bar-container';
+//     const bar = document.createElement('div');
+//     bar.className = 'bar';
+//     const dayLabel = document.createElement('p');
+//     dayLabel.className = 'day-label';
+//     dayContainer.appendChild(barContainer);
+//     barContainer.appendChild(bar);
+//     dayContainer.appendChild(dayLabel);
+//     dayLabel.innerText = `${day.date.slice(5)}`;
+//     if(dataCategory === 'hydration') {
+//       bar.style.height = `${(day.numOunces / 100) * 20}vh`;
+//       hydroGraph.appendChild(dayContainer);
+//     } else if(dataCategory === 'sleep quality') {
+//         bar.style.height = `${(day.sleepQuality / 5) * 20}vh`;
+//         sleepQualityGraph.appendChild(dayContainer);
+//     } else {
+//       bar.style.height = `${(day.hoursSlept / 12) * 20}vh`;
+//       hoursSleptGraph.appendChild(dayContainer);
+//     };
+//   });
+// };
 
 function toggleGraph(category) {
   let graphURL = "./images/graph-icon.png";
@@ -259,7 +266,7 @@ function toggleGraph(category) {
 
   if(category === 'hydration'){
     hydrationWeek.classList.toggle('hidden');
-    chartContainer.classList.toggle('hidden');
+    hydroChartContainer.classList.toggle('hidden');
     hydroTitle.classList.toggle('hidden');
     if(!displayingHydroGraph) {
       hydroButton.src = textURL;
@@ -267,9 +274,9 @@ function toggleGraph(category) {
       hydroButton.src = graphURL;
     };
     displayingHydroGraph = !displayingHydroGraph;
-  } else if (category === 'sleep quality') {
+  } else if (category === 'sleepQuality') {
     sleepQuality.classList.toggle('hidden');
-    sleepQualityGraph.classList.toggle('hidden');
+    qualityChartContainer.classList.toggle('hidden');
     qualityTitle.classList.toggle('hidden');
     if(!displayingQualityGraph) {
       qualityButton.src = textURL;
@@ -279,7 +286,7 @@ function toggleGraph(category) {
     displayingQualityGraph = !displayingQualityGraph;
   } else {
     sleepHours.classList.toggle('hidden');
-    hoursSleptGraph.classList.toggle('hidden');
+    hoursChartContainer.classList.toggle('hidden');
     hoursTitle.classList.toggle('hidden');
     if(!displayingHoursGraph) {
       hoursButton.src = textURL;
@@ -320,17 +327,30 @@ function displayFriendSelector() {
 function makeChart(dataSet, dataCategory) {
   let ctx;
   if (dataCategory === 'hydration'){
+    if(renderedHydroChart) {
+      renderedHydroChart.destroy();
+    }
     ctx = hydroChart.getContext('2d');
+    ctx.canvas.height = hydroChartContainer.style.height;
+  } else if (dataCategory === 'sleepQuality') {
+      if(renderedQualityChart) {
+        renderedQualityChart.destroy();
+      }
+      ctx = qualityChart.getContext('2d');
+      ctx.canvas.height = qualityChartContainer.style.height;
+  } else {
+      if(renderedHoursChart) {
+        renderedHoursChart.destroy();
+      }
+      ctx = hoursChart.getContext('2d');
+      ctx.canvas.height = hoursChartContainer.style.height;
   }
-  ctx.canvas.height = chartContainer.style.height;
+  
   const newChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
-      // labels: ['1', '2', '3', '4', '5', '6', '7'],
       datasets: [{
-        // data: [8, 5, 7, 9, 6, 6, 8],
         backgroundColor: 'yellow',
-        // tension: .1,
         barThickness: 10,
         pointRadius: 0,
         pointBorderColor: 'yellow',
@@ -352,13 +372,13 @@ function makeChart(dataSet, dataCategory) {
             padding: 5,
             color: 'yellow',
           },
-          // grid: {
-          //   display: true,
-          //   color: 'lightgrey'
-          // },
+          grid: {
+            display: true,
+            color: 'rgba(128, 128, 128, 0.376)',
+            // opacity: .1
+          },
           title: {
               display: true,
-              text: 'num of ounces',
               color: '#FF40AF'
           },
           border: {
@@ -368,10 +388,15 @@ function makeChart(dataSet, dataCategory) {
         },
         x: {
           ticks: {
-            padding: -5,
+            padding: -3,
             color: 'yellow',
             maxRotation: 45,
             minRotation: 45
+          },
+          grid: {
+            display: true,
+            color: 'rgba(128, 128, 128, 0.376)',
+            // opacity: .1
           },
           title: {
             display: true,
@@ -387,10 +412,22 @@ function makeChart(dataSet, dataCategory) {
     },
   })
   newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-  newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
-  newChart.options.scales.y.min = 0;
-  newChart.options.scales.y.max = 100;
-  // hydroChart.style.height = chartContainer.style.height;
+  if (dataCategory === 'hydration'){
+    newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
+    newChart.options.scales.y.min = 0;
+    newChart.options.scales.y.max = 100;
+    newChart.options.scales.y.title.text = 'number of ounces';
+  } else if (dataCategory === 'sleepQuality') {
+    newChart.data.datasets[0].data = dataSet.map((day) => { return day.sleepQuality });
+    newChart.options.scales.y.min = 0;
+    newChart.options.scales.y.max = 5;
+    newChart.options.scales.y.title.text = 'sleep quality';
+  } else {
+    newChart.data.datasets[0].data = dataSet.map((day) => { return day.hoursSlept });
+    newChart.options.scales.y.min = 0;
+    newChart.options.scales.y.max = 12;
+    newChart.options.scales.y.title.text = 'hours slept';
+  }
   newChart.update();
 }
 
