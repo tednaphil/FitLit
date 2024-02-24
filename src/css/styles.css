@@ -458,24 +458,6 @@ p {
     }
 }
 
-/* details {
-  font: 16px;
-  margin-right: 10px;
-    &:hover {
-      cursor: pointer;
-    }
-}
-
-details > p {
-  padding: 2px 6px;
-  margin: 0;
-} */
-
-/* details[open] > p {
-  background: white;
-  color: #0E0744
-} */
-
 .hidden {
   display: none;
 }

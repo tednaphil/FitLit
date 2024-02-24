@@ -68,16 +68,16 @@ formInfo.addEventListener('submit', function(event) {
     .then(res => {
       renderDom()
     })
-    .catch(error => {
-      setTimeout(() => {
-        alert(error)
-        }, 1050)
-      displayErrorMessage(error)
-      return error; 
-    })
-  } else {
-    alert('Oops! You have already submitted info for today.');
-  }
+  //   .catch(error => {
+  //     setTimeout(() => {
+  //       alert(error)
+  //       }, 1050)
+  //     displayErrorMessage(error)
+  //     return error; 
+  //   })
+  // } else {
+  //   alert('Oops! You have already submitted info for today.');
+  // }
   clearInputFields();
 })
  
@@ -121,9 +121,9 @@ function renderDom(){
       storeFriends(randomUser, info.users);
       makeFriendSelector(randomUser, info.users)
     })
-    .catch(error => {
-      displayErrorMessage(error);
-    })
+    // .catch(error => {
+    //   displayErrorMessage(error);
+    // })
 };
 
 function clearInputFields(){
