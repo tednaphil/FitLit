@@ -42,17 +42,6 @@ p {
   line-height: 1.3em;
 }
 
-/* #address {
-  margin-left: 2%;
-  width: 25vh;
-}
-
-#email {
-  margin-right: 2%;
-  text-align: right;
-  width: fit-content;
-} */
-
 h1 {
   font-family: 'Honk', system-ui;
   font-size: 5vw;
@@ -487,15 +476,13 @@ p {
 }
 
 #user-profile-button {
-  width: 75px;
+  /* width: 75px; */
+  width: 6%;
+  margin-right: 10px;
     &:hover {
       cursor: pointer;
       animation: ease-in-out .35s .05s wiggle;
     }
-}
-
-.hidden {
-  display: none;
 }
 
 .fade-out {
@@ -525,4 +512,8 @@ p {
   to {
     opacity: 1;
   }
+}
+
+.hidden {
+  display: none;
 }
