@@ -47,10 +47,18 @@ const hoursChartContainer = document.querySelector('#hours-chart-container');
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
 profileButton.addEventListener('click', changeDisplay);
-profileButton.addEventListener('keydown', changeDisplay)
+profileButton.addEventListener('keydown', function(event) {
+  if(event.key === "Enter" || event.code === "Space") {
+    changeDisplay()
+  }
+})
 formInfo.addEventListener('submit', postFormInput);
 partyButton.addEventListener('click', displayFriendSelector);
-partyButton.addEventListener('keydown', displayFriendSelector);
+partyButton.addEventListener('keydown', function(event) {
+  if(event.key === "Enter" || event.code === "Space") {
+    displayFriendSelector()
+  }
+})
 letsPartyButton.addEventListener('click', generatePartyMode);
 
 hydroButton.addEventListener('click', function() {
@@ -61,6 +69,21 @@ hoursButton.addEventListener('click', function() {
 });
 qualityButton.addEventListener('click', function() {
   toggleGraph('sleepQuality');
+});
+hydroButton.addEventListener('keydown', function(event) {
+  if(event.key === "Enter" || event.code === "Space") {
+  toggleGraph('hydration')
+  }
+});
+hoursButton.addEventListener('keydown', function(event) {
+  if(event.key === "Enter" || event.code === "Space") {
+  toggleGraph('hoursSlept')
+  }
+});
+qualityButton.addEventListener('keydown', function(event) {
+  if(event.key === "Enter" || event.code === "Space") {
+  toggleGraph('sleepQuality')
+  }
 });
 
 // GLOBAL VARIABLES
