@@ -47,8 +47,10 @@ const hoursChartContainer = document.querySelector('#hours-chart-container');
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
 profileButton.addEventListener('click', changeDisplay);
+profileButton.addEventListener('keydown', changeDisplay)
 formInfo.addEventListener('submit', postFormInput);
 partyButton.addEventListener('click', displayFriendSelector);
+partyButton.addEventListener('keydown', displayFriendSelector);
 letsPartyButton.addEventListener('click', generatePartyMode);
 
 hydroButton.addEventListener('click', function() {
