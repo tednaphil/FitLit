@@ -16,8 +16,8 @@ const addressDisplay = document.querySelector('#address');
 const emailDisplay = document.querySelector('#email');
 const todayInfo = document.querySelector('h3');
 const hydrationWeek = document.querySelector('#hydro-week');
-const sleepHours = document.querySelector('#sleep-hours');
-const sleepQual = document.querySelector('#sleep-quality');
+const sleepHoursWeek = document.querySelector('#sleep-hours');
+const sleepQualityWeek = document.querySelector('#sleep-quality');
 const avg = document.querySelector('#avgs');
 const steps = document.querySelector('#steps');
 const hydroButton = document.querySelector('#hydro-button');
@@ -198,17 +198,17 @@ function displaySleepInfo({id}, dataSet) {
   makeChart(weeklySleepInfo, 'sleepQuality');
   makeChart(weeklySleepInfo, 'hoursSlept');
   weeklySleepInfo.forEach(({hoursSlept, date}, index) => {
-    sleepHours.innerHTML += `<br></br>${formatDate(date)}: ${hoursSlept} hours`;
+    sleepHoursWeek.innerHTML += `<br></br>${formatDate(date)}: ${hoursSlept} hours`;
     if(submittedData && !index){
-     sleepHours.innerHTML = ''; 
-     sleepHours.innerHTML += `<br></br><span class="today-span">TODAY: ${hoursSlept} hours</span>`;
+     sleepHoursWeek.innerHTML = ''; 
+     sleepHoursWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${hoursSlept} hours</span>`;
     }
   });
   weeklySleepInfo.forEach(({sleepQuality, date}, index) => {
-    sleepQual.innerHTML += `<br></br>${formatDate(date)}: ${sleepQuality} out of 5`;;
+    sleepQualityWeek.innerHTML += `<br></br>${formatDate(date)}: ${sleepQuality} out of 5`;;
     if(submittedData && !index){
-      sleepQual.innerHTML = '';
-      sleepQual.innerHTML += `<br></br><span class="today-span">TODAY: ${sleepQuality} out of 5`;
+      sleepQualityWeek.innerHTML = '';
+      sleepQualityWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${sleepQuality} out of 5`;
     }
   });
 };
@@ -254,7 +254,7 @@ function toggleGraph(category) {
     };
     displayingHydroGraph = !displayingHydroGraph;
   } else if (category === 'sleepQuality') {
-    sleepQual.classList.toggle('hidden');
+    sleepQualityWeek.classList.toggle('hidden');
     qualityChartContainer.classList.toggle('hidden');
     qualityTitle.classList.toggle('hidden');
     if(!displayingQualityGraph) {
@@ -264,7 +264,7 @@ function toggleGraph(category) {
     };
     displayingQualityGraph = !displayingQualityGraph;
   } else {
-    sleepHours.classList.toggle('hidden');
+    sleepHoursWeek.classList.toggle('hidden');
     hoursChartContainer.classList.toggle('hidden');
     hoursTitle.classList.toggle('hidden');
     if(!displayingHoursGraph) {
@@ -574,8 +574,8 @@ function makeChart(dataSet, dataCategory) {
           }
         },
       })
-      renderedQualityChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-      renderedQualityChart.data.datasets[0].data = dataSet.map((day) => { return day.sleepQuality });
+      renderedQualityChart.data.labels = dataSet.map(({date}) => { return date.slice(5) });
+      renderedQualityChart.data.datasets[0].data = dataSet.map(({sleepQuality}) => { return sleepQuality });
       renderedQualityChart.options.scales.y.min = 0;
       renderedQualityChart.options.scales.y.max = 5;
       renderedQualityChart.options.scales.y.title.text = 'sleep quality';
