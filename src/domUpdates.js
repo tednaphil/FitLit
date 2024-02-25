@@ -429,57 +429,6 @@ function makeChart(dataSet, dataCategory) {
   newChart.update();
 }
 
-
-function renderStepChart() {
-console.log('wemadeithere')
-  let filled = computePartyMode();
-  let ctx = partyChart.getContext('2d');
-  partyChart.height = partyChartContainer.clientHeight;
-  const newChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Friends Step Goal Average', 'difference', 'Max Amount of Steps'],
-      datasets: [{
-        backgroundColor: filled < 6780 ? ['yellow', 'rgba(255, 255, 0, 0.3)', 'transparent'] : ['yellow', 'rgba(255, 206, 86, 0.8)', 'transparent'], // Background color array
-        borderWidth: 2,
-        borderColor: 'yellow'
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false,
-        }
-      },
-      title: {
-        display: true,
-        text: "HIII",
-        font: {
-            size: 16, // Adjust title font size if needed
-        }
-      } 
-    }
-  })
-
-  let diffMembersAverage = 0;
-  let diffMaxMembers = 0;
-  let wonParty;
-  if(filled < 6780) {
-    diffMembersAverage = 6780 - filled;
-    diffMaxMembers = 10000 - 6780;
-    wonParty = false
-  } else {
-    diffMembersAverage = filled - 6780;
-    diffMaxMembers = 10000 - filled;
-    filled = 6780
-    wonParty = true
-  }
-  newChart.data.datasets[0].data = [filled, diffMembersAverage, diffMaxMembers]
-  newChart.update(); 
-
-}
-
-
 function togglePartyMode() {
   letsPartyButton.innerText = 'Back Home';
   friendSelectors.classList.add('hidden');
