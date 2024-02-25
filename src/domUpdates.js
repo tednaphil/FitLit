@@ -76,6 +76,7 @@ let renderedHydroChart;
 let renderedHoursChart;
 let renderedQualityChart;
 let renderedPartyChart;
+let submittedData = false; 
 var randomUser;
 
 // FUNCTIONS
@@ -103,6 +104,7 @@ function renderDom(){
 
 function postFormInput(event){
   event.preventDefault();
+  submittedData = true; 
   return Promise.all(runPost(randomUser.id, hydroField, hoursField, qualityField))
   .then(responses => {
     if (responses.every(response => response.ok)) {
@@ -179,12 +181,11 @@ function displayHydrationInfo({id}, dataSet) {
 
   makeChart(dailyInfo, 'hydration');
   dailyInfo.forEach(({date, numOunces}, index) => {
-    if(!index) {
-      hydrationWeek.innerHTML = '';
-      hydrationWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${numOunces} ounces`;
-    } else {
       hydrationWeek.innerHTML += `<br></br>${formatDate(date)}: ${numOunces} ounces`;
-    };
+    if(submittedData && !index){
+      hydrationWeek.innerHTML = ''; 
+        hydrationWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${numOunces} ounces`;
+    }
   });
 };
 
@@ -204,20 +205,18 @@ function displaySleepInfo({id}, dataSet) {
   makeChart(weeklySleepInfo, 'sleepQuality');
   makeChart(weeklySleepInfo, 'hoursSlept');
   weeklySleepInfo.forEach(({hoursSlept, date}, index) => {
-    if(!index){
-      sleepHours.innerHTML = '';
-      sleepHours.innerHTML += `<br></br><span class="today-span">TODAY: ${hoursSlept} hours</span>`;
-    } else {
-      sleepHours.innerHTML += `<br></br>${formatDate(date)}: ${hoursSlept} hours`;
-    };
+    sleepHours.innerHTML += `<br></br>${formatDate(date)}: ${hoursSlept} hours`;
+    if(submittedData && !index){
+     sleepHours.innerHTML = ''; 
+     sleepHours.innerHTML += `<br></br><span class="today-span">TODAY: ${hoursSlept} hours</span>`;
+    }
   });
   weeklySleepInfo.forEach(({sleepQuality, date}, index) => {
-    if(!index){
-      sleepQual.innerHTML = '';
-      sleepQual.innerHTML += `<br></br><span class="today-span">TODAY: ${sleepQuality} out of 5`;
-    } else {
-      sleepQual.innerHTML += `<br></br>${formatDate(date)}: ${sleepQuality} out of 5`;
-    };
+    sleepQual.innerHTML += `<br></br>${formatDate(date)}: ${sleepQuality} out of 5`;;
+    if(submittedData && !index){
+        sleepQual.innerHTML = '';
+       sleepQual.innerHTML += `<br></br><span class="today-span">TODAY: ${sleepQuality} out of 5`;
+    }
   });
 };
 
