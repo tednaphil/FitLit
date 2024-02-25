@@ -14,7 +14,6 @@ const userProfile = document.querySelector('#user-profile');
 const friendsList = document.querySelector('#friends-list');
 const addressDisplay = document.querySelector('#address');
 const emailDisplay = document.querySelector('#email');
-const todayInfo = document.querySelector('h3');
 const hydrationWeek = document.querySelector('#hydro-week');
 const sleepHoursWeek = document.querySelector('#sleep-hours');
 const sleepQualityWeek = document.querySelector('#sleep-quality');
@@ -27,16 +26,16 @@ const hydroTitle = document.querySelector('#hy-title');
 const qualityTitle = document.querySelector('#q-title');
 const hoursTitle = document.querySelector('#ho-title');
 const formInfo = document.querySelector('form');
-const hydroField = document.querySelector('#hydro-field');
-const hoursField = document.querySelector('#hours-field');
-const qualityField = document.querySelector('#quality-field');
-const friendsWidget = document.querySelector('.friends-widget');
+const hydroField = document.querySelector('.hydro-field');
+const hoursField = document.querySelector('.hours-field');
+const qualityField = document.querySelector('.quality-field');
+const partyWidget = document.querySelector('.party-widget');
 const friendSelectors = document.querySelector('#friend-selectors');
 const partyButton = document.querySelector('.step-party-button');
 const letsPartyButton = document.querySelector('#lets-party');
-const partyChartContainer = document.querySelector('#party-chart-container');
-const partyChart = document.querySelector('#party-chart');
-const footer = document.querySelector('footer');
+const todayForm = document.querySelector('.today-form')
+const partyResults = document.querySelector('#announce-results');
+const firework = document.querySelector('.firework');
 const hydroChart = document.querySelector('#hydro-chart');
 const hydroChartContainer = document.querySelector('#hydro-chart-container');
 const qualityChart = document.querySelector('#quality-chart');
@@ -45,7 +44,7 @@ const hoursChart = document.querySelector('#hours-chart');
 const hoursChartContainer = document.querySelector('#hours-chart-container');
 
 //EVENT LISTENERS
-window.addEventListener('load', renderDom);
+window.addEventListener('load', renderDom)
 profileButton.addEventListener('click', changeDisplay);
 profileButton.addEventListener('keydown', function(event) {
   if(event.key === "Enter" || event.code === "Space") {
@@ -59,7 +58,6 @@ partyButton.addEventListener('keydown', function(event) {
     displayFriendSelector()
   }
 })
-letsPartyButton.addEventListener('click', generatePartyMode);
 
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
@@ -71,7 +69,7 @@ qualityButton.addEventListener('click', function() {
   toggleGraph('sleepQuality');
 });
 hydroButton.addEventListener('keydown', function(event) {
-  if(event.key === "Enter" || event.code === "Space") {
+  if(event.keyCode === 13 || event.keyCode === 32) {
   toggleGraph('hydration')
   }
 });
@@ -86,6 +84,21 @@ qualityButton.addEventListener('keydown', function(event) {
   }
 });
 
+partyButton.addEventListener('click', function() {
+  displayFriendSelector()
+});
+
+letsPartyButton.addEventListener('click', function () {
+  if (letsPartyButton.innerText === "LET'S PARTY!") {
+
+    generatePartyMode()
+    announceStepPartyResult()
+  }
+  else {
+    resetStepParty()
+  }
+})
+
 // GLOBAL VARIABLES
 let displayingHydroGraph = false;
 let displayingHoursGraph = false;
@@ -94,7 +107,6 @@ let friendsByData = [];
 let renderedHydroChart;
 let renderedHoursChart;
 let renderedQualityChart;
-let renderedPartyChart;
 let submittedData = false; 
 var randomUser;
 
@@ -106,7 +118,6 @@ function renderDom(){
         randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
       }
       displayPersonalInfo(randomUser);
-      displayTodayInfo(randomUser, sleep.sleepData, hydration.hydrationData);
       displayHydrationInfo(randomUser, hydration.hydrationData);    
       displayFriends(randomUser, info.users);
       displaySleepInfo(randomUser, sleep.sleepData);
@@ -146,10 +157,10 @@ function postFormInput(event){
 }
 
 function clearForm(){
-  footer.classList.add("fade-out")
+  todayForm.classList.add("fade-out")
   setTimeout(() => {
-    footer.classList.add("fade-in")
-    footer.innerText = "You did it! Congrats on entering your hydration and sleep information for today.";
+    todayForm.classList.add("fade-in")
+    todayForm.innerText = "You did it! Congrats on entering your hydration and sleep information for today.";
    }, 1500)
 }
 
@@ -162,7 +173,6 @@ function clearInputFields(){
 function displayErrorMessage(error) {
   main.classList.add('hidden');
   header.classList.add('hidden');
-  footer.classList.add('hidden');
   errorDisplay.classList.remove('hidden');
   errorDisplay.innerText += error;
 };
@@ -182,17 +192,6 @@ function displayFriends({id}, dataSet) {
       friendsList.innerHTML += `<br></br>${friend}</span>`;
     };
   });
-};
-
-function displayTodayInfo({id}, sleepDataSet, hydrationDataSet) {
-  const today = sleepDataSet.filter((entry) => {
-    return entry.userID === id;
-  }).slice(-1)[0].date;
-  const ouncesDrank = findIntakeByDay(id, today, hydrationDataSet);
-  const todayHoursSlept = findSleepDayInfo(id, today, sleepDataSet, "hoursSlept");
-  const sleepQualityDay = findSleepDayInfo(id, today, sleepDataSet, "sleepQuality");
-
-  todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water and slept ${todayHoursSlept} hours with a sleep quality of ${sleepQualityDay} out of 5!`;
 };
 
 function displayHydrationInfo({id}, dataSet) {
@@ -264,18 +263,22 @@ function formatAddress(addressInfo) {
   return `${addrLine1},</br>${addrLine2}`;
 };
 
-function toggleGraph(category) {
-  let graphURL = "./images/graph-icon.png";
-  let textURL = "./images/txt-icon.png";
+ 
 
+function toggleGraph(category) {
+ let graphURL = "./images/graph-icon.png";
+  let textURL = "./images/txt-icon.png";
+  
   if(category === 'hydration'){
     hydrationWeek.classList.toggle('hidden');
     hydroChartContainer.classList.toggle('hidden');
     hydroTitle.classList.toggle('hidden');
     if(!displayingHydroGraph) {
       hydroButton.src = textURL;
+      hydroButton.alt = "text icon" 
     } else {
       hydroButton.src = graphURL;
+      hydroButton.alt = "bar graph icon"
     };
     displayingHydroGraph = !displayingHydroGraph;
   } else if (category === 'sleepQuality') {
@@ -284,8 +287,10 @@ function toggleGraph(category) {
     qualityTitle.classList.toggle('hidden');
     if(!displayingQualityGraph) {
       qualityButton.src = textURL;
+      qualityButton.alt = "text icon"
     } else {
       qualityButton.src = graphURL;
+      qualityButton.alt = "bar graph icon"
     };
     displayingQualityGraph = !displayingQualityGraph;
   } else {
@@ -294,8 +299,10 @@ function toggleGraph(category) {
     hoursTitle.classList.toggle('hidden');
     if(!displayingHoursGraph) {
       hoursButton.src = textURL;
+      hoursButton.alt = "text icon"
     } else {
       hoursButton.src = graphURL;
+      hoursButton.alt = "bar graph icon"
     };
     displayingHoursGraph = !displayingHoursGraph;
   };
@@ -312,10 +319,10 @@ function storeFriends(person, dataSet) {
 };
 
 function makeFriendSelector(){
-  friendSelectors.innerHTML = `<legend>Who's In?!<lengend>`
+  friendSelectors.innerHTML = `<h3>Who's In?!</h3>`
   friendsByData.forEach((friend) => {
       friendSelectors.innerHTML +=  `
-      <label>
+      <label class="friend-label">
         <input type='radio' name='${friend.name}' id='friend-id-${friend.id}'>${friend.name}
       </label>`
   });
@@ -324,106 +331,44 @@ function makeFriendSelector(){
 function displayFriendSelector() {
   partyButton.classList.add('hidden');
   friendSelectors.classList.remove('hidden');
-  friendsWidget.classList.remove('friends-background');
+  partyWidget.classList.remove('party-background');
   letsPartyButton.classList.remove('hidden');
 }
-  
-//   const newChart = new Chart(ctx, {
-//     type: 'line',
-//     data: {
-//       datasets: [{
-//         backgroundColor: 'yellow',
-//         barThickness: 10,
-//         pointRadius: 0,
-//         pointBorderColor: 'yellow',
-//         borderColor: [
-//           'yellow',
-//         ],
-//         borderWidth: 2,
-//       }]
-//     },
-//     options: {
-//       plugins: {
-//         legend: {
-//             display: false,
-//         }
-//       },
-//       scales: {
-//         y: {
-//           ticks: {
-//             padding: 5,
-//             color: 'yellow',
-//           },
-//           grid: {
-//             display: true,
-//             color: 'rgba(128, 128, 128, 0.376)',
-//             // opacity: .1
-//           },
-//           title: {
-//               display: true,
-//               color: '#FF40AF'
-//           },
-//           border: {
-//             color: '#FF40AF',
-//             width: 1
-//           }
-//         },
-//         x: {
-//           ticks: {
-//             padding: -3,
-//             color: 'yellow',
-//             maxRotation: 45,
-//             minRotation: 45
-//           },
-//           grid: {
-//             display: true,
-//             color: 'rgba(128, 128, 128, 0.376)',
-//             // opacity: .1
-//           },
-//           title: {
-//             display: true,
-//             text: 'day',
-//             color: '#FF40AF'
-//         },
-//           border: {
-//             color: '#FF40AF',
-//             width: 1
-//           }
-//         }
-//       }
-//     },
-//   })
-//   newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-//   if (dataCategory === 'hydration'){
-//     newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
-//     newChart.options.scales.y.min = 0;
-//     newChart.options.scales.y.max = 100;
-//     newChart.options.scales.y.title.text = 'number of ounces';
-//   } else if (dataCategory === 'sleepQuality') {
-//     newChart.data.datasets[0].data = dataSet.map((day) => { return day.sleepQuality });
-//     newChart.options.scales.y.min = 0;
-//     newChart.options.scales.y.max = 5;
-//     newChart.options.scales.y.title.text = 'sleep quality';
-//   } else {
-//     newChart.data.datasets[0].data = dataSet.map((day) => { return day.hoursSlept });
-//     newChart.options.scales.y.min = 0;
-//     newChart.options.scales.y.max = 12;
-//     newChart.options.scales.y.title.text = 'hours slept';
-//   }
-// }
+
+function resetStepParty() {
+  displayPartyButton()
+  partyResults.classList.add('hidden')
+  firework.classList.add('hidden')
+  resetRadioButtons()
+  letsPartyButton.innerText = "LET'S PARTY!"
+}
+
+function resetRadioButtons() {
+  let bubbles = friendSelectors.querySelectorAll('input');
+  bubbles.forEach(radioButton => {
+    radioButton.checked = false;
+  });
+}
+
+function displayPartyButton() {
+  partyButton.classList.remove('hidden');
+  friendSelectors.classList.add('hidden');
+  partyWidget.classList.add('party-background');
+  letsPartyButton.classList.add('hidden');
+  letsPartyButton.innerText === "LET'S PARTY!"
+}
 
 function togglePartyMode() {
   letsPartyButton.innerText = 'Back Home';
   friendSelectors.classList.add('hidden');
-  partyChartContainer.classList.remove('hidden');
 }
 
 function computePartyMode() {
   let bubbles = friendSelectors.querySelectorAll('input');
   let selectedFriendsFullIds = [];
-  bubbles.forEach(({checked, id}) => {
-    if(checked) {
-      selectedFriendsFullIds.push(id);
+  bubbles.forEach((bubble) => {
+    if(bubble.checked) {
+      selectedFriendsFullIds.push(bubble.id);
     }
   });
 
@@ -431,17 +376,24 @@ function computePartyMode() {
     return parseInt(friend.split('-')[2]);
   })
 
-  let finalSelectedFriendObjects = friendsByData.filter(({id}) => {
-    return selectedFriendsIds.includes(id);
+  let finalSelectedFriendObjects = friendsByData.filter((friend) => {
+    return selectedFriendsIds.includes(friend.id);
   })
 
   finalSelectedFriendObjects.push(randomUser);
+  
+  let friendsStepGoalAverage = finalSelectedFriendObjects.reduce((total, friend) => {
+    total += friend.dailyStepGoal
+    
+    return total 
+  }, 0) / finalSelectedFriendObjects.length
+
+  return friendsStepGoalAverage 
 }
 
 function generatePartyMode() {
   computePartyMode();
   togglePartyMode()
-  renderPartyChart();
 }
 
 function makeChart(dataSet, dataCategory) {
@@ -685,83 +637,6 @@ function makeChart(dataSet, dataCategory) {
   }
 }
 
-function renderPartyChart() {
-  if(renderedPartyChart) {
-    renderedPartyChart.destroy();
-  }
-  let ctx;
-  ctx = partyChart.getContext('2d');
-  ctx.canvas.height = partyChartContainer.style.height;
-  renderedPartyChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      // labels: ['1', '2', '3', '4', '5', '6', '7'],
-      datasets: [{
-        // data: [8, 5, 7, 9, 6, 6, 8],
-        backgroundColor: 'yellow',
-        // tension: .1,
-        barThickness: 10,
-        pointRadius: 0,
-        pointBorderColor: 'yellow',
-        borderColor: [
-          'yellow',
-        ],
-        borderWidth: 2,
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-            display: false,
-        }
-      },
-      scales: {
-        y: {
-          ticks: {
-            padding: 5,
-            color: 'yellow',
-          },
-          // grid: {
-          //   display: true,
-          //   color: 'lightgrey'
-          // },
-          title: {
-              display: true,
-              text: 'num of ounces',
-              color: '#FF40AF'
-          },
-          border: {
-            color: '#FF40AF',
-            width: 1
-          }
-        },
-        x: {
-          ticks: {
-            padding: -5,
-            color: 'yellow',
-            maxRotation: 45,
-            minRotation: 45
-          },
-          title: {
-            display: true,
-            text: 'day',
-            color: '#FF40AF'
-        },
-          border: {
-            color: '#FF40AF',
-            width: 1
-          }
-        }
-      }
-    },
-  })
-  // renderedPartyChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-  // renderedPartyChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
-  // renderedPartyChart.options.scales.y.min = 0;
-  // renderedPartyChart.options.scales.y.max = 100;
-  // renderedPartyChart.update();
-}
-
 function changeDisplay() {
   main.classList.toggle('hidden');
   userProfile.classList.toggle('hidden');
@@ -770,5 +645,16 @@ function changeDisplay() {
     profileButton.src="./images/home-icon.png"
   } else if (userProfile.classList.contains('hidden')) {
     profileButton.src="./images/profile-icon.png"
+  }
+}
+
+function announceStepPartyResult() {
+  partyResults.classList.remove('hidden')
+  let score = computePartyMode()
+  if (score > 6780) {
+    partyResults.innerHTML = `<h3>GO TEAM! You guys beat the goal by <span style="color:pink">${parseInt(score - 6780)}</span> steps! 🤩</h3>`
+    firework.classList.remove('hidden')
+  } else {
+    partyResults.innerHTML = `<h3>Better luck next time...you missed the goal by <span style="color:pink">${parseInt(6780 - score)}</span> steps 😔</h3>`
   }
 }
