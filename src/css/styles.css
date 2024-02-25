@@ -132,6 +132,11 @@ section {
   width: 24%;
 }
 
+.friend-label {
+  display: flex;
+  flex-direction: row;
+}
+
 .averages-widget {
   box-shadow: 0px 0px 20px 1px #FFFF7D;
   animation: 3s ease-in-out infinite alternate shadow-fade-yellow;
@@ -335,6 +340,18 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10%;
+}
+
+#lets-party {
+  margin-top: 10%;
+}
+
+.hydro-field,
+.quality-field,
+.hours-field {
+  margin-right: 1.2em; 
+  height: 70%; 
 }
 
 .hydro-field,
@@ -403,8 +420,77 @@ input, button {
 }
 
 #party-chart-container {
-  width: 100%;
-  height: 100%;
+  width: 30%;
+}
+
+aside {
+  width: 60%;
+  text-align: center;
+  font-size: 1rem;
+}
+
+aside > img {
+  border-radius: 100%;
+  border: solid #eded00 2px;
+  margin-top: 20px;
+  width: 30%;
+}
+
+aside > p {
+  width: auto;
+    &:last-child {
+      margin-bottom: 3px;
+    }
+}
+
+aside > h2,
+h3,
+p {
+  margin: 0;
+}
+
+#friends-list {
+  margin-bottom: 20px;
+}
+
+#user-profile-button {
+  /* width: 75px; */
+  width: 4%;
+  margin-right: 10px;
+  margin-left: -60px;
+    &:hover {
+      cursor: pointer;
+      animation: ease-in-out .35s .05s wiggle;
+    }
+}
+
+.fade-out {
+  animation: fadeOut 1.5s; 
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1; 
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1.5s; 
+  text-align: center;
+  font-weight: 400; 
+  font-style: italic; 
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; 
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 aside {
@@ -479,4 +565,60 @@ p {
 
 .hidden {
   display: none;
+}
+
+
+@keyframes firework {
+  0% { 
+    transform: translate(-50%, 60vh);
+    width: 0.5vmin;
+    opacity: 1;
+  }
+  50% { 
+    width: 0.5vmin;
+    opacity: 1;
+  }
+  100% { 
+    width: 45vmin; 
+    opacity: 0; 
+  }
+}
+
+.firework,
+.firework::before,
+.firework::after {
+  --top: 60vh;
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  width: 0.5vmin;
+  aspect-ratio: 1;
+  background:
+    /* random backgrounds */
+    radial-gradient(circle, #ff0 0.2vmin, #0000 0) 50% 00%,
+    radial-gradient(circle, #ff0 0.3vmin, #0000 0) 00% 50%,
+    radial-gradient(circle, #ff0 0.5vmin, #0000 0) 50% 99%,
+    radial-gradient(circle, #ff0 0.2vmin, #0000 0) 99% 50%,
+    radial-gradient(circle, #ff0 0.3vmin, #0000 0) 80% 90%,
+    radial-gradient(circle, #ff0 0.5vmin, #0000 0) 95% 90%,
+    radial-gradient(circle, #ff0 0.5vmin, #0000 0) 10% 60%,
+    radial-gradient(circle, #ff0 0.2vmin, #0000 0) 31% 80%,
+    radial-gradient(circle, #ff0 0.3vmin, #0000 0) 80% 10%,
+    radial-gradient(circle, #ff0 0.2vmin, #0000 0) 90% 23%,
+    radial-gradient(circle, #ff0 0.3vmin, #0000 0) 45% 20%,
+    radial-gradient(circle, #ff0 0.5vmin, #0000 0) 13% 24%
+    ;
+  background-size: 0.5vmin 0.5vmin;
+  background-repeat: no-repeat;
+  animation: firework 2s infinite;
+}
+
+.firework::before {
+  transform: translate(-50%, -50%) rotate(25deg) !important; 
+}
+
+.firework::after {
+  transform: translate(-50%, -50%) rotate(-37deg) !important;
 }

@@ -39,6 +39,9 @@ const partyButton = document.querySelector('.step-party-button');
 const letsPartyButton = document.querySelector('#lets-party');
 const partyChartContainer = document.querySelector('#party-chart-container');
 const partyChart = document.querySelector('#party-chart');
+const partyResults = document.querySelector('#announce-results');
+const firework = document.querySelector('.firework');
+
 const todayForm = document.querySelector('.today-form')
 const hydroChart = document.querySelector('#hydro-chart');
 const hydroChartContainer = document.querySelector('#hydro-chart-container');
@@ -78,8 +81,19 @@ qualityButton.addEventListener('click', function() {
   toggleGraph('sleepQuality');
 });
 
-partyButton.addEventListener('click', displayFriendSelector);
-letsPartyButton.addEventListener('click', generatePartyMode)
+partyButton.addEventListener('click', function() {
+  displayFriendSelector()
+});
+
+letsPartyButton.addEventListener('click', function () {
+  if (letsPartyButton.innerText === "LET'S PARTY!") {
+    generatePartyMode()
+    announceStepPartyResult()
+  }
+  else {
+    resetStepParty()
+  }
+})
 
 // GLOBAL VARIABLES
 let displayingHydroGraph = false;
@@ -213,6 +227,7 @@ function displaySleepInfo(person, dataSet) {
 
 function displayStepInfo(person, dataSet) {
   let averageSteps = getAverageSteps(dataSet);
+  console.log("averageSteps", averageSteps)
   let message;
   let differenceInSteps = Math.abs(averageSteps - person.dailyStepGoal);
 
@@ -288,7 +303,7 @@ function makeFriendSelector(){
   friendSelectors.innerHTML = `<h3>Who's In?!<h4>`
   friendsByData.forEach((friend) => {
       friendSelectors.innerHTML +=  `
-      <label>
+      <label class="friend-label">
         <input type='radio' name='${friend.name}' id='friend-id-${friend.id}'>${friend.name}
       </label>`
   });
@@ -301,35 +316,12 @@ function displayFriendSelector() {
   letsPartyButton.classList.remove('hidden');
 }
 
-function togglePartyMode() {
-  letsPartyButton.innerText = 'Back Home';
+function displayPartyButton() {
+  partyButton.classList.remove('hidden');
   friendSelectors.classList.add('hidden');
-  partyChartContainer.classList.remove('hidden');
-}
-
-function computePartyMode() {
-  let bubbles = friendSelectors.querySelectorAll('input');
-  let selectedFriendsFullIds = [];
-  bubbles.forEach((bubble) => {
-    if(bubble.checked) {
-      selectedFriendsFullIds.push(bubble.id);
-    }
-  });
-
-  let selectedFriendsIds = selectedFriendsFullIds.map((friend) => {
-    return parseInt(friend.split('-')[2]);
-  })
-
-  let finalSelectedFriendObjects = friendsByData.filter((friend) => {
-    return selectedFriendsIds.includes(friend.id);
-  })
-
-  finalSelectedFriendObjects.push(randomUser);
-}
-
-function generatePartyMode() {
-  computePartyMode();
-  togglePartyMode()
+  friendsWidget.classList.add('friends-background');
+  letsPartyButton.classList.add('hidden');
+  letsPartyButton.innerText === "LET'S PARTY!"
 }
 
 function makeChart(dataSet, dataCategory) {
@@ -372,213 +364,177 @@ function makeChart(dataSet, dataCategory) {
             },
             grid: {
               display: true,
-              color: 'rgba(128, 128, 128, 0.376)',
-              // opacity: .1
-            },
-            title: {
-                display: true,
-                color: '#FF40AF'
-            },
-            border: {
-              color: '#FF40AF',
-              width: 1
-            }
-          },
-          x: {
-            ticks: {
-              padding: -3,
-              color: 'yellow',
-              maxRotation: 45,
-              minRotation: 45
-            },
-            grid: {
-              display: true,
-              color: 'rgba(128, 128, 128, 0.376)',
-              // opacity: .1
-            },
-            title: {
-              display: true,
-              text: 'day',
+              text: 'num of ounces',
               color: '#FF40AF'
           },
-            border: {
-              color: '#FF40AF',
-              width: 1
-            }
+          border: {
+            color: '#FF40AF',
+            width: 1
+          }
+        },
+        x: {
+          ticks: {
+            padding: -5,
+            color: 'yellow',
+            maxRotation: 45,
+            minRotation: 45
+          },
+          title: {
+            display: true,
+            text: 'day',
+            color: '#FF40AF'
+        },
+          border: {
+            color: '#FF40AF',
+            width: 1
           }
         }
-      },
-    })
-    renderedHydroChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-    renderedHydroChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
-    renderedHydroChart.options.scales.y.min = 0;
-    renderedHydroChart.options.scales.y.max = 100;
-    renderedHydroChart.options.scales.y.title.text = 'number of ounces';
-    renderedHydroChart.update();
-    console.log("renderedHydroChart on after initial build", renderedHydroChart)
-  } else if (dataCategory === 'sleepQuality') {
-      if(renderedQualityChart) {
-        renderedQualityChart.destroy();
       }
-      ctx = qualityChart.getContext('2d');
-      ctx.canvas.height = qualityChartContainer.style.height;
-      renderedQualityChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          datasets: [{
-            backgroundColor: 'yellow',
-            barThickness: 10,
-            pointRadius: 0,
-            pointBorderColor: 'yellow',
-            borderColor: [
-              'yellow',
-            ],
-            borderWidth: 2,
-          }]
-        },
-        options: {
-          plugins: {
-            legend: {
-                display: false,
-            }
-          },
-          scales: {
-            y: {
-              ticks: {
-                padding: 5,
-                color: 'yellow',
-              },
-              grid: {
-                display: true,
-                color: 'rgba(128, 128, 128, 0.376)',
-                // opacity: .1
-              },
-              title: {
-                  display: true,
-                  color: '#FF40AF'
-              },
-              border: {
-                color: '#FF40AF',
-                width: 1
-              }
-            },
-            x: {
-              ticks: {
-                padding: -3,
-                color: 'yellow',
-                maxRotation: 45,
-                minRotation: 45
-              },
-              grid: {
-                display: true,
-                color: 'rgba(128, 128, 128, 0.376)',
-                // opacity: .1
-              },
-              title: {
-                display: true,
-                text: 'day',
-                color: '#FF40AF'
-            },
-              border: {
-                color: '#FF40AF',
-                width: 1
-              }
-            }
-          }
-        },
-      })
-      renderedQualityChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-      renderedQualityChart.data.datasets[0].data = dataSet.map((day) => { return day.sleepQuality });
-      renderedQualityChart.options.scales.y.min = 0;
-      renderedQualityChart.options.scales.y.max = 5;
-      renderedQualityChart.options.scales.y.title.text = 'sleep quality';
-      renderedQualityChart.update();
-  } else {
-      if(renderedHoursChart) {
-        renderedHoursChart.destroy();
-      }
-      ctx = hoursChart.getContext('2d');
-      ctx.canvas.height = hoursChartContainer.style.height;
-      renderedHoursChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-          datasets: [{
-              backgroundColor: 'yellow',
-              barThickness: 10,
-              pointRadius: 0,
-              pointBorderColor: 'yellow',
-              borderColor: [
-              'yellow',
-              ],
-              borderWidth: 2,
-          }]
-          },
-          options: {
-              plugins: {
-                  legend: {
-                      display: false,
-                  }
-              },
-              scales: {
-                  y: {
-                      ticks: {
-                          padding: 5,
-                          color: 'yellow',
-                      },
-                      grid: {
-                          display: true,
-                          color: 'rgba(128, 128, 128, 0.376)',
-                          // opacity: .1
-                      },
-                      title: {
-                          display: true,
-                          color: '#FF40AF'
-                      },
-                      border: {
-                          color: '#FF40AF',
-                          width: 1
-                      }
-                  },
-                  x: {
-                      ticks: {
-                          padding: -3,
-                          color: 'yellow',
-                          maxRotation: 45,
-                          minRotation: 45
-                      },
-                      grid: {
-                          display: true,
-                          color: 'rgba(128, 128, 128, 0.376)',
-                      },
-                      title: {
-                          display: true,
-                          text: 'day',
-                          color: '#FF40AF'
-                      },
-                      border: {
-                          color: '#FF40AF',
-                          width: 1
-                      }
-                  }
-              }
-          }
-      })
-      renderedHoursChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-      renderedHoursChart.data.datasets[0].data = dataSet.map((day) => { return day.hoursSlept });
-      renderedHoursChart.options.scales.y.min = 0;
-      renderedHoursChart.options.scales.y.max = 12;
-      renderedHoursChart.options.scales.y.title.text = 'hours slept';
-      renderedHoursChart.update();
-  }
+    },
+  })
+  newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
+  newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
+  newChart.options.scales.y.min = 0;
+  newChart.options.scales.y.max = 100;
+  // hydroChart.style.height = chartContainer.style.height;
+  newChart.update();
 }
 
-function changeDisplay() {
-  main.classList.toggle('hidden');
-  userProfile.classList.toggle('hidden');
-  todayForm.classList.toggle('hidden');
-  if (main.classList.contains('hidden')) {
-    profileButton.src="./images/home-icon.png"
-  } else if (userProfile.classList.contains('hidden')) {
-    profileButton.src="./images/profile-icon.png"
-  }
+function renderStepChart() {
+  let ctx;
+  ctx = partyChart.getContext('2d');
+  ctx.canvas.height = partyChartContainer.style.height;
+  const newChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      // labels: ['1', '2', '3', '4', '5', '6', '7'],
+      datasets: [{
+        // data: [8, 5, 7, 9, 6, 6, 8],
+        backgroundColor: 'yellow',
+        // tension: .1,
+        barThickness: 10,
+        pointRadius: 0,
+        pointBorderColor: 'yellow',
+        borderColor: [
+          'yellow',
+        ],
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+            display: false,
+        }
+      },
+      scales: {
+        y: {
+          ticks: {
+            padding: 5,
+            color: 'yellow',
+          },
+          // grid: {
+          //   display: true,
+          //   color: 'lightgrey'
+          // },
+          title: {
+              display: true,
+              text: 'num of ounces',
+              color: '#FF40AF'
+          },
+          border: {
+            color: '#FF40AF',
+            width: 1
+          }
+        },
+        x: {
+          ticks: {
+            padding: -5,
+            color: 'yellow',
+            maxRotation: 45,
+            minRotation: 45
+          },
+          title: {
+            display: true,
+            text: 'day',
+            color: '#FF40AF'
+        },
+          border: {
+            color: '#FF40AF',
+            width: 1
+          }
+        }
+      }
+    },
+  })
+  newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
+  newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
+  newChart.options.scales.y.min = 0;
+  newChart.options.scales.y.max = 100;
+  newChart.update();
 }
+
+function togglePartyMode() {
+  letsPartyButton.innerText = 'Back Home';
+  friendSelectors.classList.add('hidden');
+  partyChartContainer.classList.remove('hidden');
+}
+
+
+// friendSelector: parent div in which the radios live.
+// letsPartyButton has a click event on it
+
+
+
+
+function computePartyMode() {
+  let bubbles = friendSelectors.querySelectorAll('input');
+  let selectedFriendsFullIds = [];
+  bubbles.forEach((bubble) => {
+    if(bubble.checked) {
+      selectedFriendsFullIds.push(bubble.id);
+    }
+  });
+
+  let selectedFriendsIds = selectedFriendsFullIds.map((friend) => {
+    return parseInt(friend.split('-')[2]);
+  })
+
+  let finalSelectedFriendObjects = friendsByData.filter((friend) => {
+    return selectedFriendsIds.includes(friend.id);
+  })
+
+  finalSelectedFriendObjects.push(randomUser);
+  
+  let friendsStepGoalAverage = finalSelectedFriendObjects.reduce((total, friend) => {
+    total += friend.dailyStepGoal
+    
+    return total 
+  }, 0) / finalSelectedFriendObjects.length
+
+  return friendsStepGoalAverage 
+}
+
+function generatePartyMode() {
+  computePartyMode();
+  togglePartyMode();
+}
+
+function resetStepParty() {
+  displayPartyButton()
+  partyResults.classList.add('hidden')
+  firework.classList.add('hidden')
+  resetRadioButtons()
+  letsPartyButton.innerText = "LET'S PARTY!"
+}
+
+function resetRadioButtons() {
+  let bubbles = friendSelectors.querySelectorAll('input');
+  bubbles.forEach(radioButton => {
+    radioButton.checked = false;
+  });
+}
+
+
+
+
