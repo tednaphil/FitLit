@@ -12,12 +12,12 @@ const nameDisplay = document.querySelector('h1');
 const profileButton = document.querySelector('#user-profile-button');
 const userProfile = document.querySelector('#user-profile');
 const friendsList = document.querySelector('#friends-list');
-const address = document.querySelector('#address');
-const email = document.querySelector('#email');
+const addressDisplay = document.querySelector('#address');
+const emailDisplay = document.querySelector('#email');
 const todayInfo = document.querySelector('h3');
 const hydrationWeek = document.querySelector('#hydro-week');
 const sleepHours = document.querySelector('#sleep-hours');
-const sleepQuality = document.querySelector('#sleep-quality');
+const sleepQual = document.querySelector('#sleep-quality');
 const avg = document.querySelector('#avgs');
 const steps = document.querySelector('#steps');
 const hydroButton = document.querySelector('#hydro-button');
@@ -94,8 +94,8 @@ let renderedHydroChart;
 let renderedHoursChart;
 let renderedQualityChart;
 let renderedPartyChart;
-
 var randomUser;
+
 // FUNCTIONS
 function renderDom(){
   fetchData()
@@ -111,7 +111,8 @@ function renderDom(){
       displayStepInfo(randomUser, info.users);
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);
       storeFriends(randomUser, info.users);
-      makeFriendSelector(randomUser, info.users)
+      // makeFriendSelector(randomUser, info.users)
+      makeFriendSelector()
       clearInputFields()
     })
     .catch(error => {
@@ -141,14 +142,14 @@ function displayErrorMessage(error) {
   errorDisplay.innerText += error;
 };
 
-function displayPersonalInfo(person) {
-  nameDisplay.innerText = person.name;
-  address.innerHTML = `${formatAddress(person.address)}`;
-  email.innerHTML = `${person.email}`;
+function displayPersonalInfo({name, address, email}) {
+  nameDisplay.innerText = name;
+  addressDisplay.innerHTML = `${formatAddress(address)}`;
+  emailDisplay.innerText = email; 
 };
 
-function displayFriends(person, dataSet) {
-  const friends = findFriends(person.id, dataSet)
+function displayFriends({id}, dataSet) {
+  const friends = findFriends(id, dataSet)
   friends.forEach((friend, index) => {
     if (!index) {
       friendsList.innerHTML = friend;
@@ -158,78 +159,77 @@ function displayFriends(person, dataSet) {
   });
 };
 
-function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
+function displayTodayInfo({id}, sleepDataSet, hydrationDataSet) {
   const today = sleepDataSet.filter((entry) => {
-    return entry.userID === person.id;
+    return entry.userID === id;
   }).slice(-1)[0].date;
-  const ouncesDrank = findIntakeByDay(person.id, today, hydrationDataSet);
-  console.log(ouncesDrank)
-  const todayHoursSlept = findSleepDayInfo(person.id, today, sleepDataSet, "hoursSlept");
-  const sleepQualityDay = findSleepDayInfo(person.id, today, sleepDataSet, "sleepQuality");
+  const ouncesDrank = findIntakeByDay(id, today, hydrationDataSet);
+  const todayHoursSlept = findSleepDayInfo(id, today, sleepDataSet, "hoursSlept");
+  const sleepQualityDay = findSleepDayInfo(id, today, sleepDataSet, "sleepQuality");
 
   todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water and slept ${todayHoursSlept} hours with a sleep quality of ${sleepQualityDay} out of 5!`;
 };
 
-function displayHydrationInfo(person, dataSet) {
-  const dailyInfo = findIntakeWeek(person.id, dataSet);
+function displayHydrationInfo({id}, dataSet) {
+  const dailyInfo = findIntakeWeek(id, dataSet);
 
   makeChart(dailyInfo, 'hydration');
-  dailyInfo.forEach((day, index) => {
+  dailyInfo.forEach(({date, numOunces}, index) => {
     if(!index) {
       hydrationWeek.innerHTML = '';
-      hydrationWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${day.numOunces} ounces`;
+      hydrationWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${numOunces} ounces`;
     } else {
-      hydrationWeek.innerHTML += `<br></br>${formatDate(day.date)}: ${day.numOunces} ounces`;
+      hydrationWeek.innerHTML += `<br></br>${formatDate(date)}: ${numOunces} ounces`;
     };
   });
 };
 
-function displayAverages(person, sleepDataSet, hydrationDataSet) {
-  let avgSleepQuality = calculateAvgSleepData(person.id, sleepDataSet, 'sleepQuality');
-  let avgSleepHours = calculateAvgSleepData(person.id, sleepDataSet, 'hoursSlept');
-  let avgIntake = calculateAverageIntake(person.id, hydrationDataSet);
+function displayAverages({id}, sleepDataSet, hydrationDataSet) {
+  let avgSleepQuality = calculateAvgSleepData(id, sleepDataSet, 'sleepQuality');
+  let avgSleepHours = calculateAvgSleepData(id, sleepDataSet, 'hoursSlept');
+  let avgIntake = calculateAverageIntake(id, hydrationDataSet);
   avg.innerHTML = '';
   avg.innerHTML += `Hours Slept: ${avgSleepHours}<br></br>Sleep Quality: ${avgSleepQuality} out of 5<br></br>Water Intake: ${avgIntake} Ounces`
 };
 
-function displaySleepInfo(person, dataSet) {
+function displaySleepInfo({id}, dataSet) {
   let today = dataSet.filter((entry) => {
-    return entry.userID === person.id;
+    return entry.userID === id;
   }).slice(-1)[0].date;
-  let weeklySleepInfo = findSleepInfoWeek(person.id, today, dataSet);
+  let weeklySleepInfo = findSleepInfoWeek(id, today, dataSet);
   makeChart(weeklySleepInfo, 'sleepQuality');
   makeChart(weeklySleepInfo, 'hoursSlept');
-  weeklySleepInfo.forEach((day, index) => {
+  weeklySleepInfo.forEach(({hoursSlept, date}, index) => {
     if(!index){
       sleepHours.innerHTML = '';
-      sleepHours.innerHTML += `<br></br><span class="today-span">TODAY: ${day.hoursSlept} hours</span>`;
+      sleepHours.innerHTML += `<br></br><span class="today-span">TODAY: ${hoursSlept} hours</span>`;
     } else {
-      sleepHours.innerHTML += `<br></br>${formatDate(day.date)}: ${day.hoursSlept} hours`;
+      sleepHours.innerHTML += `<br></br>${formatDate(date)}: ${hoursSlept} hours`;
     };
   });
-  weeklySleepInfo.forEach((day, index) => {
+  weeklySleepInfo.forEach(({sleepQuality, date}, index) => {
     if(!index){
-      sleepQuality.innerHTML = '';
-      sleepQuality.innerHTML += `<br></br><span class="today-span">TODAY: ${day.sleepQuality} out of 5`;
+      sleepQual.innerHTML = '';
+      sleepQual.innerHTML += `<br></br><span class="today-span">TODAY: ${sleepQuality} out of 5`;
     } else {
-      sleepQuality.innerHTML += `<br></br>${formatDate(day.date)}: ${day.sleepQuality} out of 5`;
+      sleepQual.innerHTML += `<br></br>${formatDate(date)}: ${sleepQuality} out of 5`;
     };
   });
 };
 
-function displayStepInfo(person, dataSet) {
+function displayStepInfo({strideLength, dailyStepGoal}, dataSet) {
   let averageSteps = getAverageSteps(dataSet);
   let message;
-  let differenceInSteps = Math.abs(averageSteps - person.dailyStepGoal);
+  let differenceInSteps = Math.abs(averageSteps - dailyStepGoal);
 
-  if(averageSteps > person.dailyStepGoal) {
+  if(averageSteps > dailyStepGoal) {
     message = `Your step goal was ${differenceInSteps} steps less than the average.`;
-  } else if (averageSteps < person.dailyStepGoal){
+  } else if (averageSteps < dailyStepGoal){
     message = `Your step goal was ${differenceInSteps} steps more than the average!`;
   } else {
     message = `Your step goal was equal to the average.`;
   }
-  steps.innerHTML = `Stride Length: ${person.strideLength}<br></br>Daily Step Goal: ${person.dailyStepGoal}<br></br>${message}`;
+  steps.innerHTML = `Stride Length: ${strideLength}<br></br>Daily Step Goal: ${dailyStepGoal}<br></br>${message}`;
 };
 
 function formatDate(date) {
@@ -258,7 +258,7 @@ function toggleGraph(category) {
     };
     displayingHydroGraph = !displayingHydroGraph;
   } else if (category === 'sleepQuality') {
-    sleepQuality.classList.toggle('hidden');
+    sleepQual.classList.toggle('hidden');
     qualityChartContainer.classList.toggle('hidden');
     qualityTitle.classList.toggle('hidden');
     if(!displayingQualityGraph) {
@@ -292,10 +292,10 @@ function storeFriends(person, dataSet) {
 
 function makeFriendSelector(){
   friendSelectors.innerHTML = `<h3>Who's In?!<h4>`
-  friendsByData.forEach((friend) => {
+  friendsByData.forEach(({name, id}) => {
       friendSelectors.innerHTML +=  `
       <label>
-        <input type='radio' name='${friend.name}' id='friend-id-${friend.id}'>${friend.name}
+        <input type='radio' name='${name}' id='friend-id-${id}'>${name}
       </label>`
   });
 };
