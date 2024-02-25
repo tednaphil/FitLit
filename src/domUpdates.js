@@ -27,9 +27,9 @@ const hydroTitle = document.querySelector('#hy-title');
 const qualityTitle = document.querySelector('#q-title');
 const hoursTitle = document.querySelector('#ho-title');
 const formInfo = document.querySelector('form');
-const hydroField = document.querySelector('.hydro-field');
-const hoursField = document.querySelector('.hours-field');
-const qualityField = document.querySelector('.quality-field');
+const hydroField = document.querySelector('#hydro-field');
+const hoursField = document.querySelector('#hours-field');
+const qualityField = document.querySelector('#quality-field');
 const friendsWidget = document.querySelector('.friends-widget');
 const friendSelectors = document.querySelector('#friend-selectors');
 const partyButton = document.querySelector('.step-party-button');
@@ -46,26 +46,20 @@ const hoursChartContainer = document.querySelector('#hours-chart-container');
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
-
 profileButton.addEventListener('click', changeDisplay);
-
-formInfo.addEventListener('submit', postFormInput)
+formInfo.addEventListener('submit', postFormInput);
+partyButton.addEventListener('click', displayFriendSelector);
+letsPartyButton.addEventListener('click', generatePartyMode);
 
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
 });
-
 hoursButton.addEventListener('click', function() {
   toggleGraph('hoursSlept');
 });
-
 qualityButton.addEventListener('click', function() {
   toggleGraph('sleepQuality');
 });
-
-partyButton.addEventListener('click', displayFriendSelector);
-
-letsPartyButton.addEventListener('click', generatePartyMode);
 
 // GLOBAL VARIABLES
 let displayingHydroGraph = false;
@@ -178,13 +172,12 @@ function displayTodayInfo({id}, sleepDataSet, hydrationDataSet) {
 
 function displayHydrationInfo({id}, dataSet) {
   const dailyInfo = findIntakeWeek(id, dataSet);
-
   makeChart(dailyInfo, 'hydration');
   dailyInfo.forEach(({date, numOunces}, index) => {
       hydrationWeek.innerHTML += `<br></br>${formatDate(date)}: ${numOunces} ounces`;
     if(submittedData && !index){
       hydrationWeek.innerHTML = ''; 
-        hydrationWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${numOunces} ounces`;
+      hydrationWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${numOunces} ounces`;
     }
   });
 };
@@ -214,8 +207,8 @@ function displaySleepInfo({id}, dataSet) {
   weeklySleepInfo.forEach(({sleepQuality, date}, index) => {
     sleepQual.innerHTML += `<br></br>${formatDate(date)}: ${sleepQuality} out of 5`;;
     if(submittedData && !index){
-        sleepQual.innerHTML = '';
-       sleepQual.innerHTML += `<br></br><span class="today-span">TODAY: ${sleepQuality} out of 5`;
+      sleepQual.innerHTML = '';
+      sleepQual.innerHTML += `<br></br><span class="today-span">TODAY: ${sleepQuality} out of 5`;
     }
   });
 };

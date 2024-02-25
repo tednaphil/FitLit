@@ -365,13 +365,6 @@ header {
   align-items: center;
 }
 
-.hydro-field,
-.quality-field,
-.hours-field {
-  margin-right: 1.2em; 
-  height: 70%; 
-}
-
 label {
   margin-right: .5em; 
 }
@@ -382,19 +375,20 @@ label {
   justify-content: center;
 }
 
-.hydro-field,
-.quality-field,
-.hours-field {
+#hydro-field,
+#quality-field,
+#hours-field {
   text-align: center; 
   background-color: lightskyblue;
   color: black; 
   font-weight: 500; 
-  height: 70%; 
   width: 12%;
   font-size: 90%;
+  margin-right: 1.2em; 
+  height: 70%; 
 }
 
-.quality-field {
+#quality-field {
   margin-right: 2em; 
 }
 
