@@ -58,7 +58,6 @@ partyButton.addEventListener('keydown', function(event) {
     displayFriendSelector()
   }
 })
-
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
 });
@@ -83,11 +82,9 @@ qualityButton.addEventListener('keydown', function(event) {
   toggleGraph('sleepQuality')
   }
 });
-
 partyButton.addEventListener('click', function() {
   displayFriendSelector()
 });
-
 letsPartyButton.addEventListener('click', function () {
   if (letsPartyButton.innerText === "LET'S PARTY!") {
 
@@ -199,10 +196,10 @@ function displayHydrationInfo({id}, dataSet) {
   makeChart(dailyInfo, 'hydration');
   dailyInfo.forEach(({date, numOunces}, index) => {
       hydrationWeek.innerHTML += `<br></br>${formatDate(date)}: ${numOunces} ounces`;
-    if(submittedData && !index){
-      hydrationWeek.innerHTML = ''; 
-      hydrationWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${numOunces} ounces`;
-    }
+      if(submittedData && !index){
+        hydrationWeek.innerHTML = ''; 
+        hydrationWeek.innerHTML += `<br></br><span class="today-span">TODAY: ${numOunces} ounces`;
+      }
   });
 };
 
@@ -263,8 +260,6 @@ function formatAddress(addressInfo) {
   return `${addrLine1},</br>${addrLine2}`;
 };
 
- 
-
 function toggleGraph(category) {
  let graphURL = "./images/graph-icon.png";
   let textURL = "./images/txt-icon.png";
@@ -319,11 +314,11 @@ function storeFriends(person, dataSet) {
 };
 
 function makeFriendSelector(){
-  friendSelectors.innerHTML = `<h3>Who's In?!</h3>`
-  friendsByData.forEach((friend) => {
+  friendSelectors.innerHTML = `<legend>Who's In?!</legend>`
+  friendsByData.forEach(({name, id}) => {
       friendSelectors.innerHTML +=  `
       <label class="friend-label">
-        <input type='radio' name='${friend.name}' id='friend-id-${friend.id}'>${friend.name}
+        <input type='radio' name='${name}' id='friend-id-${id}'>${name}
       </label>`
   });
 };
@@ -366,9 +361,9 @@ function togglePartyMode() {
 function computePartyMode() {
   let bubbles = friendSelectors.querySelectorAll('input');
   let selectedFriendsFullIds = [];
-  bubbles.forEach((bubble) => {
-    if(bubble.checked) {
-      selectedFriendsFullIds.push(bubble.id);
+  bubbles.forEach(({checked, id}) => {
+    if(checked) {
+      selectedFriendsFullIds.push(id);
     }
   });
 
@@ -376,14 +371,14 @@ function computePartyMode() {
     return parseInt(friend.split('-')[2]);
   })
 
-  let finalSelectedFriendObjects = friendsByData.filter((friend) => {
-    return selectedFriendsIds.includes(friend.id);
+  let finalSelectedFriendObjects = friendsByData.filter(({id}) => {
+    return selectedFriendsIds.includes(id);
   })
 
   finalSelectedFriendObjects.push(randomUser);
   
-  let friendsStepGoalAverage = finalSelectedFriendObjects.reduce((total, friend) => {
-    total += friend.dailyStepGoal
+  let friendsStepGoalAverage = finalSelectedFriendObjects.reduce((total, {dailyStepGoal}) => {
+    total += dailyStepGoal
     
     return total 
   }, 0) / finalSelectedFriendObjects.length
@@ -437,7 +432,6 @@ function makeChart(dataSet, dataCategory) {
             grid: {
               display: true,
               color: 'rgba(128, 128, 128, 0.376)',
-              // opacity: .1
             },
             title: {
                 display: true,
@@ -458,7 +452,6 @@ function makeChart(dataSet, dataCategory) {
             grid: {
               display: true,
               color: 'rgba(128, 128, 128, 0.376)',
-              // opacity: .1
             },
             title: {
               display: true,
@@ -515,7 +508,6 @@ function makeChart(dataSet, dataCategory) {
               grid: {
                 display: true,
                 color: 'rgba(128, 128, 128, 0.376)',
-                // opacity: .1
               },
               title: {
                   display: true,
@@ -536,7 +528,6 @@ function makeChart(dataSet, dataCategory) {
               grid: {
                 display: true,
                 color: 'rgba(128, 128, 128, 0.376)',
-                // opacity: .1
               },
               title: {
                 display: true,
@@ -592,7 +583,6 @@ function makeChart(dataSet, dataCategory) {
                       grid: {
                           display: true,
                           color: 'rgba(128, 128, 128, 0.376)',
-                          // opacity: .1
                       },
                       title: {
                           display: true,
@@ -613,7 +603,6 @@ function makeChart(dataSet, dataCategory) {
                       grid: {
                           display: true,
                           color: 'rgba(128, 128, 128, 0.376)',
-                          // opacity: .1
                       },
                       title: {
                           display: true,
@@ -640,11 +629,13 @@ function makeChart(dataSet, dataCategory) {
 function changeDisplay() {
   main.classList.toggle('hidden');
   userProfile.classList.toggle('hidden');
-  footer.classList.toggle('hidden');
+  todayForm.classList.toggle('hidden');
   if (main.classList.contains('hidden')) {
     profileButton.src="./images/home-icon.png"
+    profileButton.alt = "Outline of a house"
   } else if (userProfile.classList.contains('hidden')) {
     profileButton.src="./images/profile-icon.png"
+    profileButton.alt = "Simple profile of a person"
   }
 }
 
@@ -652,9 +643,9 @@ function announceStepPartyResult() {
   partyResults.classList.remove('hidden')
   let score = computePartyMode()
   if (score > 6780) {
-    partyResults.innerHTML = `<h3>GO TEAM! You guys beat the goal by <span style="color:pink">${parseInt(score - 6780)}</span> steps! 🤩</h3>`
+    partyResults.innerHTML = `<h2>GO TEAM! You guys beat the goal by <span style="color:pink">${parseInt(score - 6780)}</span> steps! 🤩</h2>`
     firework.classList.remove('hidden')
   } else {
-    partyResults.innerHTML = `<h3>Better luck next time...you missed the goal by <span style="color:pink">${parseInt(6780 - score)}</span> steps 😔</h3>`
+    partyResults.innerHTML = `<h2>Better luck next time...you missed the goal by <span style="color:pink">${parseInt(6780 - score)}</span> steps 😔</h2>`
   }
 }

@@ -80,7 +80,7 @@ h2 {
   font-size: 2vw;
 }
 
-h3 {
+legend {
   font-size: 1.7vw;
   text-align: center;
   width: 100%;
@@ -336,7 +336,7 @@ header {
 }
 
 #lets-party {
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 .hydro-field,
