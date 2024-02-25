@@ -38,6 +38,9 @@ const partyButton = document.querySelector('.step-party-button');
 const letsPartyButton = document.querySelector('#lets-party');
 const partyChartContainer = document.querySelector('#party-chart-container');
 const partyChart = document.querySelector('#party-chart');
+const partyResults = document.querySelector('#announce-results');
+const firework = document.querySelector('.firework');
+
 
 const hydroChart = document.querySelector('#hydro-chart');
 const chartContainer = document.querySelector('#chart-container');
@@ -88,8 +91,19 @@ qualityButton.addEventListener('click', function() {
   toggleGraph('sleep quality');
 });
 
-partyButton.addEventListener('click', displayFriendSelector);
-letsPartyButton.addEventListener('click', generatePartyMode)
+partyButton.addEventListener('click', function() {
+  displayFriendSelector()
+});
+
+letsPartyButton.addEventListener('click', function () {
+  if (letsPartyButton.innerText === "LET'S PARTY!") {
+    generatePartyMode()
+    announceStepPartyResult()
+  }
+  else {
+    resetStepParty()
+  }
+})
 
 // GLOBAL VARIABLES
 let displayingHydroGraph = false;
@@ -317,7 +331,7 @@ function makeFriendSelector(){
   friendSelectors.innerHTML = `<h3>Who's In?!<h4>`
   friendsByData.forEach((friend) => {
       friendSelectors.innerHTML +=  `
-      <label>
+      <label class="friend-label">
         <input type='radio' name='${friend.name}' id='friend-id-${friend.id}'>${friend.name}
       </label>`
   });
@@ -328,6 +342,14 @@ function displayFriendSelector() {
   friendSelectors.classList.remove('hidden');
   friendsWidget.classList.remove('friends-background');
   letsPartyButton.classList.remove('hidden');
+}
+
+function displayPartyButton() {
+  partyButton.classList.remove('hidden');
+  friendSelectors.classList.add('hidden');
+  friendsWidget.classList.add('friends-background');
+  letsPartyButton.classList.add('hidden');
+  letsPartyButton.innerText === "LET'S PARTY!"
 }
 
 function makeChart(dataSet, dataCategory) {
@@ -409,20 +431,18 @@ function makeChart(dataSet, dataCategory) {
 
 
 function renderStepChart() {
-
-  let filled = parseInt(computePartyMode()) / 12000 * 100;
-  console.log("filled:", filled)
+console.log('wemadeithere')
+  let filled = computePartyMode();
   let ctx = partyChart.getContext('2d');
-  // Set the canvas height
   partyChart.height = partyChartContainer.clientHeight;
   const newChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ['Friends Step Goal Average', 'Max Amount of Steps'],
+      labels: ['Friends Step Goal Average', 'difference', 'Max Amount of Steps'],
       datasets: [{
-        data: [filled, 100 - filled],
-        backgroundColor: ['yellow', 'transparent'], // Background color array
+        backgroundColor: filled < 6780 ? ['yellow', 'rgba(255, 255, 0, 0.3)', 'transparent'] : ['yellow', 'rgba(255, 206, 86, 0.8)', 'transparent'], // Background color array
         borderWidth: 2,
+        borderColor: 'yellow'
       }]
     },
     options: {
@@ -430,17 +450,39 @@ function renderStepChart() {
         legend: {
           display: false,
         }
-      }
-    } 
+      },
+      title: {
+        display: true,
+        text: "HIII",
+        font: {
+            size: 16, // Adjust title font size if needed
+        }
+      } 
+    }
   })
-  console.log("we made it here 2");
+
+  let diffMembersAverage = 0;
+  let diffMaxMembers = 0;
+  let wonParty;
+  if(filled < 6780) {
+    diffMembersAverage = 6780 - filled;
+    diffMaxMembers = 10000 - 6780;
+    wonParty = false
+  } else {
+    diffMembersAverage = filled - 6780;
+    diffMaxMembers = 10000 - filled;
+    filled = 6780
+    wonParty = true
+  }
+  newChart.data.datasets[0].data = [filled, diffMembersAverage, diffMaxMembers]
+  newChart.update(); 
+
 }
 
 
 function togglePartyMode() {
   letsPartyButton.innerText = 'Back Home';
   friendSelectors.classList.add('hidden');
-  partyChartContainer.classList.remove('hidden');
 }
 
 function computePartyMode() {
@@ -471,8 +513,37 @@ function computePartyMode() {
   return friendsStepGoalAverage 
 }
 
+function announceStepPartyResult() {
+  partyResults.classList.remove('hidden')
+  let score = computePartyMode()
+  if (score > 6780) {
+    partyResults.innerHTML = `<h3>GO TEAM! You guys beat the goal by <span style="color:pink">${parseInt(score - 6780)}</span> steps! 🤩</h3>`
+    firework.classList.remove('hidden')
+  } else {
+    partyResults.innerHTML = `<h3>Better luck next time...you missed the goal by <span style="color:pink">${parseInt(6780 - score)}</span> steps 😞</h3>`
+  }
+}
+
 function generatePartyMode() {
   computePartyMode();
-  togglePartyMode()
-  renderStepChart();
+  togglePartyMode();
 }
+
+function resetStepParty() {
+  displayPartyButton()
+  partyResults.classList.add('hidden')
+  firework.classList.add('hidden')
+  resetRadioButtons()
+  letsPartyButton.innerText = "LET'S PARTY!"
+}
+
+function resetRadioButtons() {
+  let bubbles = friendSelectors.querySelectorAll('input');
+  bubbles.forEach(radioButton => {
+    radioButton.checked = false;
+  });
+}
+
+
+
+
