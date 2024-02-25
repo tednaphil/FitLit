@@ -53,6 +53,7 @@ describe('hydration-test.js', function() {
       "numOunces": 57
       });
     });
+    
     it('should still return partial data if user has less than seven entries', function() {
       const intake3 = findIntakeWeek(3, testHydrationData);
 
