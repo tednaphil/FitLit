@@ -33,12 +33,12 @@ const formInfo = document.querySelector('form');
 const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field');
-const friendsWidget = document.querySelector('.party-widget');
+const partyWidget = document.querySelector('.party-widget');
 const friendSelectors = document.querySelector('#friend-selectors');
 const partyButton = document.querySelector('.step-party-button');
 const letsPartyButton = document.querySelector('#lets-party');
-const partyChartContainer = document.querySelector('#party-chart-container');
-const partyChart = document.querySelector('#party-chart');
+// const partyChartContainer = document.querySelector('#party-chart-container');
+// const partyChart = document.querySelector('#party-chart');
 const partyResults = document.querySelector('#announce-results');
 const firework = document.querySelector('.firework');
 
@@ -312,14 +312,14 @@ function makeFriendSelector(){
 function displayFriendSelector() {
   partyButton.classList.add('hidden');
   friendSelectors.classList.remove('hidden');
-  friendsWidget.classList.remove('friends-background');
+  partyWidget.classList.remove('party-background');
   letsPartyButton.classList.remove('hidden');
 }
 
 function displayPartyButton() {
   partyButton.classList.remove('hidden');
   friendSelectors.classList.add('hidden');
-  friendsWidget.classList.add('friends-background');
+  partyWidget.classList.add('party-background');
   letsPartyButton.classList.add('hidden');
   letsPartyButton.innerText === "LET'S PARTY!"
 }
@@ -364,128 +364,211 @@ function makeChart(dataSet, dataCategory) {
             },
             grid: {
               display: true,
-              text: 'num of ounces',
+              color: 'rgba(128, 128, 128, 0.376)',
+              // opacity: .1
+            },
+            title: {
+                display: true,
+                color: '#FF40AF'
+            },
+            border: {
+              color: '#FF40AF',
+              width: 1
+            }
+          },
+          x: {
+            ticks: {
+              padding: -3,
+              color: 'yellow',
+              maxRotation: 45,
+              minRotation: 45
+            },
+            grid: {
+              display: true,
+              color: 'rgba(128, 128, 128, 0.376)',
+              // opacity: .1
+            },
+            title: {
+              display: true,
+              text: 'day',
               color: '#FF40AF'
           },
-          border: {
-            color: '#FF40AF',
-            width: 1
+            border: {
+              color: '#FF40AF',
+              width: 1
+            }
           }
-        },
-        x: {
-          ticks: {
-            padding: -5,
-            color: 'yellow',
-            maxRotation: 45,
-            minRotation: 45
-          },
-          title: {
-            display: true,
-            text: 'day',
-            color: '#FF40AF'
-        },
-          border: {
-            color: '#FF40AF',
-            width: 1
-          }
-        }
-      }
-    },
-  })
-  newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-  newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
-  newChart.options.scales.y.min = 0;
-  newChart.options.scales.y.max = 100;
-  // hydroChart.style.height = chartContainer.style.height;
-  newChart.update();
-}
-
-function renderStepChart() {
-  let ctx;
-  ctx = partyChart.getContext('2d');
-  ctx.canvas.height = partyChartContainer.style.height;
-  const newChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      // labels: ['1', '2', '3', '4', '5', '6', '7'],
-      datasets: [{
-        // data: [8, 5, 7, 9, 6, 6, 8],
-        backgroundColor: 'yellow',
-        // tension: .1,
-        barThickness: 10,
-        pointRadius: 0,
-        pointBorderColor: 'yellow',
-        borderColor: [
-          'yellow',
-        ],
-        borderWidth: 2,
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-            display: false,
         }
       },
-      scales: {
-        y: {
-          ticks: {
-            padding: 5,
-            color: 'yellow',
-          },
-          // grid: {
-          //   display: true,
-          //   color: 'lightgrey'
-          // },
-          title: {
-              display: true,
-              text: 'num of ounces',
-              color: '#FF40AF'
-          },
-          border: {
-            color: '#FF40AF',
-            width: 1
-          }
-        },
-        x: {
-          ticks: {
-            padding: -5,
-            color: 'yellow',
-            maxRotation: 45,
-            minRotation: 45
-          },
-          title: {
-            display: true,
-            text: 'day',
-            color: '#FF40AF'
-        },
-          border: {
-            color: '#FF40AF',
-            width: 1
-          }
-        }
+    })
+    renderedHydroChart.data.labels = dataSet.map(({date}) => { return date.slice(5) });
+    renderedHydroChart.data.datasets[0].data = dataSet.map(({numOunces}) => { return numOunces });
+    renderedHydroChart.options.scales.y.min = 0;
+    renderedHydroChart.options.scales.y.max = 100;
+    renderedHydroChart.options.scales.y.title.text = 'number of ounces';
+    renderedHydroChart.update();
+    console.log("renderedHydroChart on after initial build", renderedHydroChart)
+  } else if (dataCategory === 'sleepQuality') {
+      if(renderedQualityChart) {
+        renderedQualityChart.destroy();
       }
-    },
-  })
-  newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-  newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
-  newChart.options.scales.y.min = 0;
-  newChart.options.scales.y.max = 100;
-  newChart.update();
+      ctx = qualityChart.getContext('2d');
+      ctx.canvas.height = qualityChartContainer.style.height;
+      renderedQualityChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          datasets: [{
+            backgroundColor: 'yellow',
+            barThickness: 10,
+            pointRadius: 0,
+            pointBorderColor: 'yellow',
+            borderColor: [
+              'yellow',
+            ],
+            borderWidth: 2,
+          }]
+        },
+        options: {
+          plugins: {
+            legend: {
+                display: false,
+            }
+          },
+          scales: {
+            y: {
+              ticks: {
+                padding: 5,
+                color: 'yellow',
+              },
+              grid: {
+                display: true,
+                color: 'rgba(128, 128, 128, 0.376)',
+                // opacity: .1
+              },
+              title: {
+                  display: true,
+                  color: '#FF40AF'
+              },
+              border: {
+                color: '#FF40AF',
+                width: 1
+              }
+            },
+            x: {
+              ticks: {
+                padding: -3,
+                color: 'yellow',
+                maxRotation: 45,
+                minRotation: 45
+              },
+              grid: {
+                display: true,
+                color: 'rgba(128, 128, 128, 0.376)',
+                // opacity: .1
+              },
+              title: {
+                display: true,
+                text: 'day',
+                color: '#FF40AF'
+            },
+              border: {
+                color: '#FF40AF',
+                width: 1
+              }
+            }
+          }
+        },
+      })
+      renderedQualityChart.data.labels = dataSet.map(({date}) => { return date.slice(5) });
+      renderedQualityChart.data.datasets[0].data = dataSet.map(({sleepQuality}) => { return sleepQuality });
+      renderedQualityChart.options.scales.y.min = 0;
+      renderedQualityChart.options.scales.y.max = 5;
+      renderedQualityChart.options.scales.y.title.text = 'sleep quality';
+      renderedQualityChart.update();
+  } else {
+      if(renderedHoursChart) {
+        renderedHoursChart.destroy();
+      }
+      ctx = hoursChart.getContext('2d');
+      ctx.canvas.height = hoursChartContainer.style.height;
+      renderedHoursChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+          datasets: [{
+              backgroundColor: 'yellow',
+              barThickness: 10,
+              pointRadius: 0,
+              pointBorderColor: 'yellow',
+              borderColor: [
+              'yellow',
+              ],
+              borderWidth: 2,
+          }]
+          },
+          options: {
+              plugins: {
+                  legend: {
+                      display: false,
+                  }
+              },
+              scales: {
+                  y: {
+                      ticks: {
+                          padding: 5,
+                          color: 'yellow',
+                      },
+                      grid: {
+                          display: true,
+                          color: 'rgba(128, 128, 128, 0.376)',
+                          // opacity: .1
+                      },
+                      title: {
+                          display: true,
+                          color: '#FF40AF'
+                      },
+                      border: {
+                          color: '#FF40AF',
+                          width: 1
+                      }
+                  },
+                  x: {
+                      ticks: {
+                          padding: -3,
+                          color: 'yellow',
+                          maxRotation: 45,
+                          minRotation: 45
+                      },
+                      grid: {
+                          display: true,
+                          color: 'rgba(128, 128, 128, 0.376)',
+                          // opacity: .1
+                      },
+                      title: {
+                          display: true,
+                          text: 'day',
+                          color: '#FF40AF'
+                      },
+                      border: {
+                          color: '#FF40AF',
+                          width: 1
+                      }
+                  }
+              }
+          }
+      })
+      renderedHoursChart.data.labels = dataSet.map(({date}) => { return date.slice(5) });
+      renderedHoursChart.data.datasets[0].data = dataSet.map(({hoursSlept}) => { return hoursSlept });
+      renderedHoursChart.options.scales.y.min = 0;
+      renderedHoursChart.options.scales.y.max = 12;
+      renderedHoursChart.options.scales.y.title.text = 'hours slept';
+      renderedHoursChart.update();
+  }
 }
 
 function togglePartyMode() {
   letsPartyButton.innerText = 'Back Home';
   friendSelectors.classList.add('hidden');
-  partyChartContainer.classList.remove('hidden');
 }
-
-
-// friendSelector: parent div in which the radios live.
-// letsPartyButton has a click event on it
-
-
-
 
 function computePartyMode() {
   let bubbles = friendSelectors.querySelectorAll('input');
@@ -535,6 +618,26 @@ function resetRadioButtons() {
   });
 }
 
+function changeDisplay() {
+  main.classList.toggle('hidden');
+  userProfile.classList.toggle('hidden');
+  footer.classList.toggle('hidden');
+  if (main.classList.contains('hidden')) {
+    profileButton.src="./images/home-icon.png"
+  } else if (userProfile.classList.contains('hidden')) {
+    profileButton.src="./images/profile-icon.png"
+  }
+}
 
+function announceStepPartyResult() {
+  partyResults.classList.remove('hidden')
+  let score = computePartyMode()
+  if (score > 6780) {
+    partyResults.innerHTML = `<h3>GO TEAM! You guys beat the goal by <span style="color:pink">${parseInt(score - 6780)}</span> steps! 🤩</h3>`
+    firework.classList.remove('hidden')
+  } else {
+    partyResults.innerHTML = `<h3>Better luck next time...you missed the goal by <span style="color:pink">${parseInt(6780 - score)}</span> steps 😔</h3>`
+  }
+}
 
 
