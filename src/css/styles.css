@@ -365,6 +365,10 @@ header {
   align-items: center;
 }
 
+#friend-selectors {
+  border: none; 
+}
+
 label {
   margin-right: .5em; 
 }

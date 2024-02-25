@@ -312,7 +312,7 @@ function storeFriends(person, dataSet) {
 };
 
 function makeFriendSelector(){
-  friendSelectors.innerHTML = `<h3>Who's In?!<h4>`
+  friendSelectors.innerHTML = `<legend>Who's In?!<lengend>`
   friendsByData.forEach((friend) => {
       friendSelectors.innerHTML +=  `
       <label>
