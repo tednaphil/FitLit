@@ -31,13 +31,12 @@ const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field');
 const friendsWidget = document.querySelector('.friends-widget');
-
 const friendSelectors = document.querySelector('#friend-selectors');
 const partyButton = document.querySelector('.step-party-button');
 const letsPartyButton = document.querySelector('#lets-party');
 const partyChartContainer = document.querySelector('#party-chart-container');
 const partyChart = document.querySelector('#party-chart');
-const footer = document.querySelector('footer')
+const footer = document.querySelector('footer');
 const hydroChart = document.querySelector('#hydro-chart');
 const hydroChartContainer = document.querySelector('#hydro-chart-container');
 const qualityChart = document.querySelector('#quality-chart');
@@ -47,6 +46,7 @@ const hoursChartContainer = document.querySelector('#hours-chart-container');
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom);
+
 profileButton.addEventListener('click', changeDisplay);
 
 formInfo.addEventListener('submit', function(event) {
@@ -71,19 +71,22 @@ formInfo.addEventListener('submit', function(event) {
       displayErrorMessage(errorText)
     })
 });
- 
+
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
 });
+
 hoursButton.addEventListener('click', function() {
   toggleGraph('hoursSlept');
 });
+
 qualityButton.addEventListener('click', function() {
   toggleGraph('sleepQuality');
 });
 
 partyButton.addEventListener('click', displayFriendSelector);
-letsPartyButton.addEventListener('click', generatePartyMode)
+
+letsPartyButton.addEventListener('click', generatePartyMode);
 
 // GLOBAL VARIABLES
 let displayingHydroGraph = false;
@@ -111,8 +114,7 @@ function renderDom(){
       displayStepInfo(randomUser, info.users);
       displayAverages(randomUser, sleep.sleepData, hydration.hydrationData);
       storeFriends(randomUser, info.users);
-      // makeFriendSelector(randomUser, info.users)
-      makeFriendSelector()
+      makeFriendSelector(randomUser, info.users)
       clearInputFields()
     })
     .catch(error => {
