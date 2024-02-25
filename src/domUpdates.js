@@ -396,14 +396,10 @@ function makeChart(dataSet, dataCategory) {
   let ctx;
   if (dataCategory === 'hydration'){
     if(renderedHydroChart) {
-      console.log('made it here on click')
-      console.log("renderedHydroChart before destroy:", renderedHydroChart)
       renderedHydroChart.destroy();
-      console.log("renderedHydroChart after destroy:", renderedHydroChart)
     }
     ctx = hydroChart.getContext('2d');
     ctx.canvas.height = hydroChartContainer.style.height;
-    console.log("renderedHydroChart on load:", renderedHydroChart)
     renderedHydroChart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -473,7 +469,6 @@ function makeChart(dataSet, dataCategory) {
     renderedHydroChart.options.scales.y.max = 100;
     renderedHydroChart.options.scales.y.title.text = 'number of ounces';
     renderedHydroChart.update();
-    console.log("renderedHydroChart on after initial build", renderedHydroChart)
   } else if (dataCategory === 'sleepQuality') {
       if(renderedQualityChart) {
         renderedQualityChart.destroy();
