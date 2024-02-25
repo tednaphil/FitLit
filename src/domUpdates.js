@@ -4,6 +4,7 @@ import { calculateAvgSleepData, findSleepDayInfo, findSleepInfoWeek } from './sl
 import { fetchData, runPost } from './apiCalls';
 import Chart from 'chart.js/auto';
 
+
 //QUERY SELECTORS
 const main = document.querySelector('main');
 const header = document.querySelector('header');
