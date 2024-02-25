@@ -49,28 +49,7 @@ window.addEventListener('load', renderDom);
 
 profileButton.addEventListener('click', changeDisplay);
 
-formInfo.addEventListener('submit', function(event) {
-  event.preventDefault();
-    return Promise.all(runPost(randomUser.id, hydroField, hoursField, qualityField))
-    .then(responses => {
-      if (responses.every(response => response.ok)) {
-        return responses
-      } else {
-        let responseText = responses.find(response => !response.ok).statusText
-        let responseCode = responses.find(response => !response.ok).status
-        throw new Error(`Failed to Post ${responseCode} - ${responseText} :(`)
-      }
-    })
-    .then(res => {
-      renderDom()
-      clearForm()
-    })
-    .catch(error => {
-      let errorText = error.message
-      console.log('Post Error')
-      displayErrorMessage(errorText)
-    })
-});
+formInfo.addEventListener('submit', postFormInput)
 
 hydroButton.addEventListener('click', function() {
   toggleGraph('hydration');
@@ -121,6 +100,29 @@ function renderDom(){
       displayErrorMessage(error);
     })
 };
+
+function postFormInput(event){
+  event.preventDefault();
+  return Promise.all(runPost(randomUser.id, hydroField, hoursField, qualityField))
+  .then(responses => {
+    if (responses.every(response => response.ok)) {
+      return responses
+    } else {
+      let responseText = responses.find(response => !response.ok).statusText
+      let responseCode = responses.find(response => !response.ok).status
+      throw new Error(`Failed to Post ${responseCode} - ${responseText} :(`)
+    }
+  })
+  .then(res => {
+    renderDom()
+    clearForm()
+  })
+  .catch(error => {
+    let errorText = error.message
+    console.log('Post Error')
+    displayErrorMessage(errorText)
+  })
+}
 
 function clearForm(){
   footer.classList.add("fade-out")
