@@ -29,7 +29,7 @@ header,
 
 header,
 .today-form,
-.friend-avg-steps {
+.party-avg-steps {
   margin-bottom: 1%;
 }
 
@@ -114,7 +114,7 @@ section {
   margin-bottom: 5%;
 }
 
-.friend-avg-steps {
+.party-avg-steps {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -127,12 +127,7 @@ section {
   justify-content: space-between;
 }
 
-/* .friend-avg-steps,
-.week-info {
-  height: 32vh;
-} */
-
-.friends-widget,
+.party-widget,
 .steps-widget {
   width: 24%;
 }
@@ -179,7 +174,7 @@ section {
 }
 
 header,
-.friends-widget,
+.party-widget,
 .hydration,
 .user-profile,
 .hours,
@@ -195,12 +190,12 @@ header {
   animation: 3s ease-in-out infinite alternate shadow-fade-pink;
 }
 
-.friends-widget {
+.party-widget {
   box-shadow: 0px 0px 20px 1px #ff40af69;
   animation: 3s ease-in-out 5s infinite alternate shadow-fade-pink;
 }
 
-.friends-background {
+.party-background {
   background-image: url('/src/images/new-opacity-30.png');
   background-size: cover;
 }
@@ -261,7 +256,7 @@ header {
 }
 
 .today-span {
-  color: #00EAE0;
+  color: white;
   font-weight: bolder; 
 }
 
@@ -299,15 +294,6 @@ header {
   cursor: pointer;
 }
 
-@keyframes button-expand {
-  0% {
-    width: 75%;
-  }
-  100% {
-    width: 80%;
-  }
-}
-
 @keyframes wiggle {
   10% {
     transform: rotate(5deg);
@@ -339,8 +325,9 @@ header {
 }
 
 .step-party-button:hover {
-  /* animation: .35s ease-in-out button-expand; */
-  animation: .35s linear wiggle;
+  width: 80%;
+  animation: .05s ease-in-out button-expand;
+  animation: .35s linear .05s wiggle;
 }
 
 .friend-selectors {
@@ -389,6 +376,7 @@ label {
   height: 6%;
   width: 100%;
   box-shadow: 0px 0px 20px 1px #FFFF7D;
+  animation: 3s ease-in-out infinite alternate 5s shadow-fade-yellow;
   border: solid #FFFF7D 2px;
   display: flex;
   align-items: center;

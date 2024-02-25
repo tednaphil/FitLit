@@ -14,7 +14,7 @@ const userProfile = document.querySelector('#user-profile');
 const friendsList = document.querySelector('#friends-list');
 const address = document.querySelector('#address');
 const email = document.querySelector('#email');
-const todayInfo = document.querySelector('h3');
+// const todayInfo = document.querySelector('h3');
 const hydrationWeek = document.querySelector('#hydro-week');
 const sleepHours = document.querySelector('#sleep-hours');
 const sleepQuality = document.querySelector('#sleep-quality');
@@ -33,7 +33,7 @@ const formInfo = document.querySelector('form');
 const hydroField = document.querySelector('.hydro-field');
 const hoursField = document.querySelector('.hours-field');
 const qualityField = document.querySelector('.quality-field');
-const friendsWidget = document.querySelector('.friends-widget');
+const friendsWidget = document.querySelector('.party-widget');
 const friendSelectors = document.querySelector('#friend-selectors');
 const partyButton = document.querySelector('.step-party-button');
 const letsPartyButton = document.querySelector('#lets-party');
@@ -100,7 +100,7 @@ function renderDom(){
         randomUser = getUserInfo(Math.floor(Math.random() * info.users.length), info.users);
       }
       displayPersonalInfo(randomUser);
-      displayTodayInfo(randomUser, sleep.sleepData, hydration.hydrationData);
+      // displayTodayInfo(randomUser, sleep.sleepData, hydration.hydrationData);
       displayHydrationInfo(randomUser, hydration.hydrationData);    
       displayFriends(randomUser, info.users);
       displaySleepInfo(randomUser, sleep.sleepData);
@@ -152,17 +152,17 @@ function displayFriends(person, dataSet) {
   });
 };
 
-function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
-  const today = sleepDataSet.filter((entry) => {
-    return entry.userID === person.id;
-  }).slice(-1)[0].date;
-  const ouncesDrank = findIntakeByDay(person.id, today, hydrationDataSet);
-  console.log(ouncesDrank)
-  const todayHoursSlept = findSleepDayInfo(person.id, today, sleepDataSet, "hoursSlept");
-  const sleepQualityDay = findSleepDayInfo(person.id, today, sleepDataSet, "sleepQuality");
+// function displayTodayInfo(person, sleepDataSet, hydrationDataSet) {
+//   const today = sleepDataSet.filter((entry) => {
+//     return entry.userID === person.id;
+//   }).slice(-1)[0].date;
+//   const ouncesDrank = findIntakeByDay(person.id, today, hydrationDataSet);
+//   console.log(ouncesDrank)
+//   const todayHoursSlept = findSleepDayInfo(person.id, today, sleepDataSet, "hoursSlept");
+//   const sleepQualityDay = findSleepDayInfo(person.id, today, sleepDataSet, "sleepQuality");
 
-  todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water and slept ${todayHoursSlept} hours with a sleep quality of ${sleepQualityDay} out of 5!`;
-};
+//   todayInfo.innerText = `Today you drank ${ouncesDrank} ounces of water and slept ${todayHoursSlept} hours with a sleep quality of ${sleepQualityDay} out of 5!`;
+// };
 
 function displayHydrationInfo(person, dataSet) {
   const dailyInfo = findIntakeWeek(person.id, dataSet);
@@ -300,103 +300,12 @@ function displayFriendSelector() {
   friendsWidget.classList.remove('friends-background');
   letsPartyButton.classList.remove('hidden');
 }
-  
-//   const newChart = new Chart(ctx, {
-//     type: 'line',
-//     data: {
-//       datasets: [{
-//         backgroundColor: 'yellow',
-//         barThickness: 10,
-//         pointRadius: 0,
-//         pointBorderColor: 'yellow',
-//         borderColor: [
-//           'yellow',
-//         ],
-//         borderWidth: 2,
-//       }]
-//     },
-//     options: {
-//       plugins: {
-//         legend: {
-//             display: false,
-//         }
-//       },
-//       scales: {
-//         y: {
-//           ticks: {
-//             padding: 5,
-//             color: 'yellow',
-//           },
-//           grid: {
-//             display: true,
-//             color: 'rgba(128, 128, 128, 0.376)',
-//             // opacity: .1
-//           },
-//           title: {
-//               display: true,
-//               color: '#FF40AF'
-//           },
-//           border: {
-//             color: '#FF40AF',
-//             width: 1
-//           }
-//         },
-//         x: {
-//           ticks: {
-//             padding: -3,
-//             color: 'yellow',
-//             maxRotation: 45,
-//             minRotation: 45
-//           },
-//           grid: {
-//             display: true,
-//             color: 'rgba(128, 128, 128, 0.376)',
-//             // opacity: .1
-//           },
-//           title: {
-//             display: true,
-//             text: 'day',
-//             color: '#FF40AF'
-//         },
-//           border: {
-//             color: '#FF40AF',
-//             width: 1
-//           }
-//         }
-//       }
-//     },
-//   })
-//   newChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-//   if (dataCategory === 'hydration'){
-//     newChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
-//     newChart.options.scales.y.min = 0;
-//     newChart.options.scales.y.max = 100;
-//     newChart.options.scales.y.title.text = 'number of ounces';
-//   } else if (dataCategory === 'sleepQuality') {
-//     newChart.data.datasets[0].data = dataSet.map((day) => { return day.sleepQuality });
-//     newChart.options.scales.y.min = 0;
-//     newChart.options.scales.y.max = 5;
-//     newChart.options.scales.y.title.text = 'sleep quality';
-//   } else {
-//     newChart.data.datasets[0].data = dataSet.map((day) => { return day.hoursSlept });
-//     newChart.options.scales.y.min = 0;
-//     newChart.options.scales.y.max = 12;
-//     newChart.options.scales.y.title.text = 'hours slept';
-//   }
-// }
 
 function togglePartyMode() {
   letsPartyButton.innerText = 'Back Home';
   friendSelectors.classList.add('hidden');
   partyChartContainer.classList.remove('hidden');
 }
-
-
-// friendSelector: parent div in which the radios live.
-// letsPartyButton has a click event on it
-
-
-
 
 function computePartyMode() {
   let bubbles = friendSelectors.querySelectorAll('input');
@@ -421,7 +330,6 @@ function computePartyMode() {
 function generatePartyMode() {
   computePartyMode();
   togglePartyMode()
-  renderPartyChart();
 }
 
 function makeChart(dataSet, dataCategory) {
@@ -641,7 +549,6 @@ function makeChart(dataSet, dataCategory) {
                       grid: {
                           display: true,
                           color: 'rgba(128, 128, 128, 0.376)',
-                          // opacity: .1
                       },
                       title: {
                           display: true,
@@ -663,83 +570,6 @@ function makeChart(dataSet, dataCategory) {
       renderedHoursChart.options.scales.y.title.text = 'hours slept';
       renderedHoursChart.update();
   }
-}
-
-function renderPartyChart() {
-  if(renderedPartyChart) {
-    renderedPartyChart.destroy();
-  }
-  let ctx;
-  ctx = partyChart.getContext('2d');
-  ctx.canvas.height = partyChartContainer.style.height;
-  renderedPartyChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      // labels: ['1', '2', '3', '4', '5', '6', '7'],
-      datasets: [{
-        // data: [8, 5, 7, 9, 6, 6, 8],
-        backgroundColor: 'yellow',
-        // tension: .1,
-        barThickness: 10,
-        pointRadius: 0,
-        pointBorderColor: 'yellow',
-        borderColor: [
-          'yellow',
-        ],
-        borderWidth: 2,
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-            display: false,
-        }
-      },
-      scales: {
-        y: {
-          ticks: {
-            padding: 5,
-            color: 'yellow',
-          },
-          // grid: {
-          //   display: true,
-          //   color: 'lightgrey'
-          // },
-          title: {
-              display: true,
-              text: 'num of ounces',
-              color: '#FF40AF'
-          },
-          border: {
-            color: '#FF40AF',
-            width: 1
-          }
-        },
-        x: {
-          ticks: {
-            padding: -5,
-            color: 'yellow',
-            maxRotation: 45,
-            minRotation: 45
-          },
-          title: {
-            display: true,
-            text: 'day',
-            color: '#FF40AF'
-        },
-          border: {
-            color: '#FF40AF',
-            width: 1
-          }
-        }
-      }
-    },
-  })
-  // renderedPartyChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-  // renderedPartyChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
-  // renderedPartyChart.options.scales.y.min = 0;
-  // renderedPartyChart.options.scales.y.max = 100;
-  // renderedPartyChart.update();
 }
 
 function changeDisplay() {

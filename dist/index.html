@@ -13,7 +13,6 @@
     </header>
     <section class="error-display hidden">WHOOPS! SOMETHING'S NOT WORKING!</section>
     <main class="widget-container" id="widgets">
-      <!-- <h3 class="today-info"></h3> -->
       <div class="today-form">
         <form>
           <div class="form-style">
@@ -27,14 +26,14 @@
           <div class="form-style">
             <label>Sleep quality (0-5):</label>
           </div>
-          <input class="quality-field" type="number" min="0" max="5" step=".01" placeholder="Enter Sleep Score" required>
+          <input class="quality-field" type="number" min="0" max="5" step=".1" placeholder="Enter Sleep Score" required>
           <div class="form-style">
             <button class="submit-button" type="submit">Add Today's Data!</button>
           </div>
         </form>
       </div>
-      <div class="friend-avg-steps">
-        <section class="friends-widget friends-background">
+      <div class="party-avg-steps">
+        <section class="party-widget party-background">
           <img class="step-party-button" src="./images/step-party.png" alt="Step party">
           <div class="hidden" id="friend-selectors">
             <!-- friend selectors will go here -->
@@ -60,7 +59,6 @@
           </div>
           <h2 id="hy-title">Hydration</h2>
           <p id="hydro-week" class="week"></p>
-          <!-- <figure id="hydro-graph" class="hidden"></figure> -->
           <div id="hydro-chart-container" class="hidden">
             <canvas id="hydro-chart"></canvas>
           </div>
@@ -71,7 +69,6 @@
           </div>
           <h2 id="ho-title">Hours Slept</h2>
           <p id="sleep-hours" class="week"></p>
-          <!-- <figure id="sleep-graph" class="hidden"></figure> -->
           <div id="hours-chart-container" class="hidden">
             <canvas id="hours-chart"></canvas>
           </div>
@@ -82,7 +79,6 @@
           </div>
           <h2 id="q-title">Sleep Quality</h2>
           <p id="sleep-quality" class="week"></p>
-          <!-- <figure id="sleep-q-graph" class="hidden"></figure> -->
           <div id="quality-chart-container" class="hidden">
             <canvas id="quality-chart"></canvas>
           </div>
@@ -92,14 +88,14 @@
     <aside class="user-profile hidden" id="user-profile">
       <img src="./images/profile-photo.png" alt="user profile picture of Richard Simmons">
       <h2>Contact Info</h2>
-        <h3>Address:</h3>
-          <p id="address">addres here</p>
-        <h3>Email:</h3>
-          <p id="email">email here</p>
+      <h3>Address:</h3>
+      <p id="address">address here</p>
+      <h3>Email:</h3>
+      <p id="email">email here</p>
       <section id="friends-display">
         <!-- this is wrapped in case we want to add icons or other elements for the friends -->
         <h2>Friends</h2>
-          <p id="friends-list"></p>
+        <p id="friends-list"></p>
       </section>
     </aside>
     <script src="bundle.js"></script>
