@@ -68,7 +68,7 @@ qualityButton.addEventListener('click', function() {
   toggleGraph('sleepQuality');
 });
 hydroButton.addEventListener('keydown', function(event) {
-  if(event.keyCode === 13 || event.keyCode === 32) {
+  if(event.key === "Enter" || event.code === "Space") {
   toggleGraph('hydration')
   }
 });
