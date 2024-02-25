@@ -288,10 +288,10 @@ function storeFriends(person, dataSet) {
 
 function makeFriendSelector(){
   friendSelectors.innerHTML = `<h3>Who's In?!<h4>`
-  friendsByData.forEach(({name, id}) => {
+  friendsByData.forEach((friend) => {
       friendSelectors.innerHTML +=  `
       <label>
-        <input type='radio' name='${name}' id='friend-id-${id}'>${name}
+        <input type='radio' name='${friend.name}' id='friend-id-${friend.id}'>${friend.name}
       </label>`
   });
 };
@@ -396,9 +396,9 @@ function togglePartyMode() {
 function computePartyMode() {
   let bubbles = friendSelectors.querySelectorAll('input');
   let selectedFriendsFullIds = [];
-  bubbles.forEach((bubble) => {
-    if(bubble.checked) {
-      selectedFriendsFullIds.push(bubble.id);
+  bubbles.forEach(({checked, id}) => {
+    if(checked) {
+      selectedFriendsFullIds.push(id);
     }
   });
 
@@ -406,8 +406,8 @@ function computePartyMode() {
     return parseInt(friend.split('-')[2]);
   })
 
-  let finalSelectedFriendObjects = friendsByData.filter((friend) => {
-    return selectedFriendsIds.includes(friend.id);
+  let finalSelectedFriendObjects = friendsByData.filter(({id}) => {
+    return selectedFriendsIds.includes(id);
   })
 
   finalSelectedFriendObjects.push(randomUser);
@@ -496,8 +496,8 @@ function makeChart(dataSet, dataCategory) {
         }
       },
     })
-    renderedHydroChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-    renderedHydroChart.data.datasets[0].data = dataSet.map((day) => { return day.numOunces });
+    renderedHydroChart.data.labels = dataSet.map(({date}) => { return date.slice(5) });
+    renderedHydroChart.data.datasets[0].data = dataSet.map(({numOunces}) => { return numOunces });
     renderedHydroChart.options.scales.y.min = 0;
     renderedHydroChart.options.scales.y.max = 100;
     renderedHydroChart.options.scales.y.title.text = 'number of ounces';
@@ -651,8 +651,8 @@ function makeChart(dataSet, dataCategory) {
               }
           }
       })
-      renderedHoursChart.data.labels = dataSet.map((day) => { return day.date.slice(5) });
-      renderedHoursChart.data.datasets[0].data = dataSet.map((day) => { return day.hoursSlept });
+      renderedHoursChart.data.labels = dataSet.map(({date}) => { return date.slice(5) });
+      renderedHoursChart.data.datasets[0].data = dataSet.map(({hoursSlept}) => { return hoursSlept });
       renderedHoursChart.options.scales.y.min = 0;
       renderedHoursChart.options.scales.y.max = 12;
       renderedHoursChart.options.scales.y.title.text = 'hours slept';
