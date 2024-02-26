@@ -1,6 +1,6 @@
 import { getUserInfo, getAverageSteps, findFriends } from './user';
-import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
-import { calculateAvgSleepData, findSleepDayInfo, findSleepInfoWeek } from './sleep';
+import { calculateAverageIntake, findIntakeWeek } from './hydration'; 
+import { calculateAvgSleepData, findSleepInfoWeek } from './sleep';
 import { fetchData, runPost } from './apiCalls';
 import Chart from 'chart.js/auto';
 
