@@ -64,14 +64,12 @@
   - Use of GitHub project board to organize tasks and communicate asynchronously amongst team members
   - Utilizing PR templates to streamline group workflow
   - Quickly and collaboratively establishing a comfortable, safe, and productive team atmosphere with new teammates
-
   ```
 - Challenges:
   ```
   - Working across four time-zones, and collaborators each having rigorous classroom schedules
   - Working with webpack for the first time, understanding its import/export workflow
   - API fetch calls, asynchronous function calls, and using Promise.all()
-
   ```
 
 ### Version 2.0
@@ -90,7 +88,6 @@
   - Achieving score of 100 on lighthouse for accessibility
   - Successfully posting user data to the dashboard
   - Use of chart.js to dynamically plot user data
-
   ```
 - Challenges:
   ```
