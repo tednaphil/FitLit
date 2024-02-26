@@ -11,7 +11,7 @@
 
 ## Preview:
 <div align="center">
-  <img src="https://github.com/tednaphil/FitLit/assets/76406423/5a5b4e58-e46e-40c2-87b0-20176992f9a9" alt="app demo">
+  <img src="https://i.postimg.cc/d12Sr6tF/2024-02-26-15-41-08.gif" alt="app demo">
 
 
 
