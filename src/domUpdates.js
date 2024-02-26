@@ -1,6 +1,6 @@
 import { getUserInfo, getAverageSteps, findFriends } from './user';
-import { calculateAverageIntake, findIntakeByDay, findIntakeWeek } from './hydration'; 
-import { calculateAvgSleepData, findSleepDayInfo, findSleepInfoWeek } from './sleep';
+import { calculateAverageIntake, findIntakeWeek } from './hydration'; 
+import { calculateAvgSleepData, findSleepInfoWeek } from './sleep';
 import { fetchData, runPost } from './apiCalls';
 import Chart from 'chart.js/auto';
 
@@ -10,6 +10,8 @@ const main = document.querySelector('main');
 const header = document.querySelector('header');
 const errorDisplay = document.querySelector('.error-display');
 const nameDisplay = document.querySelector('h1');
+const profileToggleText = document.querySelector('.profile-toggle-text');
+const profileButtonContainer = document.querySelector('.profile-toggle');
 const profileButton = document.querySelector('#user-profile-button');
 const userProfile = document.querySelector('#user-profile');
 const friendsList = document.querySelector('#friends-list');
@@ -36,18 +38,22 @@ const partyButton = document.querySelector('.step-party-button');
 const letsPartyButton = document.querySelector('#lets-party');
 const todayForm = document.querySelector('.today-form')
 const partyResults = document.querySelector('#announce-results');
-const firework = document.querySelector('.firework');
+const firework1 = document.querySelector('.firework-1');
+const firework2 = document.querySelector('.firework-2');
+const firework3 = document.querySelector('.firework-3');
 const hydroChart = document.querySelector('#hydro-chart');
 const hydroChartContainer = document.querySelector('#hydro-chart-container');
 const qualityChart = document.querySelector('#quality-chart');
 const qualityChartContainer = document.querySelector('#quality-chart-container');
 const hoursChart = document.querySelector('#hours-chart');
 const hoursChartContainer = document.querySelector('#hours-chart-container');
+const challengeTitle = document.querySelector('.challenge-title');
+
 
 //EVENT LISTENERS
 window.addEventListener('load', renderDom)
-profileButton.addEventListener('click', changeDisplay);
-profileButton.addEventListener('keydown', function(event) {
+profileButtonContainer.addEventListener('click', changeDisplay);
+profileButtonContainer.addEventListener('keydown', function(event) {
   if(event.key === "Enter" || event.code === "Space") {
     changeDisplay()
   }
@@ -87,12 +93,14 @@ partyButton.addEventListener('click', function() {
   displayFriendSelector()
 });
 letsPartyButton.addEventListener('click', function () {
+  console.log('inside eventListener')
   if (letsPartyButton.innerText === "LET'S PARTY!") {
-
+    console.log('inside if')
     generatePartyMode()
     announceStepPartyResult()
   }
   else {
+    console.log('inside else')
     resetStepParty()
   }
 })
@@ -315,27 +323,34 @@ function storeFriends(person, dataSet) {
 };
 
 function makeFriendSelector(){
-  friendSelectors.innerHTML = `<legend>Who's In?!</legend>`
+  friendSelectors.innerHTML = `<legend>Select Friends to join:</legend>`
   friendsByData.forEach(({name, id}) => {
+    if(name !== randomUser.name) {
       friendSelectors.innerHTML +=  `
       <label class="friend-label">
-        <input type='radio' name='${name}' id='friend-id-${id}'>${name}
+        <input type='radio' name='${name}' id='friend-id-${id}' required>${name}
       </label>`
+    }
   });
 };
 
 function displayFriendSelector() {
   partyButton.classList.add('hidden');
   friendSelectors.classList.remove('hidden');
+  challengeTitle.classList.remove('hidden');
   partyWidget.classList.remove('party-background');
   letsPartyButton.classList.remove('hidden');
 }
 
 function resetStepParty() {
-  displayPartyButton()
-  partyResults.classList.add('hidden')
-  firework.classList.add('hidden')
-  resetRadioButtons()
+  displayPartyButton();
+  partyResults.classList.add('hidden');
+  firework1.classList.add('hidden');
+  firework2.classList.add('hidden');
+  firework3.classList.add('hidden');
+  partyResults.classList.remove('winner-text');
+  partyWidget.classList.remove('winner-background');
+  resetRadioButtons();
   letsPartyButton.innerText = "LET'S PARTY!"
 }
 
@@ -349,14 +364,16 @@ function resetRadioButtons() {
 function displayPartyButton() {
   partyButton.classList.remove('hidden');
   friendSelectors.classList.add('hidden');
+  challengeTitle.classList.add('hidden');
   partyWidget.classList.add('party-background');
   letsPartyButton.classList.add('hidden');
-  letsPartyButton.innerText === "LET'S PARTY!"
+  // letsPartyButton.innerText = "LET'S PARTY!";
 }
 
 function togglePartyMode() {
   letsPartyButton.innerText = 'Back Home';
   friendSelectors.classList.add('hidden');
+  challengeTitle.classList.add('hidden');
 }
 
 function computePartyMode() {
@@ -388,7 +405,7 @@ function computePartyMode() {
 }
 
 function generatePartyMode() {
-  computePartyMode();
+  // computePartyMode();
   togglePartyMode()
 }
 
@@ -627,11 +644,13 @@ function changeDisplay() {
   userProfile.classList.toggle('hidden');
   todayForm.classList.toggle('hidden');
   if (main.classList.contains('hidden')) {
-    profileButton.src="./images/home-icon.png"
-    profileButton.alt = "Outline of a house"
+    profileButton.src="./images/home-icon.png";
+    profileButton.alt = "Outline of a house";
+    profileToggleText.innerText = 'back home';
   } else if (userProfile.classList.contains('hidden')) {
     profileButton.src="./images/profile-icon.png"
     profileButton.alt = "Simple profile of a person"
+    profileToggleText.innerText = 'view profile';
   }
 }
 
@@ -639,9 +658,13 @@ function announceStepPartyResult() {
   partyResults.classList.remove('hidden')
   let score = computePartyMode()
   if (score > 6780) {
-    partyResults.innerHTML = `<h2>GO TEAM! You guys beat the goal by <span style="color:pink">${parseInt(score - 6780)}</span> steps! 🤩</h2>`
-    firework.classList.remove('hidden')
+    partyResults.innerHTML = `<h2>GO TEAM! You guys collectively beat the FitLit average by <span style="color:pink">${parseInt(score - 6780)}</span> steps! 🤩</h2>`
+    firework1.classList.remove('hidden');
+    firework2.classList.remove('hidden');
+    firework3.classList.remove('hidden');
+    partyResults.children[0].classList.add('winner-text');
+    partyWidget.classList.add('winner-background');
   } else {
-    partyResults.innerHTML = `<h2>Better luck next time...you missed the goal by <span style="color:pink">${parseInt(6780 - score)}</span> steps 😔</h2>`
+    partyResults.innerHTML = `<h2>Better luck next time...you collectively missed the FitLit average by <span style="color:pink">${parseInt(6780 - score)}</span> steps 😔</h2>`
   }
 }
