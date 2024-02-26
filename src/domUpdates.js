@@ -36,7 +36,9 @@ const partyButton = document.querySelector('.step-party-button');
 const letsPartyButton = document.querySelector('#lets-party');
 const todayForm = document.querySelector('.today-form')
 const partyResults = document.querySelector('#announce-results');
-const firework = document.querySelector('.firework');
+const firework1 = document.querySelector('.firework-1');
+const firework2 = document.querySelector('.firework-2');
+const firework3 = document.querySelector('.firework-3');
 const hydroChart = document.querySelector('#hydro-chart');
 const hydroChartContainer = document.querySelector('#hydro-chart-container');
 const qualityChart = document.querySelector('#quality-chart');
@@ -315,12 +317,15 @@ function storeFriends(person, dataSet) {
 };
 
 function makeFriendSelector(){
-  friendSelectors.innerHTML = `<legend>Who's In?!</legend>`
+  friendSelectors.innerHTML = `<legend>Can Your Team Beat the Global Average?</legend></br>
+  <legend>Select Friends to join:</legend>`
   friendsByData.forEach(({name, id}) => {
+    if(name !== randomUser.name) {
       friendSelectors.innerHTML +=  `
       <label class="friend-label">
         <input type='radio' name='${name}' id='friend-id-${id}'>${name}
       </label>`
+    }
   });
 };
 
@@ -332,10 +337,14 @@ function displayFriendSelector() {
 }
 
 function resetStepParty() {
-  displayPartyButton()
-  partyResults.classList.add('hidden')
-  firework.classList.add('hidden')
-  resetRadioButtons()
+  displayPartyButton();
+  partyResults.classList.add('hidden');
+  firework1.classList.add('hidden');
+  firework2.classList.add('hidden');
+  firework3.classList.add('hidden');
+  partyResults.classList.remove('winner-text');
+  partyWidget.classList.remove('winner-background');
+  resetRadioButtons();
   letsPartyButton.innerText = "LET'S PARTY!"
 }
 
@@ -639,9 +648,13 @@ function announceStepPartyResult() {
   partyResults.classList.remove('hidden')
   let score = computePartyMode()
   if (score > 6780) {
-    partyResults.innerHTML = `<h2>GO TEAM! You guys beat the goal by <span style="color:pink">${parseInt(score - 6780)}</span> steps! 🤩</h2>`
-    firework.classList.remove('hidden')
+    partyResults.innerHTML = `<h2>GO TEAM! You guys collectively beat the global average by <span style="color:pink">${parseInt(score - 6780)}</span> steps! 🤩</h2>`
+    firework1.classList.remove('hidden');
+    firework2.classList.remove('hidden');
+    firework3.classList.remove('hidden');
+    partyResults.children[0].classList.add('winner-text');
+    partyWidget.classList.add('winner-background');
   } else {
-    partyResults.innerHTML = `<h2>Better luck next time...you missed the goal by <span style="color:pink">${parseInt(6780 - score)}</span> steps 😔</h2>`
+    partyResults.innerHTML = `<h2>Better luck next time...you collectively missed the global average by <span style="color:pink">${parseInt(6780 - score)}</span> steps 😔</h2>`
   }
 }
