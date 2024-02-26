@@ -105,5 +105,4 @@
   - Refactor some DOM functions to DRY up code, possibly deferring some functionality to other files
   - Incorporate Sass to clean up CSS
   - Move chart functions to separate file to better organize repository 
-
   ```
