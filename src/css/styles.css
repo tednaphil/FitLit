@@ -76,10 +76,11 @@ h2 {
 }
 
 legend {
-  font-size: 1.7vw;
+  font-size: 1.4vw;
   text-align: center;
   width: 100%;
   margin-top: 0;
+  color: white;
 }
 
 section {
@@ -130,6 +131,7 @@ section {
 .friend-label {
   display: flex;
   flex-direction: row;
+  margin-left: 22%;
 }
 
 .averages-widget {
@@ -330,10 +332,6 @@ header {
   animation: .35s linear .05s wiggle;
 }
 
-#lets-party {
-  margin-top: 5%;
-}
-
 .hydro-field,
 .quality-field,
 .hours-field {
@@ -351,6 +349,7 @@ header {
 label {
   margin-right: .5em;
   font-size: 1.3vw;
+  text-align: center;
 }
 
 .form-style {
@@ -389,10 +388,6 @@ label {
   font-size: 80%;
 }
 
-input, button {
-  color: black; 
-}
-
 .submit-button {
   border: solid #ff40af 3px;
   box-shadow: 0px 0px 30px 1px #ff40af;
@@ -413,7 +408,9 @@ input, button {
 }
 
 fieldset {
-  border: none; 
+  border: none;
+  margin-top: 2%;
+  width: 90%;
 }
 
 aside {
@@ -447,9 +444,8 @@ p {
 }
 
 #user-profile-button {
-  width: 4%;
-  margin-right: 10px;
-  margin-left: -60px;
+  height: 5vh;
+  width: 5vh;
     &:hover {
       cursor: pointer;
       animation: ease-in-out .35s .05s wiggle;
@@ -513,16 +509,6 @@ p {
 
 #friends-list {
   margin-bottom: 20px;
-}
-
-#user-profile-button {
-  width: 4%;
-  margin-right: 10px;
-  margin-left: -60px;
-    &:hover {
-      cursor: pointer;
-      animation: ease-in-out .35s .05s wiggle;
-    }
 }
 
 .fade-out {
@@ -692,6 +678,7 @@ p {
   transform: translate(-50%, -50%) rotate(-37deg) !important;
 }
 
+input, button,
 ::placeholder {
   color: black;
   text-shadow: none;
@@ -713,4 +700,24 @@ p {
   color: rgb(255, 255, 255);
   text-shadow: rgb(255, 0, 212) 3px 0 10px;
   font-weight: 900;
+}
+
+.challenge-title {
+  font-size: 1.75vw;
+  line-height: 1.1;
+}
+
+.profile-toggle {
+  display: flex;
+  align-items: center;
+  width: 17%;
+  margin-right: 8px;
+  cursor: pointer;
+  margin-left: -15%;
+}
+
+.profile-toggle-text {
+  font-size: 1.5vw;
+  width: fit-content;
+  margin-right: 3%;
 }

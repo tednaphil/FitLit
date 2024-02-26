@@ -9,7 +9,10 @@
   <body>
     <header> 
       <h1>My Name</h1>
-      <img class="buttons" role="button" tabindex=0 id="user-profile-button" alt="Simple profile of a person" src="./images/profile-icon.png" />
+      <div class="profile-toggle" role="button" tabindex=0>
+        <p class="profile-toggle-text">view profile</p>
+        <img class="buttons" id="user-profile-button" alt="Simple profile of a person" src="./images/profile-icon.png" />
+      </div>
     </header>
     <section class="error-display hidden">WHOOPS! SOMETHING'S NOT WORKING!<br></section>
     <main class="widget-container" id="widgets">
@@ -18,11 +21,11 @@
           <div class="form-style">
             <label for="hydro">Ounces drank:</label>
           </div>
-          <input class="hydro-field" id="hydro" type="number" min="0" placeholder="Enter Number" required>
+          <input class="hydro-field" id="hydro" type="number" min="0" placeholder="Enter Ounces" required>
           <div class="form-style">
             <label for="hours">Hours slept:</label>
           </div>
-          <input class="hours-field" id="hours" type="number" min="0" max="24" placeholder="Enter Number" required>
+          <input class="hours-field" id="hours" type="number" min="0" max="24" placeholder="Enter Hours" required>
           <div class="form-style">
             <label for="sleep">Sleep quality (0-5):</label>
           </div>
@@ -35,6 +38,7 @@
       <div class="party-avg-steps">
         <section class="party-widget party-background">
           <img class="step-party-button" tabindex=0 role="button" src="./images/step-party.png" alt="Step party">
+          <h2 class="challenge-title hidden">Can Your Team Beat the FitLit Average?</h2>
           <fieldset class="hidden" id="friend-selectors">
             <!-- friend selectors will go here -->
           </fieldset>
